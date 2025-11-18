@@ -5,10 +5,10 @@ import Link from "next/link"
 export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="container mx-auto px-4 h-16 flex items-center justify-center md:justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Image src="/logo-himalaya-salud.svg" alt="Himalaya Salud" width={40} height={40} className="w-10 h-10" />
-          <span className="font-bold text-xl text-accent">Himalaya Salud</span>
+          <span className="font-bold text-lg md:text-xl text-accent">Himalaya Salud</span>
         </Link>
 
         {/* <nav className="hidden md:flex items-center space-x-8">
