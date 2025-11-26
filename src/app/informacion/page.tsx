@@ -9,10 +9,12 @@ import { HeroInformacion } from "@/components/informacion/hero-informacion";
 import { QueEsSection } from "@/components/informacion/que-es-section";
 import { DesafioSection } from "@/components/informacion/desafio-section";
 import { SistemaHCDSection } from "@/components/informacion/sistema-hcd-section";
-import { BotonPanicoSection } from "@/components/informacion/boton-panico-section";
+// OCULTO TEMPORALMENTE - Sección Botón de Pánico
+// import { BotonPanicoSection } from "@/components/informacion/boton-panico-section";
 import { BeneficiosInstitucionesSection } from "@/components/informacion/beneficios-instituciones-section";
 import { CaracteristicasSection } from "@/components/informacion/caracteristicas-section";
-import { PlanesSection } from "@/components/informacion/planes-section";
+// OCULTO TEMPORALMENTE - Sección de Planes
+// import { PlanesSection } from "@/components/informacion/planes-section";
 import { ComoFuncionaSection } from "@/components/informacion/como-funciona-section";
 import { SeguridadSection } from "@/components/informacion/seguridad-section";
 import { FAQSection } from "@/components/informacion/faq-section";
@@ -24,9 +26,9 @@ export default function InformacionPage() {
     { label: "Qué es", href: "#que-es" },
     { label: "Desafío", href: "#desafio" },
     { label: "Sistema", href: "#sistema-hcd" },
-    { label: "Pánico", href: "#boton-panico" },
+    // OCULTO TEMPORALMENTE - { label: "Pánico", href: "#boton-panico" },
     { label: "Beneficios", href: "#beneficios" },
-    { label: "Planes", href: "#planes" },
+    // OCULTO TEMPORALMENTE - { label: "Planes", href: "#planes" },
     { label: "FAQ", href: "#faq" },
     { label: "Contacto", href: "#contacto" },
   ];
@@ -51,10 +53,14 @@ export default function InformacionPage() {
         <QueEsSection />
         <DesafioSection />
         <SistemaHCDSection />
+        {/* OCULTO TEMPORALMENTE - Sección Botón de Pánico
         <BotonPanicoSection />
+        */}
         <BeneficiosInstitucionesSection />
         <CaracteristicasSection />
+        {/* OCULTO TEMPORALMENTE - Sección de Planes
         <PlanesSection />
+        */}
         <ComoFuncionaSection />
         <SeguridadSection />
         <FAQSection />

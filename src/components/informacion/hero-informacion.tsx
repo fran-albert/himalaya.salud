@@ -82,6 +82,7 @@ export function HeroInformacion() {
               cualquier lugar, en cualquier momento.
             </motion.p>
 
+{/* OCULTO TEMPORALMENTE - Botones sin funcionalidad aún
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -104,6 +105,7 @@ export function HeroInformacion() {
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
+            */}
 
             {/* Stats */}
             <motion.div

@@ -72,16 +72,14 @@ export function DesafioSection() {
           </p>
         </motion.div>
 
-        {/* Comparison Grid */}
+{/* OCULTO TEMPORALMENTE - Sección Situación Actual vs Con Himalaya Salud
         <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Situación Actual */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div className="h-full bg-white dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden border-2 border-red-200 dark:border-red-900">
-              {/* Header */}
               <div className="bg-gradient-to-r from-red-500 to-red-600 p-6">
                 <div className="flex items-center gap-3 text-white">
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
@@ -96,7 +94,6 @@ export function DesafioSection() {
                 </div>
               </div>
 
-              {/* Content */}
               <div className="p-6 space-y-4">
                 {problemas.map((problema, index) => (
                   <motion.div
@@ -116,19 +113,16 @@ export function DesafioSection() {
                 ))}
               </div>
 
-              {/* Footer decoration */}
               <div className="h-2 bg-gradient-to-r from-red-500 to-red-600" />
             </div>
           </motion.div>
 
-          {/* Con Himalaya Salud */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div className="h-full bg-white dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden border-2 border-primary">
-              {/* Header */}
               <div className="bg-gradient-to-r from-primary to-secondary p-6">
                 <div className="flex items-center gap-3 text-white">
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
@@ -143,7 +137,6 @@ export function DesafioSection() {
                 </div>
               </div>
 
-              {/* Content */}
               <div className="p-6 space-y-4">
                 {soluciones.map((solucion, index) => (
                   <motion.div
@@ -163,11 +156,11 @@ export function DesafioSection() {
                 ))}
               </div>
 
-              {/* Footer decoration */}
               <div className="h-2 bg-gradient-to-r from-primary to-secondary" />
             </div>
           </motion.div>
         </div>
+        */}
 
         {/* Goal statement */}
         <motion.div

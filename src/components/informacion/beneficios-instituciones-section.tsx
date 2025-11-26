@@ -136,7 +136,7 @@ export function BeneficiosInstitucionesSection() {
           ))}
         </div>
 
-        {/* Comparison Section */}
+{/* OCULTO TEMPORALMENTE - Sección Situación Actual vs Con Himalaya Salud
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -148,7 +148,6 @@ export function BeneficiosInstitucionesSection() {
           </h3>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Sin Himalaya */}
             <div className="bg-gradient-to-br from-red-50 to-white dark:from-red-950/20 dark:to-gray-900 rounded-xl p-6 border-2 border-red-200 dark:border-red-900/50">
               <h4 className="text-xl font-bold text-red-700 dark:text-red-400 mb-4 flex items-center gap-2">
                 <div className="w-8 h-8 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
@@ -192,7 +191,6 @@ export function BeneficiosInstitucionesSection() {
               </ul>
             </div>
 
-            {/* Con Himalaya */}
             <div className="bg-gradient-to-br from-green-50 to-white dark:from-green-950/20 dark:to-gray-900 rounded-xl p-6 border-2 border-primary">
               <h4 className="text-xl font-bold text-primary dark:text-primary mb-4 flex items-center gap-2">
                 <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
@@ -239,6 +237,7 @@ export function BeneficiosInstitucionesSection() {
             </div>
           </div>
         </motion.div>
+        */}
 
         {/* Control and Security note */}
         <motion.div

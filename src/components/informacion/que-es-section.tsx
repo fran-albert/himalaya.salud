@@ -73,7 +73,7 @@ export function QueEsSection() {
           </p>
         </motion.div>
 
-        {/* Video/Animation placeholder */}
+{/* OCULTO TEMPORALMENTE - Video placeholder de cómo funciona el sistema HCD
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
@@ -81,7 +81,6 @@ export function QueEsSection() {
           className="max-w-4xl mx-auto mb-16"
         >
           <div className="relative aspect-video bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl overflow-hidden shadow-2xl group cursor-pointer">
-            {/* Placeholder for video */}
             <div className="absolute inset-0 flex items-center justify-center backdrop-blur-sm bg-white/10">
               <motion.div
                 whileHover={{ scale: 1.1 }}
@@ -91,10 +90,8 @@ export function QueEsSection() {
               </motion.div>
             </div>
 
-            {/* Animated grid overlay */}
             <div className="absolute inset-0 tech-grid opacity-10" />
 
-            {/* Flowing data animation */}
             <div className="absolute inset-0">
               {[...Array(10)].map((_, i) => (
                 <motion.div
@@ -127,8 +124,9 @@ export function QueEsSection() {
             Ver cómo funciona el sistema de Historia Clínica Digital
           </motion.p>
         </motion.div>
+        */}
 
-        {/* Stats Grid */}
+{/* OCULTO TEMPORALMENTE - Stats Grid (100+ Instituciones, Pacientes Impactados, etc.)
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <motion.div
@@ -139,7 +137,6 @@ export function QueEsSection() {
               className="relative group"
             >
               <div className="glass-effect p-6 rounded-xl border border-gray-200 dark:border-gray-800 hover-lift text-center">
-                {/* Icon */}
                 <motion.div
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
@@ -148,7 +145,6 @@ export function QueEsSection() {
                   {stat.icon}
                 </motion.div>
 
-                {/* Counter */}
                 <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
                   <AnimatedCounter
                     end={stat.value}
@@ -157,17 +153,16 @@ export function QueEsSection() {
                   />
                 </div>
 
-                {/* Label */}
                 <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
                   {stat.label}
                 </div>
 
-                {/* Hover effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/0 to-secondary/0 group-hover:from-primary/5 group-hover:to-secondary/5 rounded-xl transition-all duration-300 -z-10" />
               </div>
             </motion.div>
           ))}
         </div>
+        */}
 
         {/* Mission statement */}
         <motion.div
