@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Himalaya Salud S.A.S. - Sitio Web Oficial
 
-## Getting Started
+Este es el sitio web oficial de Himalaya Salud S.A.S., desarrollado con Next.js, TypeScript y Tailwind CSS. El propósito de este sitio es presentar la organización y ofrecer un punto de contacto y soporte para los usuarios de sus aplicaciones.
 
-First, run the development server:
+## URLs Públicas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Una vez desplegado, el sitio contará con las siguientes URLs:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Página de Inicio:** `/`
+- **Soporte Técnico:** `/soporte`
+- **Política de Privacidad:** `/privacidad`
+- **Términos y Condiciones:** `/terminos`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Cómo Correr en Local
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Instalar dependencias:**
+    ```bash
+    npm install
+    ```
 
-## Learn More
+2.  **Iniciar el servidor de desarrollo:**
+    ```bash
+    npm run dev
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+3.  Abrí [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Variables de Entorno
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Este proyecto no requiere variables de entorno para funcionar en su configuración actual. El formulario de contacto utiliza una acción `mailto:` y no depende de un servicio de envío de emails.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ✅ Checklist para Apple Developer Program
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+A continuación se detallan las URLs que deben ser utilizadas en el formulario de inscripción de Apple.
+
+-   **Website URL:**
+    -   `https://himalayasalud.com.ar`
+    -   *Contenido: Página de inicio pública que presenta la organización, sus productos y vías de contacto.*
+
+-   **Support URL:**
+    -   `https://himalayasalud.com.ar/soporte`
+    -   *Contenido: Página de soporte técnico con un email de contacto (`soporte@himalayasalud.com.ar`), un formulario de contacto funcional y horarios de atención.*

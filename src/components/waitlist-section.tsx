@@ -5,18 +5,37 @@ import type React from "react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, Calendar, ArrowRight } from "lucide-react";
+import { Mail, Calendar, ArrowRight, Loader2, AlertCircle } from "lucide-react";
 
 export function WaitlistSection() {
   const [email, setEmail] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setIsSubmitted(true);
-      // Here you would typically send the email to your backend
-      console.log("Email submitted:", email);
+    if (!email) return;
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Error al registrar");
+      }
+
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(error instanceof Error ? error.message : "Error al registrar");
     }
   };
 
@@ -58,7 +77,7 @@ export function WaitlistSection() {
             </p>
           </div>
 
-          {!isSubmitted ? (
+          {status !== "success" ? (
             <div className="max-w-md mx-auto animate-fade-in-up animate-delay-300">
               <h3 className="text-2xl font-semibold mb-4 text-foreground">
                 Únete a la Lista de Espera
@@ -69,6 +88,12 @@ export function WaitlistSection() {
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
+                {status === "error" && (
+                  <div className="flex items-center gap-2 p-3 bg-red-500/10 text-red-500 rounded-lg text-sm">
+                    <AlertCircle className="w-4 h-4" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
                 <div className="relative group">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5 group-focus-within:text-primary transition-all duration-300 group-focus-within:animate-pulse-glow" />
                   <Input
@@ -78,15 +103,26 @@ export function WaitlistSection() {
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-12 h-14 text-lg border-2 border-border focus:border-primary transition-all duration-300 rounded-xl bg-background/50 backdrop-blur-sm hover:bg-background/70 focus:bg-background/80"
                     required
+                    disabled={status === "loading"}
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full h-14 text-lg font-semibold bg-accent hover:bg-accent/90 text-accent-foreground rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl group relative overflow-hidden"
+                  disabled={status === "loading"}
+                  className="w-full h-14 text-lg font-semibold bg-accent hover:bg-accent/90 text-accent-foreground rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-xl group relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
                 >
-                  <span className="relative z-10">Solicitar Información</span>
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                  {status === "loading" ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      <span>Registrando...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="relative z-10">Solicitar Información</span>
+                      <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                    </>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-r from-accent to-primary opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
                 </Button>
               </form>
