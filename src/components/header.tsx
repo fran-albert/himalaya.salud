@@ -64,7 +64,7 @@ export function Header() {
                   Himalaya Salud
                 </span>
                 <span className="text-[10px] text-muted-foreground leading-tight hidden sm:block">
-                  Historia Clínica Digital
+                  Tu salud en tus manos
                 </span>
               </div>
             </Link>

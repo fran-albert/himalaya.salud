@@ -170,7 +170,7 @@ export default function PrivacyPage() {
                             >
                               <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
                               <span>
-                                {item.title && (
+                                {"title" in item && item.title && (
                                   <strong className="text-foreground">
                                     {item.title}:{" "}
                                   </strong>
