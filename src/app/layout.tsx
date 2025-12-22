@@ -21,7 +21,7 @@ const openSans = Open_Sans({
   display: "swap",
 });
 
-const siteUrl = "https://himalayasalud.com.ar";
+const siteUrl = "https://www.himalayasalud.com.ar";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

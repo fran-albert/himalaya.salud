@@ -10,7 +10,7 @@ export const metadata: Metadata = {
       "Contactá al equipo de soporte de Himalaya Salud. Estamos para ayudarte.",
   },
   alternates: {
-    canonical: "https://himalayasalud.com.ar/soporte",
+    canonical: "https://www.himalayasalud.com.ar/soporte",
   },
 };
 

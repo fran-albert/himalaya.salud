@@ -3,8 +3,8 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Himalaya Salud S.A.S.",
-    url: "https://himalayasalud.com.ar",
-    logo: "https://himalayasalud.com.ar/logo-himalaya-salud.svg",
+    url: "https://www.himalayasalud.com.ar",
+    logo: "https://www.himalayasalud.com.ar/logo-himalaya-salud.svg",
     description:
       "Himalaya Salud ofrece soluciones de software para la gestión de salud digital, incluyendo historia clínica digital segura e interoperable.",
     address: {
@@ -76,7 +76,7 @@ export function WebPageJsonLd({
     isPartOf: {
       "@type": "WebSite",
       name: "Himalaya Salud",
-      url: "https://himalayasalud.com.ar",
+      url: "https://www.himalayasalud.com.ar",
     },
   };
 

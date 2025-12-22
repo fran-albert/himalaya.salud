@@ -10,7 +10,7 @@ export const metadata: Metadata = {
       "Conocé cómo Himalaya Salud protege tu información personal y de salud.",
   },
   alternates: {
-    canonical: "https://himalayasalud.com.ar/privacidad",
+    canonical: "https://www.himalayasalud.com.ar/privacidad",
   },
 };
 
