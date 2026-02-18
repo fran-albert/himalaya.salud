@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { Work_Sans, Open_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { QueryProvider } from "@/lib/query-provider";
+import { AuthProvider } from "@/lib/auth";
 import { OrganizationJsonLd, SoftwareApplicationJsonLd } from "@/components/json-ld";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const workSans = Work_Sans({
@@ -26,21 +27,22 @@ const siteUrl = "https://www.himalayasalud.com.ar";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Himalaya Salud - Tu historia clínica digital segura",
+    default: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
     template: "%s | Himalaya Salud",
   },
   description:
-    "Accedé a tu historia clínica digital de forma simple y segura. Himalaya Salud te permite gestionar y compartir tu información médica desde cualquier lugar.",
+    "Encontrá médicos, farmacias y hospitales cerca tuyo. Subí tus estudios médicos y tenelos siempre a mano. Botón de pánico con GPS para emergencias. Desde $3.000/mes.",
   keywords: [
-    "historia clínica digital",
+    "buscar médicos cerca",
+    "farmacias cercanas",
+    "app de salud Argentina",
+    "botón de pánico",
+    "emergencias médicas",
+    "estudios médicos digitales",
     "salud digital",
-    "historia clínica electrónica",
-    "HCE",
-    "gestión de salud",
     "app médica",
     "Argentina",
-    "telemedicina",
-    "expediente médico digital",
+    "servicios de salud",
   ],
   authors: [{ name: "Himalaya Salud S.A.S." }],
   creator: "Himalaya Salud S.A.S.",
@@ -66,9 +68,9 @@ export const metadata: Metadata = {
     locale: "es_AR",
     url: siteUrl,
     siteName: "Himalaya Salud",
-    title: "Himalaya Salud - Tu historia clínica digital segura",
+    title: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
     description:
-      "Accedé a tu historia clínica digital de forma simple y segura. Gestiona y comparte tu información médica desde cualquier lugar.",
+      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $3.000/mes.",
     images: [
       {
         url: "/og-image.png",
@@ -80,9 +82,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Himalaya Salud - Tu historia clínica digital segura",
+    title: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
     description:
-      "Accedé a tu historia clínica digital de forma simple y segura desde cualquier lugar.",
+      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $3.000/mes.",
     images: ["/og-image.png"],
   },
   verification: {
@@ -111,11 +113,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1 pt-16">{children}</main>
-            <Footer />
-          </div>
+          <QueryProvider>
+            <AuthProvider>
+              <div className="relative flex min-h-screen flex-col">
+                {children}
+              </div>
+              <Toaster position="top-right" />
+            </AuthProvider>
+          </QueryProvider>
         </ThemeProvider>
         <Suspense fallback={null}>
           <Analytics />

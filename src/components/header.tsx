@@ -7,10 +7,11 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "./theme-toggle";
 
 const navLinks = [
   { href: "/", label: "Inicio" },
+  { href: "/#planes", label: "Planes" },
+  { href: "/#faq", label: "FAQ" },
   { href: "/soporte", label: "Soporte" },
 ];
 
@@ -92,13 +93,18 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">
-              <ThemeToggle />
-              <Link href="/soporte">
+              <Link
+                href="/profesionales"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                ¿Sos médico?
+              </Link>
+              <Link href="/#waitlist">
                 <Button
                   size="sm"
                   className="group bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all duration-300 shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
                 >
-                  Contactar
+                  Lista de espera
                   <ChevronRight className="ml-1 w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                 </Button>
               </Link>
@@ -164,6 +170,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={cn(
                   "flex items-center justify-between p-4 rounded-xl transition-all duration-200",
                   pathname === link.href
@@ -181,9 +188,9 @@ export function Header() {
           </div>
 
           <div className="mt-6 pt-6 border-t border-border">
-            <Link href="/soporte" onClick={() => setIsMobileMenuOpen(false)}>
+            <Link href="/#waitlist" onClick={() => setIsMobileMenuOpen(false)}>
               <Button className="w-full h-12 bg-gradient-to-r from-primary to-secondary">
-                Contactar
+                Lista de espera
                 <ChevronRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
