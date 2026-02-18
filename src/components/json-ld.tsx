@@ -39,9 +39,9 @@ export function SoftwareApplicationJsonLd() {
       "Aplicación de historia clínica digital que permite gestionar y compartir información médica de forma segura.",
     offers: {
       "@type": "Offer",
-      price: "2500",
+      price: "3000",
       priceCurrency: "ARS",
-      description: "Planes desde $2.500/mes. Primer mes gratis.",
+      description: "Planes desde $3.000/mes. Primer mes gratis.",
     },
   };
 

@@ -14,8 +14,6 @@ import {
   ShieldAlert,
   Search,
   FileUp,
-  MapPin,
-  Phone,
   Siren,
   Check,
   ChevronDown,
@@ -25,6 +23,14 @@ import {
   Sparkles,
   Clock,
   CalendarCheck,
+  MapPin,
+  Heart,
+  Users,
+  Hospital,
+  Pill,
+  Stethoscope,
+  Upload,
+  Tag,
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -113,14 +119,14 @@ function WaitlistForm({ id, className }: { id?: string; className?: string }) {
             <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
             <>
-              Quiero acceder primero
+              Ser usuario fundador
               <ArrowRight className="ml-2 w-4 h-4" />
             </>
           )}
         </Button>
       </div>
       <p className="text-xs text-muted-foreground">
-        Primer mes gratis. Sin tarjeta. No compartimos tus datos.
+        Acceso anticipado + precio congelado. Sin tarjeta.
       </p>
     </form>
   );
@@ -131,12 +137,20 @@ export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
+    let ctx: gsap.Context | undefined;
+
     const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
+      ctx = gsap.context(() => {
         gsap.fromTo(
           ".hero-content > *",
           { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: "power3.out" }
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power3.out",
+          }
         );
 
         gsap.fromTo(
@@ -159,37 +173,46 @@ export default function HomePage() {
           );
         });
       });
-
-      return () => ctx.revert();
     }, 50);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      ctx?.revert();
+    };
   }, []);
 
   const faqs = [
     {
       q: "¿Qué incluye cada plan?",
-      a: "El Plan Botón de Pánico ($2.500/mes) incluye alertas de emergencia con GPS a tus contactos. El Plan Estándar ($5.000/mes) suma búsqueda de médicos, farmacias y hospitales, más un portal para subir tus estudios médicos.",
+      a: "El Plan Botón de Pánico ($3.000/mes) incluye alertas de emergencia con GPS a tus contactos. El Plan Estándar ($7.000/mes) suma búsqueda de médicos, farmacias y hospitales cerca tuyo, más un portal para subir tus propios estudios médicos. Ambos planes tienen el primer mes gratis.",
     },
     {
       q: "¿Cómo funciona el botón de pánico?",
-      a: "Con un solo toque, tus contactos de emergencia reciben tu ubicación GPS exacta, una llamada automática y un SMS. Podés configurar hasta 5 contactos (familiares, amigos, tu médico).",
+      a: "Con un solo toque, tus contactos de emergencia reciben tu ubicación GPS exacta, una llamada automática y un SMS. Podés configurar hasta 5 contactos: familiares, amigos, tu médico de cabecera, quien vos quieras. Tiene pantalla de confirmación para evitar activaciones accidentales.",
     },
     {
       q: "¿Qué puedo buscar en Servicios de Salud?",
-      a: "Podés buscar médicos por especialidad, obra social y cercanía. También farmacias, hospitales y ambulancias cerca tuyo. Incluye ficha completa de cada profesional con datos verificados del registro AMR.",
+      a: "Podés buscar médicos por especialidad, obra social y cercanía. También farmacias, hospitales y ambulancias cerca de tu ubicación. Cada profesional tiene su ficha completa con especialidad, obras sociales que atiende, dirección, teléfono y horarios de atención.",
     },
     {
       q: "¿Mis datos están seguros?",
-      a: "Sí. Usamos encriptación AES-256 (nivel bancario), autenticación segura y cumplimos con la Ley 25.326 de Protección de Datos Personales. Tus datos de salud son tratados como datos sensibles.",
+      a: "Sí. Usamos encriptación AES-256, autenticación segura y cumplimos con la Ley 25.326 de Protección de Datos Personales. Tus datos de salud son tratados como datos sensibles con los más altos estándares de seguridad.",
     },
     {
       q: "¿Cuándo se lanza la app?",
-      a: "El lanzamiento está previsto para Junio 2026. Si te anotás en la lista de espera, vas a ser de los primeros en acceder y recibís beneficios de early adopter.",
+      a: "El lanzamiento está previsto para Junio 2026. Los usuarios fundadores (los que se anotan ahora) van a ser los primeros en acceder, con precio congelado y beneficios exclusivos.",
+    },
+    {
+      q: "¿Qué es un usuario fundador?",
+      a: "Los usuarios fundadores son quienes se registran antes del lanzamiento. Reciben acceso prioritario, precio congelado de por vida y activación antes que el público general.",
+    },
+    {
+      q: "¿Puedo usar el botón de pánico para mis padres o familiares?",
+      a: "Sí, es uno de los usos más comunes. Podés ayudar a tus padres o familiares mayores a configurar la app con sus contactos de emergencia. En caso de que les pase algo, vos recibís la alerta con su ubicación al instante.",
     },
     {
       q: "¿Voy a poder acceder a mi historia clínica de hospitales y clínicas?",
-      a: "Sí, estamos trabajando en eso. Próximamente vamos a lanzar el Plan Full que te permite acceder a tu historia clínica de instituciones adheridas. Arrancamos con un piloto en Rosario y después expandimos a todo el país.",
+      a: "Estamos trabajando en eso. Próximamente vamos a lanzar el Plan Full que permite acceder a tu historia clínica de instituciones de salud adheridas. Empezamos con un piloto en Rosario y después expandimos a nivel nacional.",
     },
   ];
 
@@ -212,21 +235,30 @@ export default function HomePage() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium text-primary">
-                  Lanzamiento Junio 2026
+                  Lanzamiento Junio 2026 — Anotate ahora
                 </span>
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-                Tu salud, organizada{" "}
-                <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                  en un solo lugar
+                Si te pasa algo estando solo...{" "}
+                <span className="bg-gradient-to-r from-red-500 to-rose-600 bg-clip-text text-transparent">
+                  ¿quién se entera primero?
                 </span>
               </h1>
 
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl">
-                Encontrá médicos, farmacias y hospitales cerca tuyo. Subí tus
-                estudios y tenelos siempre a mano. Y en caso de emergencia, tus
-                contactos reciben tu ubicación con un solo toque.
+              <p className="text-lg md:text-xl text-muted-foreground mb-4">
+                Cada minuto sin atención puede cambiar el resultado de una
+                emergencia. Hoy, la mayoría de las personas no tiene un sistema
+                que avise automáticamente.
+              </p>
+
+              <p className="text-base text-muted-foreground mb-8 max-w-xl">
+                <span className="font-medium text-foreground">
+                  Himalaya Salud
+                </span>{" "}
+                es una app que avisa a tus contactos con tu ubicación GPS,
+                te ayuda a encontrar médicos y farmacias cerca tuyo, y
+                guarda tus estudios médicos en un solo lugar.
               </p>
 
               <WaitlistForm id="waitlist" className="max-w-lg" />
@@ -239,7 +271,7 @@ export default function HomePage() {
                 <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-gray-900">
                   <Image
                     src="/images/app/Home.png"
-                    alt="Himalaya Salud - App de servicios de salud"
+                    alt="Himalaya Salud App"
                     width={400}
                     height={800}
                     className="w-full h-auto"
@@ -262,20 +294,30 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-14 scroll-reveal">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              ¿Por qué necesitás Himalaya Salud?
+              Las emergencias no ocurren en hospitales
             </h2>
             <p className="text-lg text-muted-foreground">
-              Tres problemas reales que resolvemos
+              Ocurren en casas, en la calle, manejando o cuando una persona está
+              sola. Mareos, desmayos, dolor en el pecho, caídas. Muchas veces el
+              teléfono está cerca... pero nadie sabe que algo está pasando.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
+                icon: ShieldAlert,
+                problem: "Nadie sabe que te pasa algo",
+                solution:
+                  "Un toque y tus contactos reciben tu ubicación GPS, una llamada y un SMS. Aunque no puedas hablar.",
+                color: "text-red-500",
+                bg: "from-red-500/10 to-rose-500/10",
+              },
+              {
                 icon: Search,
                 problem: "No encontrás un médico cuando lo necesitás",
                 solution:
-                  "Buscá por especialidad, obra social y cercanía. Con datos verificados del registro AMR.",
+                  "Buscá por especialidad, obra social y cercanía. Con ficha completa de cada profesional.",
                 color: "text-blue-500",
                 bg: "from-blue-500/10 to-cyan-500/10",
               },
@@ -283,17 +325,9 @@ export default function HomePage() {
                 icon: FileUp,
                 problem: "Tus estudios están desperdigados",
                 solution:
-                  "Subí tus estudios al Portal Paciente y tenelos siempre a mano. Organizados con etiquetas.",
+                  "Subí tus estudios a tu Portal Paciente y tenelos siempre a mano, organizados con etiquetas.",
                 color: "text-violet-500",
                 bg: "from-violet-500/10 to-purple-500/10",
-              },
-              {
-                icon: ShieldAlert,
-                problem: "En una emergencia, nadie sabe tus datos médicos",
-                solution:
-                  "Un toque y tus contactos reciben tu ubicación GPS, llamada y SMS. Automáticamente.",
-                color: "text-red-500",
-                bg: "from-red-500/10 to-rose-500/10",
               },
             ].map((item, i) => (
               <div key={i} className="scroll-reveal">
@@ -318,8 +352,51 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ===================== PARA QUIÉN ES ===================== */}
+      <section className="py-20 md:py-28">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-14 scroll-reveal">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Pensado especialmente para
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-4xl mx-auto">
+            {[
+              { icon: Users, label: "Personas que viven solas" },
+              { icon: Heart, label: "Adultos mayores" },
+              { icon: Stethoscope, label: "Pacientes con antecedentes" },
+              { icon: Users, label: "Familias que quieren estar tranquilas" },
+              { icon: MapPin, label: "Hijos con padres lejos" },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="scroll-reveal flex flex-col items-center text-center"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-3">
+                  <item.icon className="w-6 h-6 text-primary" />
+                </div>
+                <p className="text-sm font-medium">{item.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="scroll-reveal max-w-2xl mx-auto mt-10 text-center">
+            <p className="text-muted-foreground">
+              No reemplaza tu obra social.{" "}
+              <span className="text-foreground font-medium">
+                La complementa cuando realmente importa.
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ===================== PLANES ===================== */}
-      <section id="planes" className="py-20 md:py-28">
+      <section
+        id="planes"
+        className="py-20 md:py-28 bg-gradient-to-b from-muted/50 to-background"
+      >
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-14 scroll-reveal">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -333,7 +410,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Plan Botón de Pánico */}
             <div className="scroll-reveal">
-              <Card className="h-full border-2 border-border hover:border-primary/50 transition-colors shadow-lg overflow-hidden">
+              <Card className="h-full border-2 border-border hover:border-red-500/50 transition-colors shadow-lg overflow-hidden">
                 <CardContent className="p-0">
                   <div className="p-6 md:p-8">
                     <div className="flex items-center gap-3 mb-4">
@@ -344,7 +421,7 @@ export default function HomePage() {
                     </div>
 
                     <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-4xl font-bold">$2.500</span>
+                      <span className="text-4xl font-bold">$3.000</span>
                       <span className="text-muted-foreground">/mes</span>
                     </div>
                     <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium mb-6">
@@ -355,9 +432,9 @@ export default function HomePage() {
                       {[
                         "Alerta de emergencia con un toque",
                         "GPS en tiempo real a tus contactos",
-                        "Llamada + SMS automáticos (Twilio)",
+                        "Llamada + SMS automáticos",
                         "Hasta 5 contactos de emergencia",
-                        "Pantalla de confirmación anti-accidental",
+                        "Confirmación anti-activación accidental",
                       ].map((feature, j) => (
                         <li key={j} className="flex items-start gap-2">
                           <Check className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
@@ -404,7 +481,7 @@ export default function HomePage() {
                     </div>
 
                     <div className="flex items-baseline gap-1 mb-1">
-                      <span className="text-4xl font-bold">$5.000</span>
+                      <span className="text-4xl font-bold">$7.000</span>
                       <span className="text-muted-foreground">/mes</span>
                     </div>
                     <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium mb-6">
@@ -413,12 +490,12 @@ export default function HomePage() {
 
                     <ul className="space-y-3 mb-6">
                       {[
-                        "Todo lo del Botón de Pánico",
+                        "Todo lo del Botón de Pánico incluido",
                         "Buscar médicos por especialidad y obra social",
-                        "Buscar farmacias, hospitales y ambulancias",
+                        "Farmacias, hospitales y ambulancias cercanas",
                         "Portal Paciente: subí tus estudios",
-                        "Datos verificados del registro AMR",
-                        "Mapa con instituciones cercanas",
+                        "Ficha completa de cada profesional",
+                        "Mapa interactivo con instituciones",
                       ].map((feature, j) => (
                         <li key={j} className="flex items-start gap-2">
                           <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
@@ -457,9 +534,112 @@ export default function HomePage() {
                 <span className="font-medium text-foreground">
                   Próximamente: Plan Full
                 </span>{" "}
-                — Accedé a tu historia clínica de instituciones adheridas.
-                Piloto en Rosario con Grupo Oroño.
+                — Accedé a tu historia clínica de instituciones de salud
+                adheridas. Empezamos con un piloto en Rosario.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===================== QUÉ INCLUYE CADA PLAN (DETALLE) ===================== */}
+      <section className="py-20 md:py-28">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-14 scroll-reveal">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Creamos algo simple
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Himalaya Salud es una app que ante una emergencia avisa por vos, y
+              el resto del tiempo te ayuda a organizar tu salud.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            {/* Botón de Pánico detalle */}
+            <div className="scroll-reveal">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+                  <Siren className="w-5 h-5 text-red-500" />
+                </div>
+                <h3 className="text-xl font-bold">
+                  Botón de Pánico en detalle
+                </h3>
+              </div>
+              <div className="space-y-4">
+                {[
+                  {
+                    icon: ShieldAlert,
+                    title: "Alerta con un toque",
+                    desc: "Activás la alerta y tus contactos reciben la notificación al instante. Pantalla de confirmación para evitar falsas alarmas.",
+                  },
+                  {
+                    icon: MapPin,
+                    title: "Ubicación GPS en tiempo real",
+                    desc: "Tus contactos ven exactamente dónde estás. Se comparte automáticamente con la alerta.",
+                  },
+                  {
+                    icon: Users,
+                    title: "Llamada + SMS automáticos",
+                    desc: "Tus contactos reciben una llamada y un SMS con tu ubicación. Hasta 5 contactos: familiares, amigos, médico.",
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-5 h-5 text-red-500" />
+                    </div>
+                    <div>
+                      <p className="font-medium mb-1">{item.title}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Servicios de Salud detalle */}
+            <div className="scroll-reveal">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <Search className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold">
+                  Plan Estándar en detalle
+                </h3>
+              </div>
+              <div className="space-y-4">
+                {[
+                  {
+                    icon: Stethoscope,
+                    title: "Buscá médicos",
+                    desc: "Por especialidad, obra social, cercanía o nombre. Ficha de cada profesional con dirección, teléfono y horarios.",
+                  },
+                  {
+                    icon: Hospital,
+                    title: "Hospitales, farmacias y ambulancias",
+                    desc: "Encontrá lo que necesitás cerca tuyo con un mapa interactivo. Llamá directo o usá \"cómo llegar\".",
+                  },
+                  {
+                    icon: Upload,
+                    title: "Portal Paciente",
+                    desc: "Subí tus estudios médicos (PDF, imágenes) y organizalos con etiquetas. Tenelos siempre a mano.",
+                  },
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <item.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium mb-1">{item.title}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -481,31 +661,24 @@ export default function HomePage() {
             {[
               {
                 step: "1",
-                icon: CalendarCheck,
-                title: "Anotate en la lista de espera",
+                title: "Anotate como usuario fundador",
                 description:
-                  "Dejanos tu email y te avisamos apenas se lance la app. Los primeros 200 reciben beneficios.",
+                  "Dejanos tu email y te avisamos apenas se lance la app. Acceso anticipado y precio congelado.",
               },
               {
                 step: "2",
-                icon: Sparkles,
                 title: "Descargá la app y elegí tu plan",
                 description:
                   "Registrate en 2 minutos. Elegí Botón de Pánico o Estándar. El primer mes es gratis.",
               },
               {
                 step: "3",
-                icon: MapPin,
-                title: "Empezá a usar",
+                title: "Empezá a usarla",
                 description:
-                  "Buscá médicos cerca tuyo, subí tus estudios y configurá tus contactos de emergencia.",
+                  "Configurá tus contactos de emergencia, buscá médicos cerca tuyo y subí tus estudios.",
               },
             ].map((item, i) => (
-              <div
-                key={i}
-                className="scroll-reveal text-center relative"
-              >
-                {/* Connector line (not on last item) */}
+              <div key={i} className="scroll-reveal text-center relative">
                 {i < 2 && (
                   <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px bg-border" />
                 )}
@@ -587,12 +760,16 @@ export default function HomePage() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="scroll-reveal max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Sé de los primeros en acceder
+            <h2 className="text-3xl md:text-5xl font-bold mb-4">
+              Una emergencia no avisa.
+              <br />
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Ahora, alguien sí.
+              </span>
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Lanzamiento en Junio 2026. Anotate ahora y recibí beneficios de
-              early adopter.
+              Sé usuario fundador. Acceso anticipado, precio congelado y
+              activación prioritaria.
             </p>
 
             <WaitlistForm className="max-w-lg mx-auto" />

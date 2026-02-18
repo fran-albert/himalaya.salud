@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Himalaya Salud",
   },
   description:
-    "Encontrá médicos, farmacias y hospitales cerca tuyo. Subí tus estudios médicos y tenelos siempre a mano. Botón de pánico con GPS para emergencias. Desde $2.500/mes.",
+    "Encontrá médicos, farmacias y hospitales cerca tuyo. Subí tus estudios médicos y tenelos siempre a mano. Botón de pánico con GPS para emergencias. Desde $3.000/mes.",
   keywords: [
     "buscar médicos cerca",
     "farmacias cercanas",
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     siteName: "Himalaya Salud",
     title: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
     description:
-      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $2.500/mes.",
+      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $3.000/mes.",
     images: [
       {
         url: "/og-image.png",
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
     description:
-      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $2.500/mes.",
+      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $3.000/mes.",
     images: ["/og-image.png"],
   },
   verification: {
