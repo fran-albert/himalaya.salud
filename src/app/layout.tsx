@@ -26,21 +26,22 @@ const siteUrl = "https://www.himalayasalud.com.ar";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Himalaya Salud - Tu historia clínica digital segura",
+    default: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
     template: "%s | Himalaya Salud",
   },
   description:
-    "Accedé a tu historia clínica digital de forma simple y segura. Himalaya Salud te permite gestionar y compartir tu información médica desde cualquier lugar.",
+    "Encontrá médicos, farmacias y hospitales cerca tuyo. Subí tus estudios médicos y tenelos siempre a mano. Botón de pánico con GPS para emergencias. Desde $2.500/mes.",
   keywords: [
-    "historia clínica digital",
+    "buscar médicos cerca",
+    "farmacias cercanas",
+    "app de salud Argentina",
+    "botón de pánico",
+    "emergencias médicas",
+    "estudios médicos digitales",
     "salud digital",
-    "historia clínica electrónica",
-    "HCE",
-    "gestión de salud",
     "app médica",
     "Argentina",
-    "telemedicina",
-    "expediente médico digital",
+    "servicios de salud",
   ],
   authors: [{ name: "Himalaya Salud S.A.S." }],
   creator: "Himalaya Salud S.A.S.",
@@ -66,9 +67,9 @@ export const metadata: Metadata = {
     locale: "es_AR",
     url: siteUrl,
     siteName: "Himalaya Salud",
-    title: "Himalaya Salud - Tu historia clínica digital segura",
+    title: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
     description:
-      "Accedé a tu historia clínica digital de forma simple y segura. Gestiona y comparte tu información médica desde cualquier lugar.",
+      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $2.500/mes.",
     images: [
       {
         url: "/og-image.png",
@@ -80,9 +81,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Himalaya Salud - Tu historia clínica digital segura",
+    title: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
     description:
-      "Accedé a tu historia clínica digital de forma simple y segura desde cualquier lugar.",
+      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $2.500/mes.",
     images: ["/og-image.png"],
   },
   verification: {

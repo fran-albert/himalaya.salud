@@ -1,445 +1,601 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import type React from "react";
+import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { FeatureCard3D } from "@/components/feature-card-3d";
+import { Input } from "@/components/ui/input";
 import {
   ArrowRight,
-  HeartPulse,
-  ShieldCheck,
-  Smartphone,
+  ShieldAlert,
+  Search,
+  FileUp,
+  MapPin,
+  Phone,
+  Siren,
+  Check,
+  ChevronDown,
+  Mail,
+  Loader2,
+  AlertCircle,
   Sparkles,
-  Zap,
-  Lock,
-  Globe,
   Clock,
-  CheckCircle2,
-  ChevronRight,
+  CalendarCheck,
 } from "lucide-react";
-import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
+function WaitlistForm({ id, className }: { id?: string; className?: string }) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Error al registrar");
+      }
+
+      setStatus("success");
+    } catch (error) {
+      setStatus("error");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Error al registrar"
+      );
+    }
+  };
+
+  if (status === "success") {
+    return (
+      <div
+        id={id}
+        className={`flex items-center gap-3 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 ${className ?? ""}`}
+      >
+        <Check className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+        <p className="text-sm text-emerald-700 dark:text-emerald-400">
+          ¡Listo! Te agregamos a la lista. Revisá tu email.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form
+      id={id}
+      onSubmit={handleSubmit}
+      className={`space-y-3 ${className ?? ""}`}
+    >
+      {status === "error" && (
+        <div className="flex items-center gap-2 p-3 bg-red-500/10 text-red-500 rounded-lg text-sm">
+          <AlertCircle className="w-4 h-4 flex-shrink-0" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+      <div className="flex flex-col sm:flex-row gap-3">
+        <div className="relative flex-1">
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <Input
+            type="email"
+            placeholder="tu@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="pl-11 h-12 text-base"
+            required
+            disabled={status === "loading"}
+          />
+        </div>
+        <Button
+          type="submit"
+          disabled={status === "loading"}
+          className="h-12 px-6 bg-gradient-to-r from-primary to-secondary hover:opacity-90 shadow-lg shadow-primary/25 whitespace-nowrap"
+        >
+          {status === "loading" ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : (
+            <>
+              Quiero acceder primero
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </>
+          )}
+        </Button>
+      </div>
+      <p className="text-xs text-muted-foreground">
+        Primer mes gratis. Sin tarjeta. No compartimos tus datos.
+      </p>
+    </form>
+  );
+}
+
 export default function HomePage() {
   const heroRef = useRef<HTMLDivElement>(null);
-  const featuresRef = useRef<HTMLDivElement>(null);
-  const productRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
-    // Small delay to ensure DOM is ready
     const timer = setTimeout(() => {
       const ctx = gsap.context(() => {
-        // Hero animations
-        gsap.fromTo(".hero-title",
-          { y: 100, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, ease: "power4.out" }
+        gsap.fromTo(
+          ".hero-content > *",
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: "power3.out" }
         );
 
-        gsap.fromTo(".hero-subtitle",
-          { y: 50, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, delay: 0.3, ease: "power4.out" }
-        );
-
-        gsap.fromTo(".hero-cta",
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, delay: 0.6, ease: "power4.out" }
-        );
-
-        gsap.fromTo(".hero-badge",
-          { scale: 0, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 0.6, delay: 0.9, ease: "back.out(1.7)" }
-        );
-
-        // Floating elements
-        gsap.to(".float-element", {
-          y: -20,
-          duration: 2,
-          ease: "power1.inOut",
-          yoyo: true,
-          repeat: -1,
-          stagger: 0.3,
-        });
-
-
-        // Product section animation
-        gsap.fromTo(".product-content",
-          { x: -80, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: productRef.current,
-              start: "top 80%",
-              once: true,
-            },
-          }
-        );
-
-        gsap.fromTo(".product-card",
-          { x: 80, opacity: 0 },
-          {
-            x: 0,
-            opacity: 1,
-            duration: 0.8,
-            delay: 0.2,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: productRef.current,
-              start: "top 80%",
-              once: true,
-            },
-          }
-        );
-
-        // CTA section animation
-        gsap.fromTo(".cta-content",
+        gsap.fromTo(
+          ".hero-mockup",
           { y: 60, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: ctaRef.current,
-              start: "top 85%",
-              once: true,
-            },
-          }
+          { y: 0, opacity: 1, duration: 0.8, delay: 0.3, ease: "power3.out" }
         );
+
+        document.querySelectorAll(".scroll-reveal").forEach((el) => {
+          gsap.fromTo(
+            el,
+            { y: 40, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.7,
+              ease: "power3.out",
+              scrollTrigger: { trigger: el, start: "top 85%", once: true },
+            }
+          );
+        });
       });
 
       return () => ctx.revert();
-    }, 100);
+    }, 50);
 
     return () => clearTimeout(timer);
   }, []);
 
+  const faqs = [
+    {
+      q: "¿Qué incluye cada plan?",
+      a: "El Plan Botón de Pánico ($2.500/mes) incluye alertas de emergencia con GPS a tus contactos. El Plan Estándar ($5.000/mes) suma búsqueda de médicos, farmacias y hospitales, más un portal para subir tus estudios médicos.",
+    },
+    {
+      q: "¿Cómo funciona el botón de pánico?",
+      a: "Con un solo toque, tus contactos de emergencia reciben tu ubicación GPS exacta, una llamada automática y un SMS. Podés configurar hasta 5 contactos (familiares, amigos, tu médico).",
+    },
+    {
+      q: "¿Qué puedo buscar en Servicios de Salud?",
+      a: "Podés buscar médicos por especialidad, obra social y cercanía. También farmacias, hospitales y ambulancias cerca tuyo. Incluye ficha completa de cada profesional con datos verificados del registro AMR.",
+    },
+    {
+      q: "¿Mis datos están seguros?",
+      a: "Sí. Usamos encriptación AES-256 (nivel bancario), autenticación segura y cumplimos con la Ley 25.326 de Protección de Datos Personales. Tus datos de salud son tratados como datos sensibles.",
+    },
+    {
+      q: "¿Cuándo se lanza la app?",
+      a: "El lanzamiento está previsto para Junio 2026. Si te anotás en la lista de espera, vas a ser de los primeros en acceder y recibís beneficios de early adopter.",
+    },
+    {
+      q: "¿Voy a poder acceder a mi historia clínica de hospitales y clínicas?",
+      a: "Sí, estamos trabajando en eso. Próximamente vamos a lanzar el Plan Full que te permite acceder a tu historia clínica de instituciones adheridas. Arrancamos con un piloto en Rosario y después expandimos a todo el país.",
+    },
+  ];
+
   return (
-    <div className="flex flex-col overflow-hidden">
-      {/* Hero Section */}
+    <div className="flex flex-col">
+      {/* ===================== HERO ===================== */}
       <section
         ref={heroRef}
-        className="relative min-h-[90vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[90vh] flex items-center overflow-hidden"
       >
-        {/* Animated background */}
+        {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-3xl" />
-        </div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl" />
 
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `linear-gradient(to right, currentColor 1px, transparent 1px),
-                              linear-gradient(to bottom, currentColor 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
+        <div className="container mx-auto px-4 relative z-10 py-12">
+          <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+            {/* Left - Content */}
+            <div className="hero-content">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+                <Sparkles className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-primary">
+                  Lanzamiento Junio 2026
+                </span>
+              </div>
 
-        {/* Floating elements */}
-        <div className="absolute top-20 left-[10%] float-element">
-          <div className="w-16 h-16 rounded-2xl bg-primary/10 backdrop-blur-sm border border-primary/20 flex items-center justify-center">
-            <HeartPulse className="w-8 h-8 text-primary" />
-          </div>
-        </div>
-        <div className="absolute top-40 right-[15%] float-element">
-          <div className="w-14 h-14 rounded-xl bg-secondary/10 backdrop-blur-sm border border-secondary/20 flex items-center justify-center">
-            <ShieldCheck className="w-7 h-7 text-secondary" />
-          </div>
-        </div>
-        <div className="absolute bottom-32 left-[20%] float-element">
-          <div className="w-12 h-12 rounded-lg bg-accent/10 backdrop-blur-sm border border-accent/20 flex items-center justify-center">
-            <Smartphone className="w-6 h-6 text-accent" />
-          </div>
-        </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
+                Tu salud, organizada{" "}
+                <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                  en un solo lugar
+                </span>
+              </h1>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
-            <div className="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8">
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">
-                Plataforma de Salud Digital
-              </span>
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl">
+                Encontrá médicos, farmacias y hospitales cerca tuyo. Subí tus
+                estudios y tenelos siempre a mano. Y en caso de emergencia, tus
+                contactos reciben tu ubicación con un solo toque.
+              </p>
+
+              <WaitlistForm id="waitlist" className="max-w-lg" />
             </div>
 
-            {/* Title */}
-            <h1 className="hero-title text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6">
-              <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-                Tu salud
-              </span>
-              <br />
-              <span className="text-foreground">en tus manos</span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className="hero-subtitle text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Software de salud digital que revoluciona la gestión de historiales
-              médicos con{" "}
-              <span className="text-foreground font-medium">
-                seguridad, accesibilidad e interoperabilidad.
-              </span>
-            </p>
-
-            {/* CTA buttons */}
-            <div className="hero-cta flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/soporte">
-                <Button
-                  size="lg"
-                  className="group h-14 px-8 text-lg bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all duration-300 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30"
-                >
-                  Contactanos
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
+            {/* Right - Mockup */}
+            <div className="hero-mockup relative flex justify-center">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 rounded-full blur-3xl opacity-50" />
+              <div className="relative w-full max-w-[280px]">
+                <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-gray-900">
+                  <Image
+                    src="/images/app/Home.png"
+                    alt="Himalaya Salud - App de servicios de salud"
+                    width={400}
+                    height={800}
+                    className="w-full h-auto"
+                    priority
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-2">
-            <div className="w-1 h-2 bg-muted-foreground/50 rounded-full" />
-          </div>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce">
+          <ChevronDown className="w-6 h-6 text-muted-foreground/50" />
         </div>
       </section>
 
-      {/* Features Section */}
-      <section ref={featuresRef} className="py-24 md:py-32 relative">
+      {/* ===================== PROBLEMA ===================== */}
+      <section className="py-20 md:py-28 bg-gradient-to-b from-muted/50 to-background">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">
-              ¿Qué hacemos?
+          <div className="max-w-3xl mx-auto text-center mb-14 scroll-reveal">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              ¿Por qué necesitás Himalaya Salud?
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Transformamos la gestión de salud con tecnología de vanguardia
+            <p className="text-lg text-muted-foreground">
+              Tres problemas reales que resolvemos
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
-                icon: HeartPulse,
-                title: "Digitalización de la Salud",
-                description:
-                  "Creamos herramientas que facilitan el acceso y la gestión de la información médica de forma intuitiva.",
-                gradient: "from-red-500/20 to-pink-500/20",
-                iconColor: "text-red-500",
+                icon: Search,
+                problem: "No encontrás un médico cuando lo necesitás",
+                solution:
+                  "Buscá por especialidad, obra social y cercanía. Con datos verificados del registro AMR.",
+                color: "text-blue-500",
+                bg: "from-blue-500/10 to-cyan-500/10",
               },
               {
-                icon: ShieldCheck,
-                title: "Seguridad y Privacidad",
-                description:
-                  "Priorizamos la protección de datos sensibles con encriptación de nivel bancario y cumplimiento normativo.",
-                gradient: "from-emerald-500/20 to-teal-500/20",
-                iconColor: "text-emerald-500",
+                icon: FileUp,
+                problem: "Tus estudios están desperdigados",
+                solution:
+                  "Subí tus estudios al Portal Paciente y tenelos siempre a mano. Organizados con etiquetas.",
+                color: "text-violet-500",
+                bg: "from-violet-500/10 to-purple-500/10",
               },
               {
-                icon: Smartphone,
-                title: "Acceso Móvil",
-                description:
-                  "Aplicaciones intuitivas para gestionar tu salud desde cualquier dispositivo, en cualquier momento.",
-                gradient: "from-blue-500/20 to-cyan-500/20",
-                iconColor: "text-blue-500",
+                icon: ShieldAlert,
+                problem: "En una emergencia, nadie sabe tus datos médicos",
+                solution:
+                  "Un toque y tus contactos reciben tu ubicación GPS, llamada y SMS. Automáticamente.",
+                color: "text-red-500",
+                bg: "from-red-500/10 to-rose-500/10",
               },
-              {
-                icon: Globe,
-                title: "Interoperabilidad",
-                description:
-                  "Conexión seamless entre diferentes sistemas de salud para un historial médico unificado.",
-                gradient: "from-violet-500/20 to-purple-500/20",
-                iconColor: "text-violet-500",
-              },
-              {
-                icon: Clock,
-                title: "Disponibilidad 24/7",
-                description:
-                  "Acceso ininterrumpido a tu información médica cuando más lo necesites.",
-                gradient: "from-amber-500/20 to-orange-500/20",
-                iconColor: "text-amber-500",
-              },
-              {
-                icon: Zap,
-                title: "Tecnología Avanzada",
-                description:
-                  "Utilizamos las últimas tecnologías para ofrecer una experiencia rápida y moderna.",
-                gradient: "from-primary/20 to-secondary/20",
-                iconColor: "text-primary",
-              },
-            ].map((feature, index) => (
-              <FeatureCard3D
-                key={index}
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-                gradient={feature.gradient}
-                iconColor={feature.iconColor}
-                index={index}
-              />
+            ].map((item, i) => (
+              <div key={i} className="scroll-reveal">
+                <Card className="h-full border-0 shadow-lg bg-gradient-to-br from-card to-card/80">
+                  <CardContent className="p-6">
+                    <div
+                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.bg} flex items-center justify-center mb-4`}
+                    >
+                      <item.icon className={`w-6 h-6 ${item.color}`} />
+                    </div>
+                    <p className="font-semibold text-foreground mb-2">
+                      {item.problem}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {item.solution}
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Product Section */}
-      <section
-        ref={productRef}
-        className="py-24 md:py-32 bg-gradient-to-b from-muted/50 to-background relative overflow-hidden"
-      >
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-
+      {/* ===================== PLANES ===================== */}
+      <section id="planes" className="py-20 md:py-28">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
-            <div className="product-content">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mb-6">
-                <Lock className="w-4 h-4 text-accent" />
-                <span className="text-sm font-medium text-accent">
-                  Historia Clínica Digital
-                </span>
-              </div>
+          <div className="max-w-3xl mx-auto text-center mb-14 scroll-reveal">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Elegí tu plan
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Primer mes gratis en cualquier plan. Sin tarjeta.
+            </p>
+          </div>
 
-              <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                Tu historial médico,
-                <br />
-                <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
-                  siempre contigo
-                </span>
-              </h2>
-
-              <p className="text-lg text-muted-foreground mb-8">
-                Nuestra plataforma permite a pacientes y profesionales de la salud
-                acceder a un registro médico unificado, seguro y siempre disponible.
-                Creemos en un cuidado de la salud informado y centrado en el paciente.
-              </p>
-
-              <div className="space-y-4">
-                {[
-                  "Registro médico unificado y accesible",
-                  "Encriptación de datos de nivel bancario",
-                  "Interoperabilidad con sistemas de salud",
-                  "Gestión de turnos y recetas digitales",
-                ].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                      <CheckCircle2 className="w-4 h-4 text-primary" />
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Plan Botón de Pánico */}
+            <div className="scroll-reveal">
+              <Card className="h-full border-2 border-border hover:border-primary/50 transition-colors shadow-lg overflow-hidden">
+                <CardContent className="p-0">
+                  <div className="p-6 md:p-8">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+                        <Siren className="w-5 h-5 text-red-500" />
+                      </div>
+                      <h3 className="text-xl font-bold">Botón de Pánico</h3>
                     </div>
-                    <span className="text-foreground">{item}</span>
-                  </div>
-                ))}
-              </div>
 
-              <div className="mt-8">
-                <Link href="/soporte">
-                  <Button className="group" size="lg">
-                    Solicitar información
-                    <ChevronRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
-                </Link>
-              </div>
+                    <div className="flex items-baseline gap-1 mb-1">
+                      <span className="text-4xl font-bold">$2.500</span>
+                      <span className="text-muted-foreground">/mes</span>
+                    </div>
+                    <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium mb-6">
+                      Primer mes gratis
+                    </p>
+
+                    <ul className="space-y-3 mb-6">
+                      {[
+                        "Alerta de emergencia con un toque",
+                        "GPS en tiempo real a tus contactos",
+                        "Llamada + SMS automáticos (Twilio)",
+                        "Hasta 5 contactos de emergencia",
+                        "Pantalla de confirmación anti-accidental",
+                      ].map((feature, j) => (
+                        <li key={j} className="flex items-start gap-2">
+                          <Check className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <p className="text-xs text-muted-foreground">
+                      Plan anual: pagás 10 meses, usás 12.
+                    </p>
+                  </div>
+
+                  {/* Mockup */}
+                  <div className="bg-gradient-to-br from-gray-900 to-gray-950 p-6 flex justify-center">
+                    <div className="w-40 rounded-2xl overflow-hidden border-4 border-gray-800 shadow-xl">
+                      <Image
+                        src="/images/app/BotonDePanico.png"
+                        alt="Botón de Pánico"
+                        width={200}
+                        height={400}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
 
-            <div className="product-card relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-secondary/20 to-accent/20 rounded-3xl blur-3xl" />
-              <Card className="relative border-0 shadow-2xl bg-gradient-to-br from-card to-card/80 backdrop-blur-sm overflow-hidden">
+            {/* Plan Estándar */}
+            <div className="scroll-reveal">
+              <Card className="h-full border-2 border-primary shadow-xl overflow-hidden relative">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent" />
-                <CardContent className="p-8">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                      <HeartPulse className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-lg">Himalaya Salud</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Historia Clínica Digital
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    {[
-                      { label: "Registros médicos", value: "Ilimitados" },
-                      { label: "Almacenamiento seguro", value: "En la nube" },
-                      { label: "Acceso", value: "24/7 disponible" },
-                      { label: "Soporte", value: "Dedicado" },
-                    ].map((item, index) => (
-                      <div
-                        key={index}
-                        className="flex justify-between items-center py-3 border-b border-border/50 last:border-0"
-                      >
-                        <span className="text-muted-foreground">{item.label}</span>
-                        <span className="font-medium">{item.value}</span>
+                <div className="absolute -top-0 right-4 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold px-3 py-1 rounded-b-lg">
+                  Recomendado
+                </div>
+                <CardContent className="p-0">
+                  <div className="p-6 md:p-8">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <Search className="w-5 h-5 text-primary" />
                       </div>
-                    ))}
+                      <h3 className="text-xl font-bold">Estándar</h3>
+                    </div>
+
+                    <div className="flex items-baseline gap-1 mb-1">
+                      <span className="text-4xl font-bold">$5.000</span>
+                      <span className="text-muted-foreground">/mes</span>
+                    </div>
+                    <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium mb-6">
+                      Primer mes gratis
+                    </p>
+
+                    <ul className="space-y-3 mb-6">
+                      {[
+                        "Todo lo del Botón de Pánico",
+                        "Buscar médicos por especialidad y obra social",
+                        "Buscar farmacias, hospitales y ambulancias",
+                        "Portal Paciente: subí tus estudios",
+                        "Datos verificados del registro AMR",
+                        "Mapa con instituciones cercanas",
+                      ].map((feature, j) => (
+                        <li key={j} className="flex items-start gap-2">
+                          <Check className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <p className="text-xs text-muted-foreground">
+                      Plan anual: pagás 10 meses, usás 12.
+                    </p>
                   </div>
 
-                  <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20">
-                    <p className="text-sm text-center">
-                      <span className="font-semibold text-primary">
-                        Lanzamiento: Junio 2026
-                      </span>
-                      <br />
-                      <span className="text-muted-foreground">
-                        Únete a la lista de espera
-                      </span>
-                    </p>
+                  {/* Mockup */}
+                  <div className="bg-gradient-to-br from-primary/5 to-secondary/5 p-6 flex justify-center">
+                    <div className="w-40 rounded-2xl overflow-hidden border-4 border-gray-800 shadow-xl">
+                      <Image
+                        src="/images/app/Home.png"
+                        alt="Servicios de Salud"
+                        width={200}
+                        height={400}
+                        className="w-full h-auto"
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>
             </div>
           </div>
+
+          {/* Coming soon */}
+          <div className="scroll-reveal max-w-4xl mx-auto mt-8">
+            <div className="flex items-center gap-3 p-4 rounded-xl bg-muted/50 border border-border">
+              <Clock className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+              <p className="text-sm text-muted-foreground">
+                <span className="font-medium text-foreground">
+                  Próximamente: Plan Full
+                </span>{" "}
+                — Accedé a tu historia clínica de instituciones adheridas.
+                Piloto en Rosario con Grupo Oroño.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section ref={ctaRef} className="py-24 md:py-32 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="cta-content max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6">
-              ¿Listo para transformar
-              <br />
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                tu gestión de salud?
-              </span>
+      {/* ===================== CÓMO FUNCIONA ===================== */}
+      <section className="py-20 md:py-28 bg-gradient-to-b from-muted/50 to-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-14 scroll-reveal">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Cómo funciona
             </h2>
-
-            <p className="text-xl text-muted-foreground mb-8">
-              Contactanos para más información o unite a nuestra lista de espera
-              para ser de los primeros en acceder.
+            <p className="text-lg text-muted-foreground">
+              En 3 pasos empezás a usar Himalaya Salud
             </p>
+          </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/soporte">
-                <Button
-                  size="lg"
-                  className="h-14 px-8 text-lg bg-gradient-to-r from-primary to-secondary hover:opacity-90 shadow-lg shadow-primary/25"
+          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {[
+              {
+                step: "1",
+                icon: CalendarCheck,
+                title: "Anotate en la lista de espera",
+                description:
+                  "Dejanos tu email y te avisamos apenas se lance la app. Los primeros 200 reciben beneficios.",
+              },
+              {
+                step: "2",
+                icon: Sparkles,
+                title: "Descargá la app y elegí tu plan",
+                description:
+                  "Registrate en 2 minutos. Elegí Botón de Pánico o Estándar. El primer mes es gratis.",
+              },
+              {
+                step: "3",
+                icon: MapPin,
+                title: "Empezá a usar",
+                description:
+                  "Buscá médicos cerca tuyo, subí tus estudios y configurá tus contactos de emergencia.",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="scroll-reveal text-center relative"
+              >
+                {/* Connector line (not on last item) */}
+                {i < 2 && (
+                  <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px bg-border" />
+                )}
+
+                <div className="relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary text-white mb-4 shadow-lg">
+                  <span className="text-2xl font-bold">{item.step}</span>
+                </div>
+
+                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+                <p className="text-sm text-muted-foreground">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===================== FAQ ===================== */}
+      <section id="faq" className="py-20 md:py-28">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center mb-14 scroll-reveal">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Preguntas frecuentes
+            </h2>
+          </div>
+
+          <div className="max-w-3xl mx-auto space-y-3">
+            {faqs.map((faq, i) => (
+              <div
+                key={i}
+                className="scroll-reveal border border-border rounded-xl overflow-hidden"
+              >
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full flex items-center justify-between p-5 text-left hover:bg-muted/50 transition-colors"
                 >
-                  Contactar ahora
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-            </div>
+                  <span className="font-medium pr-4">{faq.q}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${
+                      openFaq === i ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {openFaq === i && (
+                  <div className="px-5 pb-5 text-muted-foreground text-sm leading-relaxed border-t border-border pt-4">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
 
-            <p className="mt-8 text-sm text-muted-foreground">
-              ¿Tenés dudas?{" "}
+          <div className="scroll-reveal text-center mt-8">
+            <p className="text-sm text-muted-foreground">
+              ¿Más preguntas?{" "}
               <Link
                 href="/soporte"
                 className="text-primary hover:underline font-medium"
               >
                 Escribinos
               </Link>{" "}
-              y te respondemos en menos de 24 horas.
+              o visitá la{" "}
+              <Link
+                href="/informacion"
+                className="text-primary hover:underline font-medium"
+              >
+                página de información completa
+              </Link>
+              .
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ===================== CTA FINAL ===================== */}
+      <section className="py-20 md:py-28 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="scroll-reveal max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Sé de los primeros en acceder
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Lanzamiento en Junio 2026. Anotate ahora y recibí beneficios de
+              early adopter.
+            </p>
+
+            <WaitlistForm className="max-w-lg mx-auto" />
           </div>
         </div>
       </section>

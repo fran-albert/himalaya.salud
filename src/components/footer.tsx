@@ -8,6 +8,8 @@ export function Footer() {
   const footerLinks = {
     empresa: [
       { label: "Inicio", href: "/" },
+      { label: "Planes", href: "/#planes" },
+      { label: "Información", href: "/informacion" },
       { label: "Contacto", href: "/soporte" },
     ],
     legal: [
