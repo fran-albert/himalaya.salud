@@ -13,22 +13,32 @@ import {
   Scale,
   Mail,
   Siren,
+  RefreshCw,
+  Fingerprint,
+  LogOut,
+  Ban,
 } from "lucide-react";
 
-const supportEmail = "soporte@himalayasalud.com.ar";
+const contactEmail = "notificaciones@himalayasalud.com.ar";
 
 const sections = [
   {
     id: "aceptacion",
     icon: ScrollText,
     title: "1. Aceptación de los términos",
-    content: `Al descargar, acceder o utilizar la aplicación Himalaya Salud (la "App"), aceptás estar sujeto a los presentes Términos y Condiciones ("Términos"). Si no estás de acuerdo con estos Términos, no uses la App.`,
+    content: `Al descargar, acceder o utilizar la aplicación Himalaya Salud (la "App"), aceptás estar sujeto a los presentes Términos y Condiciones ("Términos"). La utilización de la App implica la aceptación plena y sin reservas de estos Términos. Si no estás de acuerdo, no uses la App. Declarás ser mayor de edad y contar con la capacidad legal suficiente para celebrar el presente acuerdo.`,
+  },
+  {
+    id: "modificaciones",
+    icon: RefreshCw,
+    title: "2. Modificaciones",
+    content: `Himalaya Salud podrá modificar total o parcialmente los presentes Términos en cualquier momento. La versión vigente será publicada en la App y reemplazará a todas las anteriores. El uso continuado de la App será considerado como aceptación de los Términos actualizados.`,
   },
   {
     id: "descripcion",
     icon: FileText,
-    title: "2. Descripción del servicio",
-    content: `Himalaya Salud es una plataforma que ofrece tres funcionalidades principales:`,
+    title: "3. Descripción del servicio",
+    content: `Himalaya Salud es una plataforma móvil que ofrece las siguientes funcionalidades:`,
     list: [
       {
         title: "Botón de Pánico",
@@ -43,11 +53,12 @@ const sections = [
         desc: "Espacio personal para subir, organizar y consultar tus estudios médicos (PDF, imágenes) con etiquetas.",
       },
     ],
+    extra: "La App actúa como intermediario tecnológico. No almacena, conserva ni administra datos de salud; solo procesa los datos técnicos necesarios para el funcionamiento del servicio.",
   },
   {
     id: "planes",
     icon: CreditCard,
-    title: "3. Planes y pagos",
+    title: "4. Planes y pagos",
     content: `El acceso a la App requiere una suscripción activa. Se ofrecen dos planes:`,
     list: [
       {
@@ -59,50 +70,78 @@ const sections = [
         desc: "Incluye todo lo del Plan Botón de Pánico, más búsqueda de profesionales, farmacias e instituciones, y Portal Paciente.",
       },
     ],
-    extra: "Los pagos son procesados a través de Mercado Pago. Himalaya Salud no almacena datos de tarjeta. Podés cancelar tu suscripción en cualquier momento desde la App. El primer mes de cualquier plan es gratuito.",
+    extra: "Los pagos son procesados a través de Mercado Pago. Himalaya Salud no almacena datos de tarjeta; esa información es gestionada exclusivamente por Mercado Pago conforme a sus políticas de seguridad (PCI DSS). Podés cancelar tu suscripción en cualquier momento desde la App. El primer mes de cualquier plan es gratuito.",
+  },
+  {
+    id: "registro",
+    icon: Fingerprint,
+    title: "5. Registro y cuenta de usuario",
+    content: `Para acceder a la App, debés ser mayor de edad y capaz en los términos de la legislación argentina. La App requerirá validación de identidad mediante datos de tu DNI y verificación biométrica. Sos responsable de la exactitud de la información que proporcionás; datos incorrectos o incompletos podrán dar lugar a la suspensión o cancelación de tu cuenta.`,
+    extra: "Si sos padre, madre o tutor legal, podés asociar menores de edad o personas con capacidad restringida a tu cuenta, acreditando la representación legal correspondiente.",
   },
   {
     id: "responsabilidades",
     icon: UserCog,
-    title: "4. Responsabilidades del usuario",
+    title: "6. Responsabilidades del usuario",
     content: `Como usuario, sos responsable de:`,
     list: [
-      { desc: "Mantener la confidencialidad de las credenciales de tu cuenta." },
-      { desc: "La veracidad y exactitud de la información que cargás en la App." },
+      { desc: "Proveer información verídica, completa y actualizada." },
+      { desc: "Mantener la confidencialidad de tus credenciales de acceso." },
       { desc: "Verificar que los datos de tus contactos de emergencia estén actualizados." },
       { desc: "Usar la App de manera lícita y conforme a estos Términos." },
+      { desc: "Notificar inmediatamente cualquier uso no autorizado de tu cuenta." },
+    ],
+  },
+  {
+    id: "usos-prohibidos",
+    icon: Ban,
+    title: "7. Usos prohibidos",
+    content: `Queda expresamente prohibido:`,
+    list: [
+      { desc: "Recopilar datos de otros usuarios con fines no autorizados." },
+      { desc: "Usar la App de modo que pueda dañar, deshabilitar o sobrecargar su funcionamiento." },
+      { desc: "Emplear bots, scripts o mecanismos automatizados para acceder a la App." },
+      { desc: "Cargar contenido ilícito, dañino, difamatorio o que vulnere derechos de terceros." },
+      { desc: "Crear más de una cuenta o registrarse con datos falsos." },
+      { desc: "Modificar, descompilar o intentar eludir los sistemas de seguridad de la App." },
     ],
   },
   {
     id: "emergencias",
     icon: Siren,
-    title: "5. Botón de Pánico y emergencias",
-    content: `El Botón de Pánico es una herramienta de alerta que notifica a tus contactos de emergencia. No reemplaza a los servicios de emergencia oficiales (107, 911). En caso de una emergencia médica grave, llamá siempre a los servicios de emergencia locales además de usar el Botón de Pánico. Himalaya Salud no garantiza la disponibilidad ininterrumpida del servicio de alertas ni la respuesta de los contactos notificados.`,
+    title: "8. Botón de Pánico y emergencias",
+    content: `El Botón de Pánico es una herramienta de alerta que notifica a tus contactos de emergencia. No reemplaza a los servicios de emergencia oficiales (107, 911). En caso de una emergencia médica grave, llamá siempre a los servicios de emergencia locales. Himalaya Salud no garantiza la disponibilidad ininterrumpida del servicio de alertas ni la respuesta de los contactos notificados.`,
   },
   {
     id: "propiedad",
     icon: Copyright,
-    title: "6. Propiedad intelectual",
+    title: "9. Propiedad intelectual",
     content: `Himalaya Salud S.A.S. es el propietario exclusivo de la App, el software, el diseño, los logotipos y todo el material relacionado. Se te concede una licencia limitada, no exclusiva y no transferible para usar la App para fines personales y no comerciales, sujeta a estos Términos.`,
   },
   {
     id: "limitacion",
     icon: AlertTriangle,
-    title: "7. Limitación de responsabilidad",
-    content: `Himalaya Salud S.A.S. no será responsable por daños directos, indirectos, incidentales o consecuentes que resulten del uso o la incapacidad de usar la App. No garantizamos que el servicio sea ininterrumpido o libre de errores. La información de profesionales de la salud que aparece en Servicios de Salud es provista por los propios profesionales y Himalaya Salud no se hace responsable por su exactitud o vigencia.`,
+    title: "10. Limitación de responsabilidad",
+    content: `Himalaya Salud actúa como intermediario tecnológico y no interviene en la generación ni el contenido de la información proporcionada por profesionales o instituciones de salud. No será responsable por errores, omisiones o desactualizaciones de dicha información, ni por daños directos, indirectos, incidentales o consecuentes que resulten del uso o la incapacidad de usar la App. No garantizamos que el servicio sea ininterrumpido o libre de errores. La información contenida en la App es para fines informativos y de gestión personal, y bajo ninguna circunstancia debe ser interpretada como asesoramiento, diagnóstico o tratamiento médico.`,
+  },
+  {
+    id: "terminacion",
+    icon: LogOut,
+    title: "11. Terminación de la relación",
+    content: `Podés solicitar la baja de tu cuenta y la eliminación de tus datos personales en cualquier momento, enviando un correo a revocacion@himalayasalud.com.ar. La eliminación se realizará conforme a los plazos de la Ley 25.326. Himalaya Salud podrá suspender o dar de baja tu cuenta si incumplís estos Términos, por obligación legal o por razones técnicas u operativas, notificándote por los canales registrados.`,
   },
   {
     id: "ley",
     icon: Scale,
-    title: "8. Ley aplicable",
-    content: `Estos Términos se rigen por las leyes de la República Argentina. Cualquier controversia será sometida a la jurisdicción de los tribunales ordinarios de la Ciudad Autónoma de Buenos Aires.`,
+    title: "12. Ley aplicable",
+    content: `Estos Términos se rigen por las leyes de la República Argentina. Cualquier controversia será sometida a la jurisdicción de los tribunales ordinarios de la ciudad de Rosario, provincia de Santa Fe, con renuncia a cualquier otro fuero o jurisdicción.`,
   },
   {
     id: "contacto",
     icon: Mail,
-    title: "9. Contacto",
+    title: "13. Contacto",
     content: `Si tenés alguna pregunta sobre estos Términos y Condiciones, podés contactarnos.`,
-    email: supportEmail,
+    email: contactEmail,
   },
 ];
 
