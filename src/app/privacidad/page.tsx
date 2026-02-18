@@ -2,8 +2,6 @@
 
 import { useEffect } from "react";
 import { gsap } from "gsap";
-import { Card, CardContent } from "@/components/ui/card";
-
 import {
   Shield,
   Lock,
@@ -164,13 +162,13 @@ export default function PrivacyPage() {
       {/* Hero */}
       <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="privacy-hero max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <Shield className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted border border-border mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
                 Tu privacidad es nuestra prioridad
               </span>
             </div>
@@ -192,68 +190,66 @@ export default function PrivacyPage() {
       {/* Content */}
       <section className="pb-24">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto space-y-6">
+          <div className="max-w-4xl mx-auto divide-y divide-border">
             {sections.map((section) => (
-              <Card
+              <div
                 key={section.id}
                 id={section.id}
-                className="privacy-section border-0 shadow-lg bg-gradient-to-br from-card to-card/80 overflow-hidden"
+                className="privacy-section py-8 first:pt-0"
               >
-                <CardContent className="p-6 md:p-8">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <section.icon className="w-6 h-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <h2 className="text-xl md:text-2xl font-bold mb-4 text-foreground">
-                        {section.title}
-                      </h2>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {section.content}
-                      </p>
-
-                      {section.list && (
-                        <ul className="mt-4 space-y-3">
-                          {section.list.map((item, i) => (
-                            <li
-                              key={i}
-                              className="flex items-start gap-3 text-muted-foreground"
-                            >
-                              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
-                              <span>
-                                {"title" in item && item.title && (
-                                  <strong className="text-foreground">
-                                    {item.title}:{" "}
-                                  </strong>
-                                )}
-                                {item.desc}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-
-                      {"extra" in section && section.extra && (
-                        <p className="mt-4 text-muted-foreground leading-relaxed">
-                          {section.extra}
-                        </p>
-                      )}
-
-                      {section.email && (
-                        <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10">
-                          <Mail className="w-4 h-4 text-primary" />
-                          <a
-                            href={`mailto:${section.email}`}
-                            className="font-medium text-primary hover:underline"
-                          >
-                            {section.email}
-                          </a>
-                        </div>
-                      )}
-                    </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <section.icon className="w-5 h-5 text-primary" />
                   </div>
-                </CardContent>
-              </Card>
+                  <div className="flex-1">
+                    <h2 className="text-lg md:text-xl font-bold mb-3 text-foreground">
+                      {section.title}
+                    </h2>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {section.content}
+                    </p>
+
+                    {section.list && (
+                      <ul className="mt-4 space-y-3">
+                        {section.list.map((item, i) => (
+                          <li
+                            key={i}
+                            className="flex items-start gap-3 text-muted-foreground"
+                          >
+                            <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 flex-shrink-0" />
+                            <span>
+                              {"title" in item && item.title && (
+                                <strong className="text-foreground">
+                                  {item.title}:{" "}
+                                </strong>
+                              )}
+                              {item.desc}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {"extra" in section && section.extra && (
+                      <p className="mt-4 text-muted-foreground leading-relaxed">
+                        {section.extra}
+                      </p>
+                    )}
+
+                    {section.email && (
+                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10">
+                        <Mail className="w-4 h-4 text-primary" />
+                        <a
+                          href={`mailto:${section.email}`}
+                          className="font-medium text-primary hover:underline"
+                        >
+                          {section.email}
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>

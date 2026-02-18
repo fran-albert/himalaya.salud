@@ -66,14 +66,13 @@ export default function ProfesionalesPage() {
       {/* ===================== HERO ===================== */}
       <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl" />
+        <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 relative z-10 py-12">
           <div className="max-w-3xl mx-auto text-center hero-content">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <Stethoscope className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted border border-border mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
                 Para profesionales de la salud
               </span>
             </div>
@@ -125,7 +124,7 @@ export default function ProfesionalesPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-start">
             {[
               {
                 icon: Users,
@@ -153,15 +152,15 @@ export default function ProfesionalesPage() {
               },
             ].map((item, i) => (
               <div key={i} className="scroll-reveal">
-                <Card className="h-full border-0 shadow-lg bg-gradient-to-br from-card to-card/80">
+                <Card className={`border-0 shadow-lg ${i === 0 ? "bg-gray-900 text-white md:-rotate-1" : "bg-card"}`}>
                   <CardContent className="p-6">
                     <div
-                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.bg} flex items-center justify-center mb-4`}
+                      className={`w-12 h-12 ${i === 0 ? "rounded-full" : "rounded-xl"} bg-gradient-to-br ${item.bg} flex items-center justify-center mb-4`}
                     >
                       <item.icon className={`w-6 h-6 ${item.color}`} />
                     </div>
-                    <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <h3 className={`font-semibold text-lg mb-2 ${i === 0 ? "text-white" : ""}`}>{item.title}</h3>
+                    <p className={`text-sm ${i === 0 ? "text-gray-400" : "text-muted-foreground"}`}>
                       {item.description}
                     </p>
                   </CardContent>
@@ -225,7 +224,7 @@ export default function ProfesionalesPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="max-w-2xl mx-auto space-y-0">
             {[
               {
                 step: "1",
@@ -246,19 +245,19 @@ export default function ProfesionalesPage() {
                   "Tu perfil aparece en los resultados de búsqueda. Los pacientes te contactan directamente.",
               },
             ].map((item, i) => (
-              <div key={i} className="scroll-reveal text-center relative">
-                {i < 2 && (
-                  <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px bg-border" />
-                )}
-
-                <div className="relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary text-white mb-4 shadow-lg">
-                  <span className="text-2xl font-bold">{item.step}</span>
+              <div key={i} className="scroll-reveal flex gap-6 relative">
+                <div className="flex flex-col items-center">
+                  <div className="w-10 h-10 rounded-full border-2 border-primary bg-background flex items-center justify-center z-10">
+                    <span className="text-sm font-bold text-primary">{item.step}</span>
+                  </div>
+                  {i < 2 && <div className="w-px flex-1 bg-border" />}
                 </div>
-
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {item.description}
-                </p>
+                <div className={i === 2 ? "pb-0" : "pb-10"}>
+                  <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {item.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -274,7 +273,7 @@ export default function ProfesionalesPage() {
             </h2>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="max-w-3xl mx-auto divide-y divide-border">
             {[
               {
                 q: "¿Tiene algún costo?",
@@ -299,7 +298,7 @@ export default function ProfesionalesPage() {
             ].map((faq, i) => (
               <div
                 key={i}
-                className="scroll-reveal border border-border rounded-xl p-5"
+                className="scroll-reveal py-5 px-4"
               >
                 <div className="flex items-start gap-3">
                   <CheckCircle2 className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
@@ -315,9 +314,7 @@ export default function ProfesionalesPage() {
       </section>
 
       {/* ===================== CTA FINAL ===================== */}
-      <section className="py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-
+      <section className="py-20 md:py-28 relative overflow-hidden bg-gray-950 text-white">
         <div className="container mx-auto px-4 relative z-10">
           <div className="scroll-reveal max-w-2xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
@@ -326,7 +323,7 @@ export default function ProfesionalesPage() {
                 ya te están buscando
               </span>
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-gray-400 mb-8">
               Registrate gratis y que te encuentren por especialidad, obra social
               y cercanía.
             </p>
@@ -340,7 +337,7 @@ export default function ProfesionalesPage() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
-            <p className="text-sm text-muted-foreground mt-4">
+            <p className="text-sm text-gray-400 mt-4">
               ¿Tenés dudas?{" "}
               <Link
                 href="/soporte"

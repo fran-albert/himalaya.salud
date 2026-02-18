@@ -101,14 +101,13 @@ export default function SupportPage() {
         className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl" />
+        <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <Headphones className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted border border-border mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
                 Estamos para ayudarte
               </span>
             </div>
@@ -145,7 +144,7 @@ export default function SupportPage() {
             {/* Form */}
             <div className="lg:col-span-3">
               <Card className="support-card border-0 shadow-2xl bg-gradient-to-br from-card to-card/80 overflow-hidden">
-                <div className="h-1 bg-gradient-to-r from-primary via-secondary to-accent" />
+                <div className="h-0.5 bg-primary" />
                 <CardContent className="p-6 md:p-8">
                   {status === "success" ? (
                     <div className="flex flex-col items-center justify-center py-12 text-center">
