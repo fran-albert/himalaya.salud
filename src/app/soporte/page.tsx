@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,7 +17,7 @@ import {
   MessageSquare,
   Send,
   Headphones,
-  Sparkles,
+  Stethoscope,
 } from "lucide-react";
 
 export default function SupportPage() {
@@ -99,7 +100,6 @@ export default function SupportPage() {
         ref={heroRef}
         className="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden"
       >
-        {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-background to-background" />
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl" />
@@ -114,18 +114,17 @@ export default function SupportPage() {
             </div>
 
             <h1 className="support-title text-4xl md:text-6xl font-bold mb-6">
-              Soporte{" "}
+              ¿En qué podemos{" "}
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Técnico
+                ayudarte?
               </span>
             </h1>
 
             <p className="support-subtitle text-xl text-muted-foreground mb-8">
-              ¿Tenés alguna consulta o necesitás ayuda? Completá el formulario y te
-              responderemos lo antes posible.
+              Respondemos consultas sobre la app, los planes y el servicio.
+              También ayudamos a profesionales de la salud que quieran registrarse.
             </p>
 
-            {/* Quick contact */}
             <div className="support-subtitle inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-card border border-border">
               <Mail className="w-5 h-5 text-primary" />
               <a
@@ -155,8 +154,8 @@ export default function SupportPage() {
                       </div>
                       <h3 className="text-2xl font-bold mb-2">¡Mensaje enviado!</h3>
                       <p className="text-muted-foreground mb-6 max-w-sm">
-                        Te enviamos un email de confirmación. Nuestro equipo te
-                        responderá en las próximas 24-48 horas.
+                        Te enviamos un email de confirmación. Te respondemos
+                        en las próximas 24-48 horas hábiles.
                       </p>
                       <Button variant="outline" onClick={() => setStatus("idle")}>
                         Enviar otra consulta
@@ -169,9 +168,9 @@ export default function SupportPage() {
                           <MessageSquare className="w-5 h-5 text-primary" />
                         </div>
                         <div>
-                          <h2 className="font-semibold text-lg">Formulario de Contacto</h2>
+                          <h2 className="font-semibold text-lg">Escribinos</h2>
                           <p className="text-sm text-muted-foreground">
-                            Completá todos los campos
+                            Completá el formulario y te respondemos por email
                           </p>
                         </div>
                       </div>
@@ -190,7 +189,7 @@ export default function SupportPage() {
                             <Input
                               id="name"
                               name="name"
-                              placeholder="Tu nombre completo"
+                              placeholder="Tu nombre"
                               value={formData.name}
                               onChange={handleChange}
                               required
@@ -219,7 +218,7 @@ export default function SupportPage() {
                           <Input
                             id="subject"
                             name="subject"
-                            placeholder="Ej: Consulta sobre el servicio"
+                            placeholder="Ej: Consulta sobre planes, Registro como profesional..."
                             value={formData.subject}
                             onChange={handleChange}
                             required
@@ -233,7 +232,7 @@ export default function SupportPage() {
                           <Textarea
                             id="message"
                             name="message"
-                            placeholder="Describí tu consulta en detalle..."
+                            placeholder="Contanos en qué podemos ayudarte..."
                             value={formData.message}
                             onChange={handleChange}
                             required
@@ -275,7 +274,7 @@ export default function SupportPage() {
                     <div className="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center">
                       <Clock className="w-5 h-5 text-amber-500" />
                     </div>
-                    <h3 className="font-semibold">Horarios de Atención</h3>
+                    <h3 className="font-semibold">Horarios de atención</h3>
                   </div>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
@@ -287,41 +286,47 @@ export default function SupportPage() {
                       <span className="font-medium">Argentina (ART)</span>
                     </div>
                   </div>
+                  <p className="text-xs text-muted-foreground mt-4">
+                    Respondemos en 24-48 horas hábiles.
+                  </p>
                 </CardContent>
               </Card>
 
-              {/* Response Time Card */}
+              {/* Profesionales Card */}
               <Card className="support-card border-0 shadow-xl bg-gradient-to-br from-card to-card/80">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-emerald-500" />
+                      <Stethoscope className="w-5 h-5 text-emerald-500" />
                     </div>
-                    <h3 className="font-semibold">Tiempo de Respuesta</h3>
+                    <h3 className="font-semibold">¿Sos profesional de la salud?</h3>
                   </div>
                   <p className="text-muted-foreground text-sm mb-4">
-                    Nuestro equipo se esfuerza por responder todas las consultas en
-                    el menor tiempo posible.
+                    Registrate gratis para que tus pacientes te encuentren
+                    por especialidad, obra social y cercanía.
                   </p>
-                  <div className="flex items-center gap-2 text-sm">
-                    <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                    <span className="font-medium">24-48 horas hábiles</span>
-                  </div>
+                  <Link
+                    href="/profesionales"
+                    className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
+                  >
+                    Más información
+                    <span>→</span>
+                  </Link>
                 </CardContent>
               </Card>
 
               {/* FAQ Hint */}
               <div className="support-card p-6 rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/5 border border-primary/10">
                 <p className="text-sm text-muted-foreground mb-3">
-                  ¿Tenés preguntas frecuentes?
+                  Quizás tu pregunta ya tiene respuesta.
                 </p>
-                <a
-                  href="/informacion#faq"
+                <Link
+                  href="/#faq"
                   className="text-sm font-medium text-primary hover:underline inline-flex items-center gap-1"
                 >
-                  Visitá nuestra sección de FAQ
+                  Ver preguntas frecuentes
                   <span>→</span>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

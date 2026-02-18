@@ -20,17 +20,13 @@ import {
   Mail,
   Loader2,
   AlertCircle,
-  Sparkles,
   Clock,
-  CalendarCheck,
   MapPin,
   Heart,
   Users,
   Hospital,
-  Pill,
   Stethoscope,
   Upload,
-  Tag,
 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -225,16 +221,15 @@ export default function HomePage() {
       >
         {/* Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full blur-3xl" />
+        <div className="absolute -top-24 -left-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
 
         <div className="container mx-auto px-4 relative z-10 py-12">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             {/* Left - Content */}
             <div className="hero-content">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-primary">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-muted border border-border mb-6">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
                   Lanzamiento Junio 2026 — Anotate ahora
                 </span>
               </div>
@@ -303,7 +298,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-start">
             {[
               {
                 icon: ShieldAlert,
@@ -331,17 +326,17 @@ export default function HomePage() {
               },
             ].map((item, i) => (
               <div key={i} className="scroll-reveal">
-                <Card className="h-full border-0 shadow-lg bg-gradient-to-br from-card to-card/80">
+                <Card className={`border-0 shadow-lg ${i === 0 ? "bg-gray-900 text-white md:-rotate-1" : "bg-card"}`}>
                   <CardContent className="p-6">
                     <div
-                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.bg} flex items-center justify-center mb-4`}
+                      className={`w-12 h-12 ${i === 0 ? "rounded-full" : "rounded-xl"} bg-gradient-to-br ${item.bg} flex items-center justify-center mb-4`}
                     >
                       <item.icon className={`w-6 h-6 ${item.color}`} />
                     </div>
-                    <p className="font-semibold text-foreground mb-2">
+                    <p className={`font-semibold mb-2 ${i === 0 ? "text-white" : "text-foreground"}`}>
                       {item.problem}
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className={`text-sm ${i === 0 ? "text-gray-400" : "text-muted-foreground"}`}>
                       {item.solution}
                     </p>
                   </CardContent>
@@ -361,7 +356,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-4xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-4 max-w-4xl mx-auto">
             {[
               { icon: Users, label: "Personas que viven solas" },
               { icon: Heart, label: "Adultos mayores" },
@@ -371,12 +366,10 @@ export default function HomePage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="scroll-reveal flex flex-col items-center text-center"
+                className={`scroll-reveal flex items-center gap-3 px-5 py-3 rounded-full border border-border bg-card shadow-sm ${i === 0 || i === 3 ? "md:-translate-y-2" : ""} ${i === 2 || i === 4 ? "md:translate-y-2" : ""}`}
               >
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-3">
-                  <item.icon className="w-6 h-6 text-primary" />
-                </div>
-                <p className="text-sm font-medium">{item.label}</p>
+                <item.icon className="w-5 h-5 text-primary flex-shrink-0" />
+                <p className="text-sm font-medium whitespace-nowrap">{item.label}</p>
               </div>
             ))}
           </div>
@@ -467,7 +460,7 @@ export default function HomePage() {
             {/* Plan Estándar */}
             <div className="scroll-reveal">
               <Card className="h-full border-2 border-primary shadow-xl overflow-hidden relative">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-secondary to-accent" />
+                <div className="absolute top-0 left-0 w-full h-0.5 bg-primary" />
                 <div className="absolute -top-0 right-4 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold px-3 py-1 rounded-b-lg">
                   Recomendado
                 </div>
@@ -545,11 +538,11 @@ export default function HomePage() {
       {/* ===================== QUÉ INCLUYE CADA PLAN (DETALLE) ===================== */}
       <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-14 scroll-reveal">
+          <div className="max-w-5xl mx-auto mb-14 scroll-reveal">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Creamos algo simple
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground max-w-2xl">
               Himalaya Salud es una app que ante una emergencia avisa por vos, y
               el resto del tiempo te ayuda a organizar tu salud.
             </p>
@@ -657,7 +650,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="max-w-2xl mx-auto space-y-0">
             {[
               {
                 step: "1",
@@ -678,19 +671,19 @@ export default function HomePage() {
                   "Configurá tus contactos de emergencia, buscá médicos cerca tuyo y subí tus estudios.",
               },
             ].map((item, i) => (
-              <div key={i} className="scroll-reveal text-center relative">
-                {i < 2 && (
-                  <div className="hidden md:block absolute top-8 left-[60%] w-[80%] h-px bg-border" />
-                )}
-
-                <div className="relative inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary text-white mb-4 shadow-lg">
-                  <span className="text-2xl font-bold">{item.step}</span>
+              <div key={i} className="scroll-reveal flex gap-6 relative">
+                <div className="flex flex-col items-center">
+                  <div className="w-10 h-10 rounded-full border-2 border-primary bg-background flex items-center justify-center z-10">
+                    <span className="text-sm font-bold text-primary">{item.step}</span>
+                  </div>
+                  {i < 2 && <div className="w-px flex-1 bg-border" />}
                 </div>
-
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">
-                  {item.description}
-                </p>
+                <div className={i === 2 ? "pb-0" : "pb-10"}>
+                  <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {item.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -706,17 +699,17 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-3">
+          <div className="max-w-3xl mx-auto divide-y divide-border">
             {faqs.map((faq, i) => (
               <div
                 key={i}
-                className="scroll-reveal border border-border rounded-xl overflow-hidden"
+                className={`scroll-reveal ${openFaq === i ? "border-l-2 border-l-primary" : "border-l-2 border-l-transparent"}`}
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-5 text-left hover:bg-muted/50 transition-colors"
+                  className="w-full flex items-center justify-between py-5 px-4 text-left group"
                 >
-                  <span className="font-medium pr-4">{faq.q}</span>
+                  <span className={`pr-4 transition-colors ${openFaq === i ? "font-semibold text-primary" : "font-medium group-hover:text-primary"}`}>{faq.q}</span>
                   <ChevronDown
                     className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${
                       openFaq === i ? "rotate-180" : ""
@@ -724,7 +717,7 @@ export default function HomePage() {
                   />
                 </button>
                 {openFaq === i && (
-                  <div className="px-5 pb-5 text-muted-foreground text-sm leading-relaxed border-t border-border pt-4">
+                  <div className="pl-4 pr-4 pb-5 text-muted-foreground text-sm leading-relaxed">
                     {faq.a}
                   </div>
                 )}
@@ -755,9 +748,7 @@ export default function HomePage() {
       </section>
 
       {/* ===================== CTA FINAL ===================== */}
-      <section className="py-20 md:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-
+      <section className="py-20 md:py-28 relative overflow-hidden bg-gray-950 text-white">
         <div className="container mx-auto px-4 relative z-10">
           <div className="scroll-reveal max-w-2xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">
@@ -767,7 +758,7 @@ export default function HomePage() {
                 Ahora, alguien sí.
               </span>
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="text-lg text-gray-400 mb-8">
               Sé usuario fundador. Acceso anticipado, precio congelado y
               activación prioritaria.
             </p>

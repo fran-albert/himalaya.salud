@@ -93,6 +93,12 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">
+              <Link
+                href="/profesionales"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                ¿Sos médico?
+              </Link>
               <Link href="/#waitlist">
                 <Button
                   size="sm"

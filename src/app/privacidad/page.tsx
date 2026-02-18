@@ -12,7 +12,7 @@ import {
   UserCheck,
   Mail,
   Eye,
-  FileText,
+  Scale,
 } from "lucide-react";
 
 const privacyEmail = "privacidad@himalayasalud.com.ar";
@@ -21,64 +21,90 @@ const sections = [
   {
     id: "compromiso",
     icon: Shield,
-    title: "1. Nuestro Compromiso",
-    content: `En Himalaya Salud S.A.S. ("Himalaya", "nosotros"), la privacidad y seguridad de su información personal y de salud son nuestra máxima prioridad. Esta Política de Privacidad describe cómo recopilamos, usamos, almacenamos y protegemos sus datos cuando utiliza nuestra aplicación de Historia Clínica Digital (la "App") y nuestros servicios.`,
+    title: "1. Nuestro compromiso",
+    content: `En Himalaya Salud S.A.S. ("Himalaya", "nosotros"), la privacidad y seguridad de tu información personal y de salud son nuestra máxima prioridad. Esta Política de Privacidad describe cómo recopilamos, usamos, almacenamos y protegemos tus datos cuando usás nuestra aplicación Himalaya Salud (la "App") y nuestros servicios, incluyendo el Botón de Pánico, Servicios de Salud (búsqueda de profesionales, farmacias e instituciones) y el Portal Paciente.`,
   },
   {
     id: "informacion",
     icon: Database,
-    title: "2. Información que Recopilamos",
+    title: "2. Información que recopilamos",
     content: `Recopilamos los siguientes tipos de información:`,
     list: [
       {
-        title: "Datos de Identificación Personal",
-        desc: "Nombre, apellido, fecha de nacimiento, DNI, dirección de correo electrónico y número de teléfono.",
+        title: "Datos de identificación personal",
+        desc: "Nombre, apellido, fecha de nacimiento, DNI, email y número de teléfono.",
       },
       {
-        title: "Datos de Salud",
-        desc: "Información que usted o sus profesionales de la salud cargan en la App, como historial médico, diagnósticos, tratamientos, resultados de laboratorio, medicación y notas clínicas.",
+        title: "Datos de salud",
+        desc: "Información que vos o tus profesionales de la salud carguen en la App: historial médico, diagnósticos, tratamientos, resultados de laboratorio, medicación y estudios médicos subidos al Portal Paciente.",
       },
       {
-        title: "Datos de Uso",
-        desc: "Información sobre cómo interactúa con nuestra App, como fechas y horas de acceso, funciones utilizadas y reportes de errores.",
+        title: "Datos de ubicación",
+        desc: "Ubicación GPS cuando activás el Botón de Pánico o cuando buscás profesionales y farmacias cercanas. Solo se accede con tu permiso explícito.",
+      },
+      {
+        title: "Contactos de emergencia",
+        desc: "Nombres y números de teléfono de tus contactos de emergencia configurados en el Botón de Pánico.",
+      },
+      {
+        title: "Datos de uso",
+        desc: "Información sobre cómo interactuás con la App: fechas y horas de acceso, funciones utilizadas y reportes de errores.",
       },
     ],
   },
   {
     id: "finalidad",
     icon: Eye,
-    title: "3. Finalidad del Tratamiento",
-    content: `Utilizamos su información para:`,
+    title: "3. Finalidad del tratamiento",
+    content: `Utilizamos tu información para:`,
     list: [
       { desc: "Proveer, mantener y mejorar nuestros servicios." },
-      { desc: "Permitirle gestionar su historia clínica y compartirla con profesionales autorizados por usted." },
-      { desc: "Comunicarnos con usted para fines de soporte técnico y notificaciones importantes del servicio." },
+      { desc: "Enviar alertas de emergencia a tus contactos configurados cuando activás el Botón de Pánico (llamada, SMS y ubicación GPS)." },
+      { desc: "Mostrar resultados de búsqueda de profesionales de la salud, farmacias e instituciones cercanas." },
+      { desc: "Permitirte subir y organizar tus estudios médicos en el Portal Paciente." },
+      { desc: "Comunicarnos con vos para soporte técnico y notificaciones importantes del servicio." },
       { desc: "Cumplir con las regulaciones de salud aplicables en la República Argentina." },
     ],
   },
   {
     id: "seguridad",
     icon: Lock,
-    title: "4. Almacenamiento y Seguridad",
-    content: `Sus datos se almacenan en servidores seguros que cumplen con altos estándares de seguridad física y digital. Utilizamos encriptación de punta a punta para proteger su información en tránsito y en reposo. El acceso a los datos de salud está estrictamente restringido y auditado.`,
+    title: "4. Almacenamiento y seguridad",
+    content: `Tus datos se almacenan en servidores seguros con encriptación AES-256 tanto en tránsito como en reposo. El acceso a los datos de salud está estrictamente restringido y auditado. Toda operación sobre datos sensibles queda registrada con trazabilidad completa (quién accedió, cuándo, desde dónde).`,
   },
   {
     id: "pagos",
     icon: CreditCard,
-    title: "5. Gestión de Pagos",
-    content: `Nuestra App opera bajo un modelo de suscripción. Todas las transacciones son procesadas a través de las plataformas de pago de la App Store (Apple) y Play Store (Google). No recopilamos ni almacenamos los datos de su tarjeta de crédito. Su relación de pago es directamente con el proveedor de la tienda de aplicaciones.`,
+    title: "5. Gestión de pagos",
+    content: `La App opera bajo un modelo de suscripción mensual o anual. Los pagos son procesados a través de Mercado Pago. No almacenamos datos de tarjeta de crédito ni débito; esa información es gestionada exclusivamente por Mercado Pago conforme a sus propias políticas de seguridad (PCI DSS).`,
   },
   {
     id: "derechos",
     icon: UserCheck,
-    title: "6. Derechos del Usuario",
-    content: `Usted tiene derecho a acceder, rectificar, cancelar u oponerse al tratamiento de sus datos personales. Puede ejercer estos derechos contactándonos a través de los canales de soporte.`,
+    title: "6. Tus derechos",
+    content: `Conforme a la Ley 25.326 de Protección de Datos Personales, tenés derecho a acceder, rectificar, actualizar y suprimir tus datos personales. También podés oponerte al tratamiento de tus datos en cualquier momento. Para ejercer estos derechos, contactanos a través de los canales de soporte.`,
+  },
+  {
+    id: "marco-legal",
+    icon: Scale,
+    title: "7. Marco legal",
+    content: `Esta política se rige por las leyes de la República Argentina, en particular:`,
+    list: [
+      {
+        title: "Ley 25.326",
+        desc: "Protección de Datos Personales. Los datos de salud son considerados datos sensibles y requieren consentimiento expreso para su tratamiento.",
+      },
+      {
+        title: "Ley 26.529",
+        desc: "Derechos del Paciente en su Relación con los Profesionales e Instituciones de la Salud. Garantiza el derecho del paciente a acceder a su historia clínica.",
+      },
+    ],
   },
   {
     id: "contacto",
     icon: Mail,
-    title: "7. Contacto",
-    content: `Si tiene alguna pregunta sobre esta Política de Privacidad o el tratamiento de sus datos, puede contactarnos.`,
+    title: "8. Contacto",
+    content: `Si tenés alguna pregunta sobre esta Política de Privacidad o el tratamiento de tus datos, podés contactarnos.`,
     email: privacyEmail,
   },
 ];
@@ -133,7 +159,7 @@ export default function PrivacyPage() {
             </h1>
 
             <p className="text-lg text-muted-foreground">
-              Última actualización: 22 de Diciembre de 2025
+              Última actualización: 18 de Febrero de 2026
             </p>
           </div>
         </div>
@@ -143,7 +169,7 @@ export default function PrivacyPage() {
       <section className="pb-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto space-y-6">
-            {sections.map((section, index) => (
+            {sections.map((section) => (
               <Card
                 key={section.id}
                 id={section.id}

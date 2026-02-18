@@ -12,6 +12,7 @@ import {
   AlertTriangle,
   Scale,
   Mail,
+  Siren,
 } from "lucide-react";
 
 const supportEmail = "soporte@himalayasalud.com.ar";
@@ -20,56 +21,87 @@ const sections = [
   {
     id: "aceptacion",
     icon: ScrollText,
-    title: "1. Aceptación de los Términos",
-    content: `Al descargar, acceder o utilizar la aplicación de Historia Clínica Digital de Himalaya Salud S.A.S. (la "App"), usted acepta estar sujeto a los presentes Términos y Condiciones ("Términos"). Si no está de acuerdo con estos Términos, no utilice la App.`,
+    title: "1. Aceptación de los términos",
+    content: `Al descargar, acceder o utilizar la aplicación Himalaya Salud (la "App"), aceptás estar sujeto a los presentes Términos y Condiciones ("Términos"). Si no estás de acuerdo con estos Términos, no uses la App.`,
   },
   {
     id: "descripcion",
     icon: FileText,
-    title: "2. Descripción del Servicio",
-    content: `La App es una plataforma de software que permite a los usuarios almacenar, gestionar y compartir su información de salud personal ("Historia Clínica Digital"). El servicio se proporciona "tal cual" y está destinado a ser una herramienta de apoyo para el cuidado de la salud, no un sustituto del consejo médico profesional.`,
+    title: "2. Descripción del servicio",
+    content: `Himalaya Salud es una plataforma que ofrece tres funcionalidades principales:`,
+    list: [
+      {
+        title: "Botón de Pánico",
+        desc: "Sistema de alerta de emergencia que envía tu ubicación GPS, una llamada automática y un SMS a tus contactos configurados.",
+      },
+      {
+        title: "Servicios de Salud",
+        desc: "Búsqueda de profesionales de la salud por especialidad, obra social y cercanía, así como farmacias, hospitales y ambulancias cercanas.",
+      },
+      {
+        title: "Portal Paciente",
+        desc: "Espacio personal para subir, organizar y consultar tus estudios médicos (PDF, imágenes) con etiquetas.",
+      },
+    ],
+  },
+  {
+    id: "planes",
+    icon: CreditCard,
+    title: "3. Planes y pagos",
+    content: `El acceso a la App requiere una suscripción activa. Se ofrecen dos planes:`,
+    list: [
+      {
+        title: "Plan Botón de Pánico ($3.000/mes)",
+        desc: "Incluye el sistema de alerta de emergencia con GPS, llamada y SMS a hasta 5 contactos.",
+      },
+      {
+        title: "Plan Estándar ($7.000/mes)",
+        desc: "Incluye todo lo del Plan Botón de Pánico, más búsqueda de profesionales, farmacias e instituciones, y Portal Paciente.",
+      },
+    ],
+    extra: "Los pagos son procesados a través de Mercado Pago. Himalaya Salud no almacena datos de tarjeta. Podés cancelar tu suscripción en cualquier momento desde la App. El primer mes de cualquier plan es gratuito.",
   },
   {
     id: "responsabilidades",
     icon: UserCog,
-    title: "3. Responsabilidades del Usuario",
-    content: `Usted es responsable de:`,
+    title: "4. Responsabilidades del usuario",
+    content: `Como usuario, sos responsable de:`,
     list: [
-      { desc: "Mantener la confidencialidad de las credenciales de su cuenta." },
-      { desc: "La veracidad y exactitud de la información que carga en la App." },
-      { desc: "Utilizar la App de manera lícita y de acuerdo con las indicaciones de sus profesionales de la salud." },
-      { desc: "No utilizar la App para fines de emergencia médica. En caso de una emergencia, contacte a los servicios de emergencia locales." },
+      { desc: "Mantener la confidencialidad de las credenciales de tu cuenta." },
+      { desc: "La veracidad y exactitud de la información que cargás en la App." },
+      { desc: "Verificar que los datos de tus contactos de emergencia estén actualizados." },
+      { desc: "Usar la App de manera lícita y conforme a estos Términos." },
     ],
   },
   {
-    id: "suscripciones",
-    icon: CreditCard,
-    title: "4. Suscripciones y Pagos",
-    content: `El acceso a las funcionalidades de la App requiere una suscripción activa. Las suscripciones se facturan de forma recurrente (mensual o anual) y se gestionan exclusivamente a través de la App Store (Apple) o Play Store (Google). Usted puede cancelar su suscripción en cualquier momento desde la configuración de su cuenta en la tienda de aplicaciones correspondiente.`,
+    id: "emergencias",
+    icon: Siren,
+    title: "5. Botón de Pánico y emergencias",
+    content: `El Botón de Pánico es una herramienta de alerta que notifica a tus contactos de emergencia. No reemplaza a los servicios de emergencia oficiales (107, 911). En caso de una emergencia médica grave, llamá siempre a los servicios de emergencia locales además de usar el Botón de Pánico. Himalaya Salud no garantiza la disponibilidad ininterrumpida del servicio de alertas ni la respuesta de los contactos notificados.`,
   },
   {
     id: "propiedad",
     icon: Copyright,
-    title: "5. Propiedad Intelectual",
-    content: `Himalaya Salud S.A.S. es el propietario exclusivo de la App, el software, el diseño, los logotipos y todo el material relacionado. Se le concede una licencia limitada, no exclusiva y no transferible para usar la App para fines personales y no comerciales, sujeta a estos Términos.`,
+    title: "6. Propiedad intelectual",
+    content: `Himalaya Salud S.A.S. es el propietario exclusivo de la App, el software, el diseño, los logotipos y todo el material relacionado. Se te concede una licencia limitada, no exclusiva y no transferible para usar la App para fines personales y no comerciales, sujeta a estos Términos.`,
   },
   {
     id: "limitacion",
     icon: AlertTriangle,
-    title: "6. Limitación de Responsabilidad",
-    content: `Himalaya Salud S.A.S. no será responsable por daños directos, indirectos, incidentales o consecuentes que resulten del uso o la incapacidad de usar la App. No garantizamos que el servicio sea ininterrumpido o libre de errores.`,
+    title: "7. Limitación de responsabilidad",
+    content: `Himalaya Salud S.A.S. no será responsable por daños directos, indirectos, incidentales o consecuentes que resulten del uso o la incapacidad de usar la App. No garantizamos que el servicio sea ininterrumpido o libre de errores. La información de profesionales de la salud que aparece en Servicios de Salud es provista por los propios profesionales y Himalaya Salud no se hace responsable por su exactitud o vigencia.`,
   },
   {
     id: "ley",
     icon: Scale,
-    title: "7. Ley Aplicable",
-    content: `Estos Términos se regirán e interpretarán de acuerdo con las leyes de la República Argentina, sin tener en cuenta sus conflictos de disposiciones legales.`,
+    title: "8. Ley aplicable",
+    content: `Estos Términos se rigen por las leyes de la República Argentina. Cualquier controversia será sometida a la jurisdicción de los tribunales ordinarios de la Ciudad Autónoma de Buenos Aires.`,
   },
   {
     id: "contacto",
     icon: Mail,
-    title: "8. Contacto",
-    content: `Si tiene alguna pregunta sobre estos Términos y Condiciones, puede contactarnos.`,
+    title: "9. Contacto",
+    content: `Si tenés alguna pregunta sobre estos Términos y Condiciones, podés contactarnos.`,
     email: supportEmail,
   },
 ];
@@ -124,7 +156,7 @@ export default function TermsPage() {
             </h1>
 
             <p className="text-lg text-muted-foreground">
-              Última actualización: 22 de Diciembre de 2025
+              Última actualización: 18 de Febrero de 2026
             </p>
           </div>
         </div>
@@ -134,7 +166,7 @@ export default function TermsPage() {
       <section className="pb-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto space-y-6">
-            {sections.map((section, index) => (
+            {sections.map((section) => (
               <Card
                 key={section.id}
                 id={section.id}
@@ -161,10 +193,23 @@ export default function TermsPage() {
                               className="flex items-start gap-3 text-muted-foreground"
                             >
                               <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 flex-shrink-0" />
-                              <span>{item.desc}</span>
+                              <span>
+                                {"title" in item && item.title && (
+                                  <strong className="text-foreground">
+                                    {item.title}:{" "}
+                                  </strong>
+                                )}
+                                {item.desc}
+                              </span>
                             </li>
                           ))}
                         </ul>
+                      )}
+
+                      {"extra" in section && section.extra && (
+                        <p className="mt-4 text-muted-foreground leading-relaxed">
+                          {section.extra}
+                        </p>
                       )}
 
                       {section.email && (
