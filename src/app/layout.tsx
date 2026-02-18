@@ -3,10 +3,11 @@ import type { Metadata } from "next";
 import { Work_Sans, Open_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { QueryProvider } from "@/lib/query-provider";
+import { AuthProvider } from "@/lib/auth";
 import { OrganizationJsonLd, SoftwareApplicationJsonLd } from "@/components/json-ld";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const workSans = Work_Sans({
@@ -112,11 +113,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1 pt-16">{children}</main>
-            <Footer />
-          </div>
+          <QueryProvider>
+            <AuthProvider>
+              <div className="relative flex min-h-screen flex-col">
+                {children}
+              </div>
+              <Toaster position="top-right" />
+            </AuthProvider>
+          </QueryProvider>
         </ThemeProvider>
         <Suspense fallback={null}>
           <Analytics />
