@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Himalaya Salud · Landing — 3 direcciones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  :root{
+    --teal-700:#0C606E;
+    --teal-900:#073942;
+    --mint-700:#4BA585;
+  }
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;background:#F2EEE3;color:#0E2A30}
+  .lf-page-head{
+    padding:32px 40px 28px;background:#FAF8F4;
+    border-bottom:1px solid rgba(12,96,110,.10);
+    display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;
+  }
+  .lf-page-eyebrow{
+    font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;
+    color:var(--teal-700);display:inline-flex;gap:10px;align-items:center;margin-bottom:12px;
+  }
+  .lf-page-eyebrow::before{content:"";width:18px;height:1.5px;background:var(--mint-700);border-radius:2px}
+  .lf-page-title{font-size:34px;font-weight:700;letter-spacing:-0.025em;line-height:1.1;color:var(--teal-900);margin:0}
+  .lf-page-title em{font-style:normal;color:var(--mint-700)}
+  .lf-page-sub{margin:10px 0 0;color:#37545B;font-size:15px;line-height:1.5;max-width:60ch}
+  .lf-page-meta{display:flex;gap:24px;font-size:12.5px;color:#37545B}
+  .lf-page-meta strong{color:var(--teal-900);font-weight:600;display:block;font-size:13px;margin-bottom:2px}
+  .lf-frame{width:100%;height:100%;border:0;background:#fff;display:block}
+  .lf-direction-pill{
+    display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.12em;
+    padding:4px 10px;border-radius:999px;background:rgba(12,96,110,.08);
+    color:var(--teal-700);text-transform:uppercase;margin-right:8px;
+  }
+  .lf-direction-pill.warm{background:rgba(143,223,161,.18);color:#2D7A60}
+  .lf-direction-pill.dark{background:rgba(7,57,66,.85);color:#fff}
+</style>
+</head>
+<body data-screen-label="Landing — 3 direcciones">
+
+<div class="lf-page-head">
+  <div>
+    <span class="lf-page-eyebrow">Landing page · Himalaya Salud</span>
+    <h1 class="lf-page-title">Cinco direcciones para la <em>landing.</em></h1>
+    <p class="lf-page-sub">
+      Cada artboard es la página completa, navegable. Hacé click en el ícono de fullscreen
+      (esquina superior derecha de cada tarjeta) para verla a tamaño real, o arrastralas para reordenar.
+      Todas usan la app real, copy real (Plan Estándar ARS 15.000, 30 días gratis, HCI próximamente)
+      y los assets oficiales del brand kit. V4 y V5 incluyen la nueva estructura de navegación
+      con sección dedicada a HCI.
+    </p>
+  </div>
+  <div class="lf-page-meta">
+    <div><strong>5</strong>direcciones</div>
+    <div><strong>1</strong>app real</div>
+    <div><strong>1</strong>brand kit</div>
+  </div>
+</div>
+
+<div id="canvas-root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const App = () => (
+  <DesignCanvas storageKey="himalaya-landing-canvas">
+
+    <DCSection
+      id="landings"
+      title="Iteración 1 — Tres direcciones (estructura simple)"
+      subtitle="V1: Producto · V2: Emocional/familia · V3: Editorial/institucional"
+    >
+      <DCArtboard
+        id="v1-producto"
+        label="V1 · Producto / SaaS"
+        width={1320}
+        height={900}
+      >
+        <div style={{padding:"16px 24px",background:"#FAF8F4",borderBottom:"1px solid rgba(12,96,110,.10)",height:80,boxSizing:"border-box"}}>
+          <span className="lf-direction-pill">Dirección 01</span>
+          <span style={{fontSize:13,fontWeight:600,color:"#073942"}}>Producto · SaaS</span>
+          <p style={{fontSize:12.5,color:"#37545B",margin:"6px 0 0",lineHeight:1.4,maxWidth:"80ch"}}>
+            Layout SaaS clásico con foco en el producto. Hero a dos columnas con la mano real, callouts en vivo, features grid con números, sección de cómo funciona en dark teal, testimonios y CTA grande. Aproximación equilibrada — sirve para descarga directa.
+          </p>
+        </div>
+        <iframe className="lf-frame" src="index.html" style={{height:"calc(100% - 80px)"}} />
+      </DCArtboard>
+
+      <DCArtboard
+        id="v2-emocional"
+        label="V2 · Emocional / Familia"
+        width={1320}
+        height={900}
+      >
+        <div style={{padding:"16px 24px",background:"#F8F1E8",borderBottom:"1px solid rgba(12,96,110,.10)",height:80,boxSizing:"border-box"}}>
+          <span className="lf-direction-pill warm">Dirección 02</span>
+          <span style={{fontSize:13,fontWeight:600,color:"#073942"}}>Emocional · Familia</span>
+          <p style={{fontSize:12.5,color:"#37545B",margin:"6px 0 0",lineHeight:1.4,maxWidth:"80ch"}}>
+            Tipografía serif (Fraunces) para emoción, paleta crema cálido + mint, storytelling en tres momentos: cuando vivís lejos, cuando algo pasa, cuando todo está bien. Bubbles flotantes en el hero (“Mamá tomó su remedio ✓”). Mejor para captar interés emocional.
+          </p>
+        </div>
+        <iframe className="lf-frame" src="index-v2.html" style={{height:"calc(100% - 80px)"}} />
+      </DCArtboard>
+
+      <DCArtboard
+        id="v3-editorial"
+        label="V3 · Editorial / Institucional"
+        width={1320}
+        height={900}
+      >
+        <div style={{padding:"16px 24px",background:"#F5F1E6",borderBottom:"1px solid rgba(12,96,110,.10)",height:80,boxSizing:"border-box"}}>
+          <span className="lf-direction-pill dark">Dirección 03</span>
+          <span style={{fontSize:13,fontWeight:600,color:"#073942"}}>Editorial · Institucional · B2B</span>
+          <p style={{fontSize:12.5,color:"#37545B",margin:"6px 0 0",lineHeight:1.4,maxWidth:"80ch"}}>
+            Rejilla editorial visible (estilo NYT/FT), tipografía Fraunces para titulares, alta densidad informativa. Manifiesto, secciones numeradas (§), datos duros, sección B2B explícita (obras sociales / empresas / profesionales). Sobrio y de máxima confianza institucional.
+          </p>
+        </div>
+        <iframe className="lf-frame" src="index-v3.html" style={{height:"calc(100% - 80px)"}} />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection
+      id="landings-v2"
+      title="Iteración 2 — Estructura completa con HCI dedicada"
+      subtitle="Nav: Inicio · Quiénes Somos · Producto · Próximo lanzamiento (HCI) · Contacto"
+    >
+      <DCArtboard
+        id="v4-producto-moderno"
+        label="V4 · Producto-céntrico moderno"
+        width={1320}
+        height={900}
+      >
+        <div style={{padding:"16px 24px",background:"#FAFAF7",borderBottom:"1px solid rgba(12,96,110,.10)",height:80,boxSizing:"border-box"}}>
+          <span className="lf-direction-pill">Dirección 04</span>
+          <span style={{fontSize:13,fontWeight:600,color:"#073942"}}>Producto-céntrico moderno</span>
+          <p style={{fontSize:12.5,color:"#37545B",margin:"6px 0 0",lineHeight:1.4,maxWidth:"80ch"}}>
+            Sans-serif Inter, layout limpio con grid de producto numerado. Hero sobrio, sec. Quiénes Somos con valores en cards, HCI explicada con diagrama radial animado (clínica/lab/médico/obra social/farmacia conectados a vos), formulario de contacto con tipo de consulta. Equilibrio info-densidad y aire.
+          </p>
+        </div>
+        <iframe className="lf-frame" src="index-v4.html" style={{height:"calc(100% - 80px)"}} />
+      </DCArtboard>
+
+      <DCArtboard
+        id="v5-calida-humana"
+        label="V5 · Cálida + humana"
+        width={1320}
+        height={900}
+      >
+        <div style={{padding:"16px 24px",background:"#FBF6EE",borderBottom:"1px solid rgba(12,96,110,.10)",height:80,boxSizing:"border-box"}}>
+          <span className="lf-direction-pill warm">Dirección 05</span>
+          <span style={{fontSize:13,fontWeight:600,color:"#073942"}}>Cálida + humana</span>
+          <p style={{fontSize:12.5,color:"#37545B",margin:"6px 0 0",lineHeight:1.4,maxWidth:"80ch"}}>
+            Fraunces serif + paleta crema/coral, postcards flotantes en el hero (“Mamá tomó su remedio”), Quiénes Somos con foto y stats narrativas. HCI explicada con metafora visual: VOS caminando por el path entre prestadores. Producto en lista editorial numerada en romanos. Máxima calidez emocional.
+          </p>
+        </div>
+        <iframe className="lf-frame" src="index-v5.html" style={{height:"calc(100% - 80px)"}} />
+      </DCArtboard>
+    </DCSection>
+
+  </DesignCanvas>
+);
+
+ReactDOM.createRoot(document.getElementById("canvas-root")).render(<App />);
+</script>
+
+</body>
+</html>
