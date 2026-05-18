@@ -1,23 +1,25 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Work_Sans, Open_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
-import { Header } from "@/components/header";
-import { Footer } from "@/components/footer";
+import { RouteChrome } from "@/components/route-chrome";
 import { ThemeProvider } from "@/components/theme-provider";
 import { OrganizationJsonLd, SoftwareApplicationJsonLd } from "@/components/json-ld";
 import "./globals.css";
 
-const workSans = Work_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-work-sans",
+  weight: ["400", "500", "600", "700", "900"],
+  variable: "--font-inter",
   display: "swap",
 });
 
-const openSans = Open_Sans({
-  subsets: ["latin"],
-  variable: "--font-open-sans",
+const leelawadee = localFont({
+  src: "../../public/fonts/Leelawadee-UI-Bold.ttf",
+  weight: "700",
+  variable: "--font-leelawadee",
   display: "swap",
 });
 
@@ -99,7 +101,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${workSans.variable} ${openSans.variable}`} suppressHydrationWarning>
+    <html lang="es" className={`${inter.variable} ${leelawadee.variable} ${inter.className}`} suppressHydrationWarning>
       <head>
         <OrganizationJsonLd />
         <SoftwareApplicationJsonLd />
@@ -108,14 +110,10 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
+          forcedTheme="light"
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1 pt-16">{children}</main>
-            <Footer />
-          </div>
+          <RouteChrome>{children}</RouteChrome>
         </ThemeProvider>
         <Suspense fallback={null}>
           <Analytics />

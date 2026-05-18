@@ -1,14 +1,30 @@
 import Link from "next/link";
 import Image from "next/image";
-import { HeartPulse, Mail, MapPin, ArrowUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  HeartPulse,
+  Mail,
+  MapPin,
+  MessageCircle,
+  ShieldCheck,
+} from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const whatsappUrl =
+    process.env.NEXT_PUBLIC_WHATSAPP_URL ||
+    "https://wa.me/5493412586887?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta.";
 
   const footerLinks = {
+    producto: [
+      { label: "Pacientes", href: "/#product-discovery" },
+      { label: "Instituciones", href: "/#product-discovery" },
+      { label: "Planes", href: "/#planes" },
+      { label: "FAQ", href: "/faq" },
+    ],
     empresa: [
       { label: "Inicio", href: "/" },
-      { label: "Contacto", href: "/soporte" },
+      { label: "Contacto", href: "/contacto" },
     ],
     legal: [
       { label: "Privacidad", href: "/privacidad" },
@@ -17,17 +33,14 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative bg-gradient-to-b from-background to-muted/50 border-t border-border">
-      {/* Top gradient line */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-
+    <>
+      <footer className="relative bg-card border-t border-border">
       <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-8 lg:gap-10">
           {/* Brand column */}
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-4 lg:col-span-5">
             <Link href="/" className="inline-flex items-center gap-3 group mb-4">
               <div className="relative">
-                <div className="absolute inset-0 bg-primary/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <Image
                   src="/logo-himalaya-salud.svg"
                   alt="Himalaya Salud"
@@ -36,23 +49,22 @@ export function Footer() {
                   className="relative w-9 h-9"
                 />
               </div>
-              <span className="font-bold text-lg bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <span className="font-bold text-lg text-foreground">
                 Himalaya Salud
               </span>
             </Link>
 
-            <p className="text-sm text-muted-foreground mb-6 max-w-xs">
-              Transformamos la gestión de salud digital con tecnología segura,
-              accesible e interoperable.
+            <p className="text-sm text-muted-foreground mb-6 max-w-sm leading-relaxed">
+              Tu salud en tus manos. Una plataforma para que pacientes e instituciones gestionen información médica de forma más simple, segura y ordenada.
             </p>
 
-            <div className="space-y-3">
+            <div className="grid gap-3 text-sm">
               <a
-                href="mailto:info@himalayasalud.com.ar"
+                href="mailto:contacto@himalayasalud.com.ar"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group"
               >
                 <Mail className="w-4 h-4" />
-                <span>info@himalayasalud.com.ar</span>
+                <span>contacto@himalayasalud.com.ar</span>
               </a>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4" />
@@ -61,8 +73,26 @@ export function Footer() {
             </div>
           </div>
 
+          {/* Producto */}
+          <div className="lg:col-span-2">
+            <h4 className="font-semibold text-sm mb-4">Producto</h4>
+            <ul className="space-y-3">
+              {footerLinks.producto.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 group"
+                  >
+                    {link.label}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Empresa */}
-          <div>
+          <div className="lg:col-span-2">
             <h4 className="font-semibold text-sm mb-4">Empresa</h4>
             <ul className="space-y-3">
               {footerLinks.empresa.map((link) => (
@@ -80,7 +110,7 @@ export function Footer() {
           </div>
 
           {/* Legal */}
-          <div>
+          <div className="lg:col-span-1">
             <h4 className="font-semibold text-sm mb-4">Legal</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
@@ -96,6 +126,26 @@ export function Footer() {
               ))}
             </ul>
           </div>
+
+          {/* Support card */}
+          <div className="col-span-2 md:col-span-4 lg:col-span-2">
+            <div className="rounded-3xl border border-border bg-muted/35 p-5">
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <MessageCircle className="h-5 w-5" />
+              </div>
+              <h4 className="font-semibold text-sm mb-2">Atención y soporte</h4>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                Consultas sobre planes, demo institucional o ayuda para usuarios.
+              </p>
+              <Link
+                href="/contacto"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+              >
+                Contactar
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Bottom bar */}
@@ -105,14 +155,31 @@ export function Footer() {
               &copy; {currentYear} Himalaya Salud S.A.S. Todos los derechos reservados.
             </p>
 
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>Hecho con</span>
-              <HeartPulse className="w-4 h-4 text-red-500 animate-pulse" />
-              <span>en Argentina</span>
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-primary" />
+                Datos sensibles, trato responsable
+              </span>
+              <span className="hidden md:inline text-border">|</span>
+              <span className="inline-flex items-center gap-2">
+                <HeartPulse className="w-4 h-4 text-red-500" />
+                Hecho en Argentina
+              </span>
             </div>
           </div>
         </div>
       </div>
     </footer>
+
+      <Link
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Enviar WhatsApp a Himalaya Salud"
+        className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-slate-950/20 transition-transform hover:scale-105"
+      >
+        <MessageCircle className="h-7 w-7" />
+      </Link>
+    </>
   );
 }

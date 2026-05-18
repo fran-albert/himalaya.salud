@@ -15,7 +15,7 @@ import {
   FileText,
 } from "lucide-react";
 
-const privacyEmail = "privacidad@himalayasalud.com.ar";
+const privacyEmail = "contacto@himalayasalud.com.ar";
 
 const sections = [
   {

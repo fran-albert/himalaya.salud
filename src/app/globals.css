@@ -4,39 +4,39 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0); /* White */
-  --foreground: oklch(0.35 0 0); /* Dark gray for text */
-  --card: oklch(0.98 0 0); /* Light gray for card backgrounds */
+  --background: oklch(0.985 0.006 170); /* Clinical off-white */
+  --foreground: oklch(0.23 0.018 210); /* Deep slate text */
+  --card: oklch(1 0 0); /* Crisp white cards */
   --card-foreground: oklch(0.2 0.05 200); /* Dark blue for card titles */
   --popover: oklch(1 0 0); /* White for popups */
-  --popover-foreground: oklch(0.35 0 0); /* Dark gray for popup text */
-  --primary: oklch(0.8 0.1 150); /* Light green #8FDFA1 */
+  --popover-foreground: oklch(0.23 0.018 210); /* Deep slate popup text */
+  --primary: oklch(0.62 0.115 155); /* Calmer clinical green */
   --primary-foreground: oklch(1 0 0); /* White text on primary buttons */
-  --secondary: oklch(0.75 0.08 160); /* Medium green #70C9A6 */
+  --secondary: oklch(0.72 0.075 165); /* Soft teal green */
   --secondary-foreground: oklch(1 0 0); /* White text on secondary buttons */
-  --muted: oklch(0.98 0 0); /* Light gray for muted sections */
-  --muted-foreground: oklch(0.5 0 0); /* Gray for muted text */
-  --accent: oklch(0.35 0.05 200); /* Dark blue #0C606E */
+  --muted: oklch(0.955 0.01 180); /* Quiet clinical surface */
+  --muted-foreground: oklch(0.45 0.02 210); /* Muted slate text */
+  --accent: oklch(0.36 0.06 205); /* Dark blue #0C606E */
   --accent-foreground: oklch(1 0 0); /* White text on accent backgrounds */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0 0); /* Light gray for borders */
-  --input: oklch(0.98 0 0); /* Light gray for input fields */
-  --ring: oklch(0.8 0.1 150); /* Light green for focus rings */
-  --chart-1: oklch(0.75 0.08 160); /* Medium green */
+  --border: oklch(0.88 0.012 185); /* Soft visible borders */
+  --input: oklch(0.97 0.006 180); /* Quiet input fields */
+  --ring: oklch(0.62 0.115 155); /* Clinical green focus rings */
+  --chart-1: oklch(0.72 0.075 165); /* Medium green */
   --chart-2: oklch(0.35 0.05 200); /* Dark blue */
   --chart-3: oklch(0.92 0 0); /* Light gray */
   --chart-4: oklch(1 0 0); /* White */
   --chart-5: oklch(0.98 0 0); /* Light gray */
   --radius: 0.5rem; /* Rounded corners */
   --sidebar: oklch(1 0 0);
-  --sidebar-foreground: oklch(0.35 0 0);
-  --sidebar-primary: oklch(0.75 0.08 160);
+  --sidebar-foreground: oklch(0.23 0.018 210);
+  --sidebar-primary: oklch(0.72 0.075 165);
   --sidebar-primary-foreground: oklch(1 0 0);
   --sidebar-accent: oklch(0.35 0.05 200);
   --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.92 0 0);
-  --sidebar-ring: oklch(0.8 0.1 150);
+  --sidebar-border: oklch(0.88 0.012 185);
+  --sidebar-ring: oklch(0.62 0.115 155);
 }
 
 .dark {
@@ -335,16 +335,16 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: oklch(0.98 0 0);
+  background: oklch(0.955 0.01 180);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.8 0.1 150);
+  background: oklch(0.62 0.115 155);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.75 0.08 160);
+  background: oklch(0.56 0.12 155);
 }
 
 /* FadeInUp animation for cards */

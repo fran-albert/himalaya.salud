@@ -13,7 +13,7 @@ export function OrganizationJsonLd() {
     },
     contactPoint: {
       "@type": "ContactPoint",
-      email: "info@himalayasalud.com.ar",
+      email: "contacto@himalayasalud.com.ar",
       contactType: "customer service",
       availableLanguage: ["Spanish"],
     },

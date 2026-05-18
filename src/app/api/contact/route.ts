@@ -15,7 +15,14 @@ const transporter = nodemailer.createTransport({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, subject, message } = body;
+    const { name, email, subject, message, type } = body;
+
+    const typeLabels: Record<string, string> = {
+      paciente: "Paciente",
+      institucion: "Institución de salud",
+      empresa: "Empresa (plan empresas)",
+    };
+    const typeLabel = typeLabels[type as string] ?? "Sin especificar";
 
     // Validación
     if (!name || !email || !subject || !message) {
@@ -38,7 +45,7 @@ export async function POST(request: NextRequest) {
       from: `"Himalaya Salud" <${process.env.SMTP_USER}>`,
       to: process.env.CONTACT_EMAIL,
       replyTo: email,
-      subject: `[Soporte] ${subject}`,
+      subject: `[Soporte · ${typeLabel}] ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #8FDFA1, #70C9A6); padding: 20px; border-radius: 10px 10px 0 0;">
@@ -47,6 +54,7 @@ export async function POST(request: NextRequest) {
           <div style="padding: 30px; background: #f9f9f9; border-radius: 0 0 10px 10px;">
             <p><strong>Nombre:</strong> ${name}</p>
             <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            <p><strong>Tipo de contacto:</strong> ${typeLabel}</p>
             <p><strong>Asunto:</strong> ${subject}</p>
             <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
             <p><strong>Mensaje:</strong></p>
