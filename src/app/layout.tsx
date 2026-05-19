@@ -1,5 +1,5 @@
 import type React from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
@@ -24,6 +24,15 @@ const leelawadee = localFont({
 });
 
 const siteUrl = "https://www.himalayasalud.com.ar";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#0C606E",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

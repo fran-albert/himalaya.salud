@@ -15,6 +15,7 @@ import {
   Briefcase,
 } from "lucide-react";
 import { BRAND, SHADOW } from "@/lib/brand-tokens";
+import { FEATURES } from "@/lib/feature-flags";
 
 export default function ContactPage() {
   const contactEmail = "contacto@himalayasalud.com.ar";
@@ -22,6 +23,7 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     type: "paciente",
     subject: "",
     message: "",
@@ -37,7 +39,7 @@ export default function ContactPage() {
         type: "empresa",
         subject: p.subject || "Consulta — Plan empresas",
       }));
-    } else if (tipo === "institucion") {
+    } else if (tipo === "institucion" && FEATURES.instituciones) {
       setFormData((p) => ({
         ...p,
         type: "institucion",
@@ -69,7 +71,7 @@ export default function ContactPage() {
         audience: formData.type,
       });
       setStatus("success");
-      setFormData({ name: "", email: "", type: "paciente", subject: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", type: "paciente", subject: "", message: "" });
     } catch (error) {
       setStatus("error");
       setErrorMessage(error instanceof Error ? error.message : "Error al enviar el mensaje");
@@ -127,7 +129,7 @@ export default function ContactPage() {
                   className="text-base md:text-lg leading-relaxed"
                   style={{ color: BRAND.textBody }}
                 >
-                  ¿Tenés consultas sobre nuestros planes o querés implementar Himalaya en tu institución? Escribinos y un asesor te contactará a la brevedad.
+                  ¿Tenés consultas sobre el Plan Emergencia{FEATURES.instituciones ? " o querés implementar Himalaya en tu institución" : ""}? Escribinos y un asesor te contactará a la brevedad.
                 </p>
               </div>
 
@@ -293,11 +295,53 @@ export default function ContactPage() {
                       </div>
 
                       <div>
+                        <label htmlFor="phone" style={labelStyle}>
+                          Teléfono{" "}
+                          <span
+                            style={{
+                              color: BRAND.textCaption,
+                              fontWeight: 500,
+                            }}
+                          >
+                            (opcional)
+                          </span>
+                        </label>
+                        <input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
+                          placeholder="+54 9 341 123 4567"
+                          value={formData.phone}
+                          onChange={handleChange}
+                          disabled={status === "loading"}
+                          style={inputStyle}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = BRAND.teal700;
+                            e.currentTarget.style.boxShadow = `0 0 0 3px ${BRAND.teal50}`;
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = BRAND.teal50;
+                            e.currentTarget.style.boxShadow = "none";
+                          }}
+                        />
+                      </div>
+
+                      <div>
                         <span style={labelStyle}>¿Cómo podemos ayudarte?</span>
-                        <div className="grid grid-cols-3 gap-3">
+                        <div
+                          className={
+                            FEATURES.instituciones
+                              ? "grid grid-cols-3 gap-3"
+                              : "grid grid-cols-2 gap-3"
+                          }
+                        >
                           {[
                             { value: "paciente", label: "Paciente", Icon: User },
-                            { value: "institucion", label: "Institución", Icon: Building2 },
+                            ...(FEATURES.instituciones
+                              ? [{ value: "institucion", label: "Institución", Icon: Building2 }]
+                              : []),
                             { value: "empresa", label: "Empresa", Icon: Briefcase },
                           ].map(({ value, label, Icon }) => {
                             const active = formData.type === value;
@@ -332,7 +376,7 @@ export default function ContactPage() {
                         <input
                           id="subject"
                           name="subject"
-                          placeholder="Ej: Consulta sobre el Plan Estándar"
+                          placeholder="Ej: Consulta sobre el Plan Emergencia"
                           value={formData.subject}
                           onChange={handleChange}
                           required

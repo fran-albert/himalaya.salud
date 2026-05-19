@@ -15,7 +15,8 @@ const transporter = nodemailer.createTransport({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, subject, message, type } = body;
+    const { name, email, phone, subject, message, type } = body;
+    const phoneClean = typeof phone === "string" ? phone.trim() : "";
 
     const typeLabels: Record<string, string> = {
       paciente: "Paciente",
@@ -54,6 +55,7 @@ export async function POST(request: NextRequest) {
           <div style="padding: 30px; background: #f9f9f9; border-radius: 0 0 10px 10px;">
             <p><strong>Nombre:</strong> ${name}</p>
             <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            ${phoneClean ? `<p><strong>Teléfono:</strong> ${phoneClean}</p>` : ""}
             <p><strong>Tipo de contacto:</strong> ${typeLabel}</p>
             <p><strong>Asunto:</strong> ${subject}</p>
             <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">

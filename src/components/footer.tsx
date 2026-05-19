@@ -17,9 +17,8 @@ export function Footer() {
 
   const footerLinks = {
     producto: [
-      { label: "Pacientes", href: "/#product-discovery" },
-      { label: "Instituciones", href: "/#product-discovery" },
-      { label: "Planes", href: "/#planes" },
+      { label: "Plan Emergencia", href: "/#planes" },
+      { label: "Botón de emergencia", href: "/#emergencia" },
       { label: "FAQ", href: "/faq" },
     ],
     empresa: [
@@ -55,7 +54,7 @@ export function Footer() {
             </Link>
 
             <p className="text-sm text-muted-foreground mb-6 max-w-sm leading-relaxed">
-              Tu salud en tus manos. Una plataforma para que pacientes e instituciones gestionen información médica de forma más simple, segura y ordenada.
+              Tu salud en tus manos. Con un toque, tu celular pide ayuda por vos y avisa a tus contactos de confianza. Para que vos y tu familia estén preparados ante una emergencia.
             </p>
 
             <div className="grid gap-3 text-sm">
@@ -135,7 +134,7 @@ export function Footer() {
               </div>
               <h4 className="font-semibold text-sm mb-2">Atención y soporte</h4>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Consultas sobre planes, demo institucional o ayuda para usuarios.
+                Consultas sobre el Plan Emergencia, planes para empresas o ayuda para usuarios.
               </p>
               <Link
                 href="/contacto"

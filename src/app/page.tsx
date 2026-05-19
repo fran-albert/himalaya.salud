@@ -1,65 +1,115 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { track } from "@vercel/analytics";
 import {
   Activity,
+  Ambulance,
   ArrowRight,
+  Bone,
   Building2,
   Check,
   CreditCard,
   FileText,
+  FlaskConical,
   HeartPulse,
   Mail,
   MapPin,
   MessageCircle,
+  Pill,
   ShieldAlert,
   ShieldCheck,
+  Smile,
   Sparkles,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { BRAND, SHADOW } from "@/lib/brand-tokens";
+import { FEATURES } from "@/lib/feature-flags";
 
 const C = BRAND;
 
-type Producto = {
+type ProductoTab = {
+  id: string;
   icon: LucideIcon;
+  tab: string;
   title: string;
   desc: string;
+  features: string[];
+  image: string;
+  imageAlt: string;
 };
 
-const productos: Producto[] = [
+const productosTabs: ProductoTab[] = [
   {
+    id: "panico",
     icon: ShieldAlert,
-    title: "Botón de pánico",
-    desc: "Mantené presionado 3 segundos y avisamos a tus contactos de confianza con tu ubicación y datos médicos relevantes.",
+    tab: "Botón de emergencia",
+    title: "Pedí ayuda con un solo toque",
+    desc: "Una emergencia no avisa. Mantené presionado 3 segundos y tu celular actúa por vos.",
+    features: [
+      "Avisa a tus 3 contactos de confianza con tu ubicación GPS exacta",
+      "Comparte tu info médica por WhatsApp al instante",
+      "Funciona aunque tengas la app cerrada",
+      "Pensado para vos y para toda tu familia",
+    ],
+    image: "/images/app/showcase-sos.png",
+    imageAlt: "Pantalla del botón de emergencia de Himalaya Salud",
   },
   {
+    id: "portal",
     icon: FileText,
-    title: "Portal del paciente",
-    desc: "Subí estudios, análisis, recetas e imágenes médicas sin límites. Etiquetá y encontrá todo en segundos.",
+    tab: "Portal del paciente",
+    title: "Tu información médica, siempre con vos",
+    desc: "Llevá estudios, análisis y recetas en el bolsillo, listos para cualquier consulta.",
+    features: [
+      "Subí estudios, análisis, recetas e imágenes sin límite",
+      "Etiquetá y encontrá cualquier documento en segundos",
+      "Compartilo con tu médico cuando lo necesites",
+      "Disponible para vos y los tuyos",
+    ],
+    image: "/images/app/showcase-portal.jpg",
+    imageAlt: "Portal del paciente de Himalaya Salud",
   },
   {
-    icon: MapPin,
-    title: "Servicios de salud",
-    desc: "Salud cerca tuyo en todo el país, geolocalizada y con ruta en Google Maps.",
-  },
-  {
+    id: "mediciones",
     icon: Activity,
-    title: "Mis mediciones",
-    desc: "Registrá presión, glucemia, peso y más. Seguí tu evolución en el tiempo con un historial claro.",
+    tab: "Mis mediciones",
+    title: "Seguí tu salud en el tiempo",
+    desc: "Presión, glucemia, peso y más, con un historial claro que entendés de un vistazo.",
+    features: [
+      "Cargá tus valores en segundos",
+      "Visualizá tu evolución con gráficos simples",
+      "Detectá tendencias antes de que sean un problema",
+      "Llevá el control de toda la familia",
+    ],
+    image: "/images/app/showcase-mediciones.jpg",
+    imageAlt: "Dashboard de mediciones de Himalaya Salud",
+  },
+  {
+    id: "servicios",
+    icon: MapPin,
+    tab: "Servicios de salud",
+    title: "Salud cerca tuyo, en todo el país",
+    desc: "Encontrá lo que necesitás, geolocalizado y con la ruta directa en Google Maps.",
+    features: [
+      "Buscá por especialidad o necesidad",
+      "Filtrá por obra social y cercanía",
+      "Abrí la ruta directo en Google Maps",
+    ],
+    image: "/images/app/showcase-servicios.jpg",
+    imageAlt: "Mapa de servicios de salud de Himalaya Salud",
   },
 ];
 
-const serviciosCategorias = [
-  "Instituciones médicas",
-  "Kinesiólogos",
-  "Odontólogos",
-  "Laboratorios",
-  "Farmacias",
-  "Ambulancias",
+const serviciosCategorias: { icon: LucideIcon; label: string }[] = [
+  { icon: Building2, label: "Instituciones médicas" },
+  { icon: Bone, label: "Kinesiólogos" },
+  { icon: Smile, label: "Odontólogos" },
+  { icon: FlaskConical, label: "Laboratorios" },
+  { icon: Pill, label: "Farmacias" },
+  { icon: Ambulance, label: "Ambulancias" },
 ];
 
 const sosSteps = [
@@ -70,21 +120,16 @@ const sosSteps = [
   },
   {
     n: "2",
-    title: "Llama al 911",
-    desc: "Llamada automática al servicio de emergencias.",
-  },
-  {
-    n: "3",
     title: "Avisa a tus 3 contactos",
     desc: "Las personas de confianza que vos elegís.",
   },
   {
-    n: "4",
+    n: "3",
     title: "Manda tu info por WhatsApp",
     desc: "A tu médico, institución o ambulancia.",
   },
   {
-    n: "5",
+    n: "4",
     title: "Comparte tus datos de salud",
     desc: "Grupo sanguíneo, alergias, medicación y antecedentes.",
   },
@@ -100,7 +145,7 @@ const infoMedicaChips = [
 ];
 
 const planIncluye = [
-  "Botón de pánico — 4 activaciones por mes",
+  "Botón de emergencia — 4 activaciones por mes",
   "Portal del paciente sin límites de almacenamiento",
   "Servicios de salud geolocalizados",
   "Mis mediciones con historial completo",
@@ -141,6 +186,7 @@ function Eyebrow({ children, color }: { children: React.ReactNode; color?: strin
 
 export default function Home() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -193,10 +239,12 @@ export default function Home() {
       {/* ——— 1. Inicio ——— */}
       <section
         id="inicio"
-        style={{ position: "relative", overflow: "hidden", padding: "112px 0 96px" }}
+        className="pt-24 pb-16 md:pt-28 md:pb-24"
+        style={{ position: "relative", overflow: "hidden" }}
       >
         <div
           aria-hidden
+          className="blob-rotate"
           style={{
             position: "absolute",
             left: "-18%",
@@ -211,8 +259,8 @@ export default function Home() {
           className="container mx-auto px-4"
           style={{ position: "relative", zIndex: 1 }}
         >
-          <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
-            <div>
+          <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-[1.1fr_1fr]">
+            <div className="stagger">
               <Eyebrow>Tu salud en tus manos · Prevención digital</Eyebrow>
               <h1
                 className="mt-6 text-4xl font-extrabold sm:text-5xl lg:text-6xl"
@@ -229,33 +277,33 @@ export default function Home() {
                 className="mt-6 max-w-xl text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.55 }}
               >
-                Un botón de pánico que avisa a tu familia, tus estudios médicos
+                Un botón de emergencia que avisa a tu familia, tus estudios médicos
                 ordenados y los servicios de salud cerca tuyo. Todo en una sola
                 app, pensada para Argentina.
               </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link
                   href="#planes"
                   onClick={() => track("home_cta_hero_probar")}
-                  className="inline-flex items-center gap-2 text-sm font-semibold transition-all"
+                  className="inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all sm:w-auto sm:justify-start"
                   style={{
                     backgroundColor: C.teal700,
                     color: "#FFFFFF",
-                    padding: "13px 22px",
+                    padding: "14px 22px",
                     borderRadius: 8,
                     boxShadow: SHADOW.card,
                   }}
                 >
-                  Probar 30 días gratis
+                  Probar la app
                   <ArrowRight size={16} />
                 </Link>
                 <Link
                   href="#producto"
-                  className="inline-flex items-center gap-2 text-sm font-semibold transition-all"
+                  className="inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all sm:w-auto sm:justify-start"
                   style={{
                     backgroundColor: "transparent",
                     color: C.teal700,
-                    padding: "13px 22px",
+                    padding: "14px 22px",
                     borderRadius: 8,
                     border: `1.5px solid ${C.teal50}`,
                   }}
@@ -263,11 +311,6 @@ export default function Home() {
                   Ver producto
                 </Link>
               </div>
-              <p className="mt-4 text-xs" style={{ color: C.textCaption }}>
-                Sin tarjeta para empezar · Después ARS&nbsp;15.000/mes ·
-                cancelás cuando quieras
-              </p>
-
               <div
                 className="mt-9 flex items-center gap-6 pt-6"
                 style={{ borderTop: `1px solid ${C.teal50}` }}
@@ -290,39 +333,55 @@ export default function Home() {
                     <div>avisa a tus contactos</div>
                   </div>
                 </div>
-                <div
-                  style={{ width: 1, height: 36, backgroundColor: C.teal50 }}
-                />
-                <div className="flex items-center gap-3">
-                  <strong
-                    style={{
-                      fontSize: 30,
-                      fontWeight: 800,
-                      color: C.teal700,
-                      lineHeight: 1,
-                    }}
-                  >
-                    HCI
-                  </strong>
-                  <div className="text-xs" style={{ color: C.textCaption }}>
-                    <div style={{ fontWeight: 600, color: C.textBody }}>
-                      muy pronto
+                {FEATURES.hci && (
+                  <>
+                    <div
+                      style={{
+                        width: 1,
+                        height: 36,
+                        backgroundColor: C.teal50,
+                      }}
+                    />
+                    <div className="flex items-center gap-3">
+                      <strong
+                        style={{
+                          fontSize: 30,
+                          fontWeight: 800,
+                          color: C.teal700,
+                          lineHeight: 1,
+                        }}
+                      >
+                        HCI
+                      </strong>
+                      <div
+                        className="text-xs"
+                        style={{ color: C.textCaption }}
+                      >
+                        <div style={{ fontWeight: 600, color: C.textBody }}>
+                          muy pronto
+                        </div>
+                        <div>historia clínica interoperable</div>
+                      </div>
                     </div>
-                    <div>historia clínica interoperable</div>
-                  </div>
-                </div>
+                  </>
+                )}
               </div>
             </div>
 
-            <div className="relative flex items-center justify-center">
+            <div className="relative flex items-center justify-center lg:mt-12">
               <Image
-                src="/images/app/hero-inicio.png"
+                src="/images/app/hero-inicio.jpg"
                 alt="App Himalaya Salud en la pantalla de inicio"
-                width={1350}
-                height={2652}
+                width={1206}
+                height={2474}
                 priority
-                className="h-auto w-[260px] sm:w-[300px]"
-                style={{ filter: `drop-shadow(${SHADOW.hero})` }}
+                sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 300px"
+                className="float-y h-auto w-[220px] sm:w-[260px] lg:w-[300px]"
+                style={{
+                  borderRadius: 28,
+                  border: `1px solid ${C.teal50}`,
+                  boxShadow: SHADOW.hero,
+                }}
               />
               <div
                 className="absolute right-0 top-16 flex items-center gap-3"
@@ -398,16 +457,16 @@ export default function Home() {
       {/* ——— 2. Quiénes somos ——— */}
       <section
         id="quienes"
+        className="py-14 md:py-24"
         style={{
           backgroundColor: C.bgSecondary,
           borderTop: `1px solid ${C.teal50}`,
           borderBottom: `1px solid ${C.teal50}`,
-          padding: "88px 0",
         }}
       >
         <div className="container mx-auto px-4">
-          <div className="grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
-            <div>
+          <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-[1fr_1fr]">
+            <div className="stagger">
               <Eyebrow>Quiénes somos</Eyebrow>
               <h2
                 className="mt-4 text-3xl font-extrabold sm:text-4xl"
@@ -456,9 +515,9 @@ export default function Home() {
       </section>
 
       {/* ——— 3. Producto ——— */}
-      <section id="producto" style={{ padding: "96px 0" }}>
+      <section id="producto" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="mb-12 max-w-2xl">
+          <div className="stagger mb-12 max-w-2xl">
             <Eyebrow>Producto</Eyebrow>
             <h2
               className="mt-4 text-3xl font-extrabold sm:text-4xl"
@@ -479,98 +538,191 @@ export default function Home() {
               importante a un toque.
             </p>
           </div>
+          {/* Tabs */}
           <div
-            className="grid overflow-hidden sm:grid-cols-2 lg:grid-cols-4"
-            style={{
-              gap: 1,
-              backgroundColor: C.teal50,
-              border: `1px solid ${C.teal50}`,
-              borderRadius: 16,
-            }}
+            className="grid grid-cols-2 gap-2 sm:gap-3 lg:flex lg:flex-wrap lg:justify-center"
+            role="tablist"
+            aria-label="Productos de Himalaya Salud"
           >
-            {productos.map((p) => {
+            {productosTabs.map((p, i) => {
               const Icon = p.icon;
+              const isActive = i === activeTab;
               return (
-                <div
-                  key={p.title}
-                  className="flex flex-col gap-4 lift"
+                <button
+                  key={p.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveTab(i)}
+                  className="flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all lg:inline-flex lg:w-auto lg:flex-shrink-0 lg:justify-start"
                   style={{
-                    backgroundColor: "#FFFFFF",
-                    padding: "32px 28px",
-                    minHeight: 240,
+                    padding: "11px 18px",
+                    borderRadius: 999,
+                    backgroundColor: isActive ? C.teal700 : C.bg,
+                    color: isActive ? "#FFFFFF" : C.textCaption,
+                    border: `1px solid ${isActive ? C.teal700 : C.teal50}`,
+                    boxShadow: isActive ? SHADOW.card : "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.backgroundColor = C.mint50;
+                      e.currentTarget.style.color = C.teal700;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.backgroundColor = C.bg;
+                      e.currentTarget.style.color = C.textCaption;
+                    }
                   }}
                 >
-                  <span
-                    className="flex items-center justify-center"
-                    style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: 14,
-                      backgroundColor: C.mint50,
-                      color: C.teal700,
-                    }}
-                  >
-                    <Icon size={24} />
-                  </span>
-                  <h3
-                    className="mt-auto text-xl font-bold"
-                    style={{ color: C.teal900, letterSpacing: "-0.015em" }}
-                  >
-                    {p.title}
-                  </h3>
-                  <p
-                    className="text-sm"
-                    style={{ color: C.textCaption, lineHeight: 1.55 }}
-                  >
-                    {p.desc}
-                  </p>
-                </div>
+                  <Icon size={17} />
+                  {p.tab}
+                </button>
               );
             })}
           </div>
 
-          <div
-            className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center"
-          >
-            <span
-              className="text-xs font-bold uppercase"
-              style={{ letterSpacing: "1.4px", color: C.textCaption }}
-            >
-              Servicios de salud incluye
-            </span>
-            <div className="flex flex-wrap justify-center gap-2">
-              {serviciosCategorias.map((cat) => (
-                <span
-                  key={cat}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium"
-                  style={{
-                    backgroundColor: C.mint50,
-                    color: C.mint900,
-                    padding: "6px 14px",
-                    borderRadius: 999,
-                  }}
-                >
-                  <MapPin size={13} />
-                  {cat}
-                </span>
-              ))}
-            </div>
-          </div>
+          {/* Panel */}
+          {(() => {
+            const p = productosTabs[activeTab];
+            const Icon = p.icon;
+            const esServicios = p.id === "servicios";
+            return (
+              <div
+                key={p.id}
+                className="tab-panel mt-8 grid items-center gap-8 overflow-hidden p-6 sm:p-8 md:gap-10 lg:grid-cols-2 lg:p-10"
+                style={{
+                  backgroundColor: C.bg,
+                  border: `1px solid ${C.teal50}`,
+                  borderRadius: 24,
+                  boxShadow: SHADOW.card,
+                }}
+              >
+                <div className="relative flex min-h-[300px] items-center justify-center lg:min-h-[360px]">
+                  <div
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      width: 360,
+                      height: 360,
+                      borderRadius: "50%",
+                      background: `radial-gradient(circle, ${C.mint50} 0%, transparent 70%)`,
+                    }}
+                  />
+                  <Image
+                    src={p.image}
+                    alt={p.imageAlt}
+                    width={900}
+                    height={1600}
+                    sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 280px"
+                    className="tab-img h-auto w-[220px] sm:w-[260px] lg:w-[280px]"
+                    style={{
+                      position: "relative",
+                      zIndex: 1,
+                      borderRadius: 22,
+                      border: `1px solid ${C.teal50}`,
+                      boxShadow: SHADOW.hero,
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <span
+                    className="inline-flex items-center justify-center"
+                    style={{
+                      width: 52,
+                      height: 52,
+                      borderRadius: 16,
+                      backgroundColor: C.mint50,
+                      color: C.teal700,
+                    }}
+                  >
+                    <Icon size={26} />
+                  </span>
+                  <h3
+                    className="mt-5 text-2xl font-extrabold sm:text-3xl"
+                    style={{ color: C.teal900, letterSpacing: "-0.02em" }}
+                  >
+                    {p.title}
+                  </h3>
+                  <p
+                    className="mt-3 text-lg"
+                    style={{ color: C.textCaption, lineHeight: 1.55 }}
+                  >
+                    {p.desc}
+                  </p>
+                  <ul className="mt-6 grid gap-3">
+                    {p.features.map((f, fi) => (
+                      <li
+                        key={f}
+                        className="tab-feat flex items-start gap-3"
+                        style={{ animationDelay: `${120 + fi * 80}ms` }}
+                      >
+                        <span
+                          className="flex flex-shrink-0 items-center justify-center"
+                          style={{
+                            width: 24,
+                            height: 24,
+                            borderRadius: "50%",
+                            backgroundColor: C.mint50,
+                            color: C.mint700,
+                            marginTop: 1,
+                          }}
+                        >
+                          <Check size={14} strokeWidth={3} />
+                        </span>
+                        <span
+                          className="text-base"
+                          style={{ color: C.textBody, lineHeight: 1.5 }}
+                        >
+                          {f}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {esServicios && (
+                    <div className="mt-7 flex flex-wrap gap-2">
+                      {serviciosCategorias.map((cat, ci) => {
+                        const CatIcon = cat.icon;
+                        return (
+                          <span
+                            key={cat.label}
+                            className="tab-feat inline-flex items-center gap-1.5 text-sm font-semibold"
+                            style={{
+                              backgroundColor: C.mint50,
+                              color: C.teal900,
+                              padding: "7px 14px",
+                              borderRadius: 999,
+                              animationDelay: `${360 + ci * 60}ms`,
+                            }}
+                          >
+                            <CatIcon size={14} style={{ color: C.teal700 }} />
+                            {cat.label}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
-      {/* ——— 4. Botón de pánico ——— */}
+      {/* ——— 4. Botón de emergencia ——— */}
       <section
         id="emergencia"
+        className="py-16 md:py-24"
         style={{
           background: `linear-gradient(180deg, ${C.bg} 0%, #FFF5F5 100%)`,
-          padding: "96px 0",
         }}
       >
         <div className="container mx-auto px-4">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <Eyebrow color={C.danger}>Botón de pánico</Eyebrow>
+          <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-2">
+            <div className="stagger">
+              <Eyebrow color={C.danger}>Botón de emergencia</Eyebrow>
               <h2
                 className="mt-4 text-3xl font-extrabold sm:text-4xl"
                 style={{
@@ -594,7 +746,7 @@ export default function Home() {
                 className="mt-8 text-xs font-bold uppercase"
                 style={{ letterSpacing: "1.6px", color: C.danger }}
               >
-                Un toque, 5 acciones automáticas
+                Un toque, 4 acciones automáticas
               </p>
               <ol className="mt-5 grid gap-0">
                 {sosSteps.map((step, i) => (
@@ -652,7 +804,8 @@ export default function Home() {
                 className="mt-8 text-lg font-semibold"
                 style={{ color: C.teal900, lineHeight: 1.45 }}
               >
-                No podés evitar que pase. Sí podés estar preparado —{" "}
+                No podés evitar que pase una emergencia. Sí podés estar
+                preparado —{" "}
                 <span style={{ color: C.mint700 }}>vos y tu familia</span>.
               </p>
             </div>
@@ -660,24 +813,28 @@ export default function Home() {
             <div className="relative flex items-center justify-center">
               <div
                 aria-hidden
+                className="pulse-blob"
                 style={{
                   position: "absolute",
                   width: 440,
                   height: 440,
                   borderRadius: "50%",
-                  background: `radial-gradient(circle, ${C.danger}1A 0%, ${C.danger}05 60%, transparent 80%)`,
+                  background: `radial-gradient(circle, ${C.danger}26 0%, ${C.danger}08 60%, transparent 80%)`,
                 }}
               />
               <Image
                 src="/images/app/sos-panico.png"
-                alt="Pantalla del botón de pánico de Himalaya Salud"
-                width={1000}
-                height={1800}
-                className="h-auto w-[280px] sm:w-[320px]"
+                alt="Pantalla del botón de emergencia de Himalaya Salud"
+                width={1206}
+                height={2452}
+                sizes="(max-width: 640px) 240px, (max-width: 1024px) 280px, 320px"
+                className="float-y h-auto w-[240px] sm:w-[280px] lg:w-[320px]"
                 style={{
                   position: "relative",
                   zIndex: 1,
-                  filter: `drop-shadow(${SHADOW.hero})`,
+                  borderRadius: 28,
+                  border: `1px solid ${C.teal50}`,
+                  boxShadow: SHADOW.hero,
                 }}
               />
             </div>
@@ -687,10 +844,10 @@ export default function Home() {
 
       {/* ——— 4b. Tu info médica ——— */}
       <section
+        className="py-16 md:py-24"
         style={{
           backgroundColor: C.teal900,
           color: "#FFFFFF",
-          padding: "96px 0",
           position: "relative",
           overflow: "hidden",
         }}
@@ -710,7 +867,7 @@ export default function Home() {
           className="container mx-auto px-4"
           style={{ position: "relative", zIndex: 1 }}
         >
-          <div className="mx-auto max-w-3xl text-center">
+          <div className="stagger mx-auto max-w-3xl text-center">
             <span
               className="mx-auto flex items-center justify-center"
               style={{
@@ -776,10 +933,11 @@ export default function Home() {
       {/* ——— 5. Planes ——— */}
       <section
         id="planes"
-        style={{ backgroundColor: C.bgSecondary, padding: "96px 0" }}
+        className="py-16 md:py-24"
+        style={{ backgroundColor: C.bgSecondary }}
       >
         <div className="container mx-auto px-4">
-          <div className="mb-12 text-center">
+          <div className="stagger mb-12 text-center">
             <Eyebrow>Planes</Eyebrow>
             <h2
               className="mt-4 text-3xl font-extrabold sm:text-4xl"
@@ -794,12 +952,11 @@ export default function Home() {
           </div>
 
           <div
-            className="mx-auto max-w-lg lift"
+            className="stagger mx-auto max-w-lg p-7 md:p-10 lift"
             style={{
               backgroundColor: "#FFFFFF",
               border: `1px solid ${C.teal50}`,
               borderRadius: 24,
-              padding: 40,
               boxShadow: SHADOW.cardHover,
             }}
           >
@@ -826,29 +983,6 @@ export default function Home() {
                 Disponible
               </span>
             </div>
-
-            <div className="mt-6 flex items-end gap-2">
-              <span
-                style={{
-                  fontSize: 44,
-                  fontWeight: 800,
-                  color: C.teal900,
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1,
-                }}
-              >
-                ARS&nbsp;15.000
-              </span>
-              <span
-                className="pb-1 text-sm"
-                style={{ color: C.textCaption }}
-              >
-                /mes
-              </span>
-            </div>
-            <p className="mt-2 text-sm" style={{ color: C.mint900 }}>
-              30 días gratis · sin tarjeta · cancelás cuando quieras
-            </p>
 
             <ul
               className="mt-7 grid gap-3"
@@ -902,140 +1036,143 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ——— 6. Próximo lanzamiento — HCI ——— */}
-      <section
-        id="hci"
-        style={{
-          backgroundColor: C.teal900,
-          color: "#FFFFFF",
-          padding: "96px 0",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          aria-hidden
+      {/* ——— 6. Próximo lanzamiento — HCI (gated por feature flag) ——— */}
+      {FEATURES.hci && (
+        <section
+          id="hci"
+          className="py-16 md:py-24"
           style={{
-            position: "absolute",
-            right: "-10%",
-            top: "-20%",
-            width: "50%",
-            height: "80%",
-            background: `radial-gradient(ellipse at center, ${C.mint500}26 0%, transparent 60%)`,
+            backgroundColor: C.teal900,
+            color: "#FFFFFF",
+            position: "relative",
+            overflow: "hidden",
           }}
-        />
-        <div
-          className="container mx-auto px-4"
-          style={{ position: "relative", zIndex: 1 }}
         >
-          <div className="mx-auto max-w-3xl text-center">
-            <span
-              className="inline-flex items-center gap-2"
-              style={{
-                fontSize: 10,
-                fontWeight: 700,
-                letterSpacing: "1.4px",
-                textTransform: "uppercase",
-                backgroundColor: "rgba(255,255,255,0.1)",
-                color: C.verdeClaro,
-                padding: "6px 12px",
-                borderRadius: 999,
-              }}
-            >
-              <Sparkles size={13} />
-              Próximo lanzamiento · Muy pronto
-            </span>
-            <h2
-              className="mt-6 text-3xl font-extrabold sm:text-4xl"
-              style={{
-                color: "#FFFFFF",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.1,
-              }}
-            >
-              Historia Clínica{" "}
-              <span style={{ color: C.verdeClaro }}>Interoperable</span>.
-            </h2>
-            <p
-              className="mx-auto mt-5 max-w-xl text-lg"
-              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
-            >
-              Tu historia clínica completa, accesible y portable entre
-              instituciones de salud. Una sola información médica que llevás
-              con vos, siempre con tu permiso explícito.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ——— 7. Instituciones ——— */}
-      <section id="instituciones" style={{ padding: "96px 0" }}>
-        <div className="container mx-auto px-4">
           <div
-            className="mx-auto max-w-3xl text-center"
+            aria-hidden
             style={{
-              backgroundColor: C.bgSecondary,
-              border: `1px solid ${C.teal50}`,
-              borderRadius: 24,
-              padding: "56px 40px",
+              position: "absolute",
+              right: "-10%",
+              top: "-20%",
+              width: "50%",
+              height: "80%",
+              background: `radial-gradient(ellipse at center, ${C.mint500}26 0%, transparent 60%)`,
             }}
+          />
+          <div
+            className="container mx-auto px-4"
+            style={{ position: "relative", zIndex: 1 }}
           >
-            <span
-              className="mx-auto flex items-center justify-center"
-              style={{
-                width: 56,
-                height: 56,
-                borderRadius: 16,
-                backgroundColor: C.mint50,
-                color: C.teal700,
-              }}
-            >
-              <Building2 size={26} />
-            </span>
-            <h2
-              className="mt-6 text-3xl font-extrabold"
-              style={{
-                color: C.teal900,
-                letterSpacing: "-0.025em",
-                lineHeight: 1.1,
-              }}
-            >
-              Sumando instituciones a la red.
-            </h2>
-            <p
-              className="mx-auto mt-4 max-w-xl text-lg"
-              style={{ color: C.textCaption, lineHeight: 1.6 }}
-            >
-              Estamos integrando instituciones de salud para que la información
-              clínica viaje con cada paciente. ¿Tu institución quiere ser parte?
-            </p>
-            <Link
-              href="/contacto?tipo=institucion"
-              onClick={() => track("home_cta_institucional")}
-              className="mt-7 inline-flex items-center gap-2 text-sm font-semibold transition-all"
-              style={{
-                backgroundColor: C.teal700,
-                color: "#FFFFFF",
-                padding: "13px 22px",
-                borderRadius: 8,
-              }}
-            >
-              Quiero adherir mi institución
-              <ArrowRight size={16} />
-            </Link>
+            <div className="mx-auto max-w-3xl text-center">
+              <span
+                className="inline-flex items-center gap-2"
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: "1.4px",
+                  textTransform: "uppercase",
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  color: C.verdeClaro,
+                  padding: "6px 12px",
+                  borderRadius: 999,
+                }}
+              >
+                <Sparkles size={13} />
+                Próximo lanzamiento · Muy pronto
+              </span>
+              <h2
+                className="mt-6 text-3xl font-extrabold sm:text-4xl"
+                style={{
+                  color: "#FFFFFF",
+                  letterSpacing: "-0.025em",
+                  lineHeight: 1.1,
+                }}
+              >
+                Historia Clínica{" "}
+                <span style={{ color: C.verdeClaro }}>Interoperable</span>.
+              </h2>
+              <p
+                className="mx-auto mt-5 max-w-xl text-lg"
+                style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
+              >
+                Tu historia clínica completa, accesible y portable entre
+                instituciones de salud. Una sola información médica que llevás
+                con vos, siempre con tu permiso explícito.
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* ——— 7. Instituciones (gated por feature flag) ——— */}
+      {FEATURES.instituciones && (
+        <section id="instituciones" className="py-16 md:py-24">
+          <div className="container mx-auto px-4">
+            <div
+              className="mx-auto max-w-3xl px-6 py-10 text-center md:px-10 md:py-14"
+              style={{
+                backgroundColor: C.bgSecondary,
+                border: `1px solid ${C.teal50}`,
+                borderRadius: 24,
+              }}
+            >
+              <span
+                className="mx-auto flex items-center justify-center"
+                style={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: 16,
+                  backgroundColor: C.mint50,
+                  color: C.teal700,
+                }}
+              >
+                <Building2 size={26} />
+              </span>
+              <h2
+                className="mt-6 text-3xl font-extrabold"
+                style={{
+                  color: C.teal900,
+                  letterSpacing: "-0.025em",
+                  lineHeight: 1.1,
+                }}
+              >
+                Sumando instituciones a la red.
+              </h2>
+              <p
+                className="mx-auto mt-4 max-w-xl text-lg"
+                style={{ color: C.textCaption, lineHeight: 1.6 }}
+              >
+                Estamos integrando instituciones de salud para que la
+                información clínica viaje con cada paciente. ¿Tu institución
+                quiere ser parte?
+              </p>
+              <Link
+                href="/contacto?tipo=institucion"
+                onClick={() => track("home_cta_institucional")}
+                className="mt-7 inline-flex items-center gap-2 text-sm font-semibold transition-all"
+                style={{
+                  backgroundColor: C.teal700,
+                  color: "#FFFFFF",
+                  padding: "13px 22px",
+                  borderRadius: 8,
+                }}
+              >
+                Quiero adherir mi institución
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ——— 7b. Descargar la app ——— */}
-      <section id="descargar" style={{ padding: "0 0 96px" }}>
+      <section id="descargar" className="pb-16 md:pb-24">
         <div className="container mx-auto px-4">
           <div
-            className="relative overflow-hidden text-center"
+            className="relative overflow-hidden px-6 py-12 text-center md:px-10 md:py-16"
             style={{
               backgroundColor: C.teal900,
               borderRadius: 28,
-              padding: "64px 40px",
               boxShadow: SHADOW.cta,
             }}
           >
@@ -1050,7 +1187,7 @@ export default function Home() {
                 background: `radial-gradient(ellipse at center, ${C.mint500}26 0%, transparent 60%)`,
               }}
             />
-            <div style={{ position: "relative", zIndex: 1 }}>
+            <div className="stagger" style={{ position: "relative", zIndex: 1 }}>
               <Eyebrow color={C.verdeClaro}>Descargá la app</Eyebrow>
               <h2
                 className="mx-auto mt-5 max-w-2xl text-3xl font-extrabold sm:text-4xl"
@@ -1067,8 +1204,7 @@ export default function Home() {
                 className="mx-auto mt-4 max-w-lg text-base"
                 style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
               >
-                30 días gratis, sin tarjeta. Disponible muy pronto para iOS y
-                Android.
+                Disponible muy pronto para iOS y Android.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <a
@@ -1130,15 +1266,15 @@ export default function Home() {
       {/* ——— 8. Contacto ——— */}
       <section
         id="contacto"
+        className="py-16 md:py-24"
         style={{
           backgroundColor: C.bgSecondary,
           borderTop: `1px solid ${C.teal50}`,
-          padding: "96px 0",
         }}
       >
         <div className="container mx-auto px-4">
-          <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
-            <div>
+          <div className="grid gap-10 md:gap-12 lg:grid-cols-[1fr_1fr]">
+            <div className="stagger">
               <Eyebrow>Contacto</Eyebrow>
               <h2
                 className="mt-4 text-3xl font-extrabold sm:text-4xl"
@@ -1281,11 +1417,10 @@ export default function Home() {
             </div>
 
             <div
-              className="flex flex-col justify-center"
+              className="flex flex-col justify-center p-7 md:p-10"
               style={{
                 backgroundColor: C.teal900,
                 borderRadius: 24,
-                padding: 40,
                 color: "#FFFFFF",
               }}
             >
@@ -1360,6 +1495,124 @@ export default function Home() {
             opacity: 1;
             transform: none;
             transition: none;
+          }
+        }
+        @keyframes svcIn {
+          from { opacity: 0; transform: translateY(16px) scale(0.96); }
+          to { opacity: 1; transform: none; }
+        }
+        @keyframes tabPanelIn {
+          from { opacity: 0; transform: translateY(14px); }
+          to { opacity: 1; transform: none; }
+        }
+        @keyframes tabImgIn {
+          from { opacity: 0; transform: translateX(-22px) scale(0.97); }
+          to { opacity: 1; transform: none; }
+        }
+        @keyframes tabFeatIn {
+          from { opacity: 0; transform: translateX(14px); }
+          to { opacity: 1; transform: none; }
+        }
+        .tab-panel {
+          animation: tabPanelIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .tab-img {
+          animation: tabImgIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .tab-feat {
+          animation: tabFeatIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .tab-panel, .tab-img, .tab-feat {
+            animation: none;
+          }
+        }
+        .js-anim section.reveal .svc-chip {
+          opacity: 0;
+        }
+        .js-anim section.reveal.reveal-visible .svc-chip {
+          animation: svcIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .js-anim section.reveal .svc-chip,
+          .js-anim section.reveal.reveal-visible .svc-chip {
+            opacity: 1;
+            animation: none;
+          }
+        }
+
+        /* — Stagger por elemento dentro de una sección — */
+        .js-anim section.reveal .stagger > * {
+          opacity: 0;
+          transform: translateY(22px);
+          transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+          will-change: opacity, transform;
+        }
+        .js-anim section.reveal.reveal-visible .stagger > * {
+          opacity: 1;
+          transform: none;
+        }
+        .js-anim section.reveal-visible .stagger > *:nth-child(1)  { transition-delay:   0ms; }
+        .js-anim section.reveal-visible .stagger > *:nth-child(2)  { transition-delay:  90ms; }
+        .js-anim section.reveal-visible .stagger > *:nth-child(3)  { transition-delay: 180ms; }
+        .js-anim section.reveal-visible .stagger > *:nth-child(4)  { transition-delay: 260ms; }
+        .js-anim section.reveal-visible .stagger > *:nth-child(5)  { transition-delay: 340ms; }
+        .js-anim section.reveal-visible .stagger > *:nth-child(6)  { transition-delay: 420ms; }
+        .js-anim section.reveal-visible .stagger > *:nth-child(7)  { transition-delay: 500ms; }
+        .js-anim section.reveal-visible .stagger > *:nth-child(8)  { transition-delay: 580ms; }
+        @media (prefers-reduced-motion: reduce) {
+          .js-anim section.reveal .stagger > *,
+          .js-anim section.reveal.reveal-visible .stagger > * {
+            opacity: 1;
+            transform: none;
+            transition: none;
+          }
+        }
+
+        /* — Float continuo (más lento que los badges) — */
+        @keyframes lsFloatSlow {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+        .float-y {
+          animation: lsFloatSlow 6s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .float-y { animation: none; }
+        }
+
+        /* — Pulse del blob rojo detrás del celular SOS — */
+        @keyframes pulseBlob {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50%      { transform: scale(1.08); opacity: 0.85; }
+        }
+        .pulse-blob {
+          animation: pulseBlob 2.6s ease-in-out infinite;
+          transform-origin: center;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pulse-blob { animation: none; }
+        }
+
+        /* — Rotación lenta de blobs decorativos del fondo — */
+        @keyframes blobRotate {
+          from { transform: rotate(0deg) scale(1); }
+          50%  { transform: rotate(180deg) scale(1.05); }
+          to   { transform: rotate(360deg) scale(1); }
+        }
+        .blob-rotate {
+          animation: blobRotate 22s linear infinite;
+          transform-origin: center;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .blob-rotate { animation: none; }
+        }
+
+        /* — Tilt 3D sutil al hover en cards .lift — */
+        @media (hover: hover) and (pointer: fine) {
+          .lift:hover {
+            transform: perspective(900px) translateY(-6px) rotateX(2deg);
           }
         }
       `}</style>

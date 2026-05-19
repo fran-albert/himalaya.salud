@@ -324,9 +324,26 @@
   transform: rotateX(3deg);
 }
 
-/* Smooth scroll */
+/* Smooth scroll + offset por header sticky (la landing usa anclas a secciones) */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Evitar scroll horizontal en mobile cuando algún blob/badge decorativo
+   sobresale unos píxeles del viewport. `overflow-x: clip` no rompe el
+   `position: sticky` del header como sí lo haría `overflow: hidden`. */
+body {
+  overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Las secciones de la home también respetan el offset cuando se les hace anchor */
+section[id] {
+  scroll-margin-top: 80px;
 }
 
 /* Custom scrollbar */
