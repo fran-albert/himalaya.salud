@@ -47,10 +47,10 @@ const productosTabs: ProductoTab[] = [
     icon: ShieldAlert,
     tab: "Botón de emergencia",
     title: "Pedí ayuda con un solo toque",
-    desc: "Una emergencia no avisa. Mantené presionado 3 segundos y tu celular actúa por vos.",
+    desc: "Una EMERGENCIA no avisa, mejor estar preparados. MANTENÉ PRESIONADO 3 SEGUNDOS Y TU CELULAR ACTÚA POR VOS.",
     features: [
       "Avisa a tus 3 contactos de confianza con tu ubicación GPS exacta",
-      "Comparte tu info médica por WhatsApp al instante",
+      "Compartí tu info de tu Portal del Paciente y Mis Mediciones por WhatsApp al instante",
       "Funciona aunque tengas la app cerrada",
       "Pensado para vos y para toda tu familia",
     ],
@@ -130,19 +130,12 @@ const sosSteps = [
   },
   {
     n: "4",
-    title: "Comparte tus datos de salud",
-    desc: "Grupo sanguíneo, alergias, medicación y antecedentes.",
+    title: "Comparte tus datos de tu Portal del Paciente y Mis Mediciones",
+    desc: "Toda tu info clínica, compartida al instante.",
   },
 ];
 
-const infoMedicaChips = [
-  "Grupo sanguíneo",
-  "Alergias",
-  "Medicación",
-  "Antecedentes",
-  "Donante de órganos",
-  "Obra social",
-];
+const infoMedicaChips = ["Portal Paciente", "Mis Mediciones"];
 
 const planIncluye = [
   "Botón de emergencia — 4 activaciones por mes",
@@ -168,13 +161,30 @@ const eyebrowStyle: React.CSSProperties = {
   color: C.teal700,
 };
 
-function Eyebrow({ children, color }: { children: React.ReactNode; color?: string }) {
+function Eyebrow({
+  children,
+  color,
+  size = "sm",
+}: {
+  children: React.ReactNode;
+  color?: string;
+  size?: "sm" | "lg";
+}) {
+  const isLg = size === "lg";
   return (
-    <span style={{ ...eyebrowStyle, color: color ?? C.teal700 }}>
+    <span
+      style={{
+        ...eyebrowStyle,
+        color: color ?? C.teal700,
+        fontSize: isLg ? 14 : 11,
+        letterSpacing: isLg ? "2.2px" : "1.8px",
+        gap: isLg ? 12 : 10,
+      }}
+    >
       <span
         style={{
-          width: 18,
-          height: 2,
+          width: isLg ? 22 : 18,
+          height: isLg ? 3 : 2,
           borderRadius: 2,
           backgroundColor: color ?? C.mint500,
         }}
@@ -328,7 +338,7 @@ export default function Home() {
                   </strong>
                   <div className="text-xs" style={{ color: C.textCaption }}>
                     <div style={{ fontWeight: 600, color: C.textBody }}>
-                      activación SOS
+                      EMERGENCIA
                     </div>
                     <div>avisa a tus contactos</div>
                   </div>
@@ -414,7 +424,7 @@ export default function Home() {
                       color: C.danger,
                     }}
                   >
-                    SOS · 3 SEG
+                    EMERGENCIA · 3 SEG
                   </div>
                   <div
                     style={{
@@ -518,7 +528,7 @@ export default function Home() {
       <section id="producto" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="stagger mb-12 max-w-2xl">
-            <Eyebrow>Producto</Eyebrow>
+            <Eyebrow size="lg">Producto</Eyebrow>
             <h2
               className="mt-4 text-3xl font-extrabold sm:text-4xl"
               style={{
@@ -527,15 +537,22 @@ export default function Home() {
                 lineHeight: 1.1,
               }}
             >
-              Una app, todo lo que necesitás{" "}
-              <span style={{ color: C.mint700 }}>para tu salud</span>.
+              Una app, todo lo que necesitás en una{" "}
+              <strong style={{ color: C.danger, fontWeight: 900 }}>
+                EMERGENCIA
+              </strong>
+              .
             </h2>
             <p
               className="mt-4 text-lg"
               style={{ color: C.textCaption, lineHeight: 1.55 }}
             >
-              Pensada para que vos y tu familia tengan la información médica
-              importante a un toque.
+              Pensada para que vos y tu familia dispongan de una herramienta
+              sencilla y eficaz en una{" "}
+              <strong style={{ color: C.danger, fontWeight: 800 }}>
+                EMERGENCIA
+              </strong>
+              .
             </p>
           </div>
           {/* Tabs */}
@@ -722,7 +739,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-2">
             <div className="stagger">
-              <Eyebrow color={C.danger}>Botón de emergencia</Eyebrow>
+              <Eyebrow color={C.danger}>Botón de pánico</Eyebrow>
               <h2
                 className="mt-4 text-3xl font-extrabold sm:text-4xl"
                 style={{
@@ -739,8 +756,10 @@ export default function Home() {
               >
                 Mantené presionado{" "}
                 <strong style={{ color: C.textBody }}>3 segundos</strong> y
-                avisamos a tus contactos de confianza con tu ubicación,
-                condiciones médicas y la información relevante.
+                avisamos a tus contactos de confianza con tu ubicación, y envía
+                la info de tu{" "}
+                <strong style={{ color: C.textBody }}>Portal del Paciente</strong>{" "}
+                y <strong style={{ color: C.textBody }}>Mis Mediciones</strong>.
               </p>
               <p
                 className="mt-8 text-xs font-bold uppercase"
@@ -888,8 +907,9 @@ export default function Home() {
                 lineHeight: 1.1,
               }}
             >
-              Tu info médica, lista para cuando{" "}
-              <span style={{ color: C.verdeClaro }}>no podés hablar</span>.
+              Tu info de tu Portal del Paciente y Mis Mediciones, lista para
+              cuando <span style={{ color: C.verdeClaro }}>no podés hablar</span>
+              .
             </h2>
             <p
               className="mx-auto mt-4 max-w-xl text-base"
