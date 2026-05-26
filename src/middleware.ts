@@ -10,8 +10,23 @@ const authRoutes = ['/portal/login', '/portal/register'];
 // Cookie name for refresh token (must match backend)
 const REFRESH_TOKEN_COOKIE = 'doctor_refresh_token';
 
+// Minimal-site mode (Apple Developer review). Cuando está activo solo se
+// sirven las rutas listadas; el resto redirige a `/`.
+const MINIMAL_SITE_ENABLED =
+  process.env.NEXT_PUBLIC_FEATURE_MINIMAL_SITE === 'true';
+const MINIMAL_SITE_ALLOWED_PATHS = new Set<string>([
+  '/',
+  '/soporte',
+  '/terminos',
+  '/privacidad',
+]);
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (MINIMAL_SITE_ENABLED && !MINIMAL_SITE_ALLOWED_PATHS.has(pathname)) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
 
   // Check if user has a refresh token cookie (indicates they're logged in)
   const hasSession = request.cookies.has(REFRESH_TOKEN_COOKIE);
@@ -40,10 +55,9 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    // Match all portal routes
-    '/portal/:path*',
-    // Match all admin routes
-    '/admin/:path*',
-  ],
+  // Match everything except Next internals, API routes and static assets.
+  // El middleware necesita ver todas las rutas de páginas para poder aplicar
+  // el modo mínimo; las protecciones de auth siguen actuando solo sobre
+  // /portal/* y /admin/* dentro del handler.
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico|fonts|.*\\..*).*)'],
 };

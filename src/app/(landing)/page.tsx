@@ -28,8 +28,17 @@ import {
   Stethoscope,
   Upload,
 } from "lucide-react";
+import { FEATURES } from "@/lib/feature-flags";
+import { MinimalHome } from "@/components/minimal-home";
 
 gsap.registerPlugin(ScrollTrigger);
+
+export default function HomePage() {
+  if (FEATURES.minimalSite) {
+    return <MinimalHome />;
+  }
+  return <HomeFull />;
+}
 
 function WaitlistForm({ id, className }: { id?: string; className?: string }) {
   const [email, setEmail] = useState("");
@@ -128,7 +137,7 @@ function WaitlistForm({ id, className }: { id?: string; className?: string }) {
   );
 }
 
-export default function HomePage() {
+function HomeFull() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
