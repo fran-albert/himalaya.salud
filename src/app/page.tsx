@@ -27,6 +27,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { BRAND, SHADOW } from "@/lib/brand-tokens";
 import { FEATURES } from "@/lib/feature-flags";
+import { MinimalHome } from "@/components/minimal-home";
 
 const C = BRAND;
 
@@ -195,6 +196,13 @@ function Eyebrow({
 }
 
 export default function Home() {
+  if (FEATURES.minimalSite) {
+    return <MinimalHome />;
+  }
+  return <HomeFull />;
+}
+
+function HomeFull() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState(0);
 
