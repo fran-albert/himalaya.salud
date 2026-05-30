@@ -8,6 +8,9 @@ const MINIMAL_SITE_ENABLED =
 const MINIMAL_SITE_ALLOWED_PATHS = new Set<string>([
   "/",
   "/contacto",
+  "/terminos-y-condiciones",
+  "/politica-de-privacidad",
+  // rutas legacy: se mantienen permitidas para que el redirect 301 actúe
   "/terminos",
   "/privacidad",
 ]);

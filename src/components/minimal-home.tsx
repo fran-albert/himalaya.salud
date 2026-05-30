@@ -8,8 +8,8 @@ const contactEmail = "contacto@himalayasalud.com.ar";
 export function MinimalHome() {
   const links = [
     { href: "/contacto", label: "Contacto", Icon: Mail },
-    { href: "/terminos", label: "Términos", Icon: FileText },
-    { href: "/privacidad", label: "Privacidad", Icon: ShieldCheck },
+    { href: "/terminos-y-condiciones", label: "Términos", Icon: FileText },
+    { href: "/politica-de-privacidad", label: "Privacidad", Icon: ShieldCheck },
   ];
 
   return (
