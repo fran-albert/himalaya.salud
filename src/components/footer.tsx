@@ -26,8 +26,8 @@ export function Footer() {
       { label: "Contacto", href: "/contacto" },
     ],
     legal: [
-      { label: "Privacidad", href: "/privacidad" },
-      { label: "Términos", href: "/terminos" },
+      { label: "Privacidad", href: "/politica-de-privacidad" },
+      { label: "Términos", href: "/terminos-y-condiciones" },
     ],
   };
 

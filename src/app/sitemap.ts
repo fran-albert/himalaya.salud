@@ -17,13 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/privacidad`,
+      url: `${baseUrl}/politica-de-privacidad`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
-      url: `${baseUrl}/terminos`,
+      url: `${baseUrl}/terminos-y-condiciones`,
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.5,

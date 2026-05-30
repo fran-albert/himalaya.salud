@@ -14,7 +14,8 @@
  *    Apagado hasta que el onboarding institucional esté listo.
  *  - NEXT_PUBLIC_FEATURE_MINIMAL_SITE   → modo mínimo del sitio. Cuando está
  *    en "true", el sitio queda reducido a la home mínima + /contacto +
- *    /terminos + /privacidad. Cualquier otra ruta redirige a /. Pensado
+ *    /terminos-y-condiciones + /politica-de-privacidad. Cualquier otra ruta
+ *    redirige a /. Pensado
  *    para el proceso de verificación de Apple Developer, donde solo
  *    queremos exponer las URLs requeridas (soporte, T&C, privacidad).
  *    Apagado por defecto: el sitio completo está activo.
@@ -32,6 +33,9 @@ export const FEATURES = {
 export const MINIMAL_SITE_ALLOWED_PATHS = [
   "/",
   "/contacto",
+  "/terminos-y-condiciones",
+  "/politica-de-privacidad",
+  // rutas legacy: se mantienen permitidas para que el redirect 301 actúe
   "/terminos",
   "/privacidad",
 ] as const;
