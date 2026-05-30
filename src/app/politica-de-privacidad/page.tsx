@@ -23,7 +23,6 @@ import { BRAND, SHADOW } from "@/lib/brand-tokens";
 
 const arcoEmail = "notificaciones@himalayasalud.com.ar";
 const bajaEmail = "revocacion@himalayasalud.com.ar";
-const pdfUrl = "/legales/politica-de-privacidad.pdf";
 
 type Block = {
   title: string;
@@ -509,21 +508,6 @@ export default function PrivacyPage() {
           <p className="mt-4 text-base" style={{ color: BRAND.textCaption }}>
             Última actualización: 30 de Mayo de 2026
           </p>
-          <a
-            href={pdfUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold"
-            style={{
-              border: `1px solid ${BRAND.teal100}`,
-              color: BRAND.teal700,
-              padding: "9px 16px",
-              borderRadius: 8,
-            }}
-          >
-            <Download size={16} />
-            Descargar en PDF
-          </a>
         </div>
 
         <div className="mx-auto mt-14 max-w-4xl space-y-5">
