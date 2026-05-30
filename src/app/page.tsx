@@ -1355,7 +1355,7 @@ function HomeFull() {
                   </span>
                 </a>
                 <a
-                  href="https://wa.me/"
+                  href="https://wa.me/5493412429819?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta."
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track("home_contacto_whatsapp")}

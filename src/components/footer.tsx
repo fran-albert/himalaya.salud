@@ -13,7 +13,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
   const whatsappUrl =
     process.env.NEXT_PUBLIC_WHATSAPP_URL ||
-    "https://wa.me/5493412586887?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta.";
+    "https://wa.me/5493412429819?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta.";
 
   const footerLinks = {
     producto: [
