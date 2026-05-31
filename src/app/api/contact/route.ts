@@ -1,21 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 
-// Configurar transporter con SMTP de Hostinger
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT) || 465,
-  secure: true, // SSL
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+// Cliente de AWS SES. La policy IAM (himalaya-web-ses) restringe el From a noreply@himalayasalud.com.ar.
+const ses = new SESv2Client({
+  region: process.env.AWS_REGION || "us-east-1",
+  credentials: {
+    accessKeyId: process.env.SES_ACCESS_KEY_ID || "",
+    secretAccessKey: process.env.SES_SECRET_ACCESS_KEY || "",
   },
 });
+
+const MAIL_FROM = process.env.MAIL_FROM || "noreply@himalayasalud.com.ar";
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || "contacto@himalayasalud.com.ar";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, subject, message } = body;
+    const { name, email, phone, subject, message, type } = body;
+    const phoneClean = typeof phone === "string" ? phone.trim() : "";
+
+    const typeLabels: Record<string, string> = {
+      paciente: "Paciente",
+      institucion: "Institución de salud",
+      empresa: "Empresa (plan empresas)",
+    };
+    const typeLabel = typeLabels[type as string] ?? "Sin especificar";
 
     // Validación
     if (!name || !email || !subject || !message) {
@@ -33,13 +42,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Email a soporte
-    await transporter.sendMail({
-      from: `"Himalaya Salud" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_EMAIL,
-      replyTo: email,
-      subject: `[Soporte] ${subject}`,
-      html: `
+    // Email a soporte (replyTo apunta al usuario para responderle directo)
+    await ses.send(
+      new SendEmailCommand({
+        FromEmailAddress: `Himalaya Salud <${MAIL_FROM}>`,
+        Destination: { ToAddresses: [CONTACT_EMAIL] },
+        ReplyToAddresses: [email],
+        Content: {
+          Simple: {
+            Subject: { Data: `[Soporte · ${typeLabel}] ${subject}`, Charset: "UTF-8" },
+            Body: {
+              Html: {
+                Charset: "UTF-8",
+                Data: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #8FDFA1, #70C9A6); padding: 20px; border-radius: 10px 10px 0 0;">
             <h1 style="color: white; margin: 0;">Nueva Consulta de Soporte</h1>
@@ -47,6 +62,8 @@ export async function POST(request: NextRequest) {
           <div style="padding: 30px; background: #f9f9f9; border-radius: 0 0 10px 10px;">
             <p><strong>Nombre:</strong> ${name}</p>
             <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+            ${phoneClean ? `<p><strong>Teléfono:</strong> ${phoneClean}</p>` : ""}
+            <p><strong>Tipo de contacto:</strong> ${typeLabel}</p>
             <p><strong>Asunto:</strong> ${subject}</p>
             <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">
             <p><strong>Mensaje:</strong></p>
@@ -59,14 +76,25 @@ export async function POST(request: NextRequest) {
           </p>
         </div>
       `,
-    });
+              },
+            },
+          },
+        },
+      })
+    );
 
     // Confirmación al usuario
-    await transporter.sendMail({
-      from: `"Himalaya Salud" <${process.env.SMTP_USER}>`,
-      to: email,
-      subject: "Recibimos tu consulta - Himalaya Salud",
-      html: `
+    await ses.send(
+      new SendEmailCommand({
+        FromEmailAddress: `Himalaya Salud <${MAIL_FROM}>`,
+        Destination: { ToAddresses: [email] },
+        Content: {
+          Simple: {
+            Subject: { Data: "Recibimos tu consulta - Himalaya Salud", Charset: "UTF-8" },
+            Body: {
+              Html: {
+                Charset: "UTF-8",
+                Data: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #8FDFA1, #70C9A6); padding: 20px; border-radius: 10px 10px 0 0;">
             <h1 style="color: white; margin: 0;">¡Gracias por contactarnos!</h1>
@@ -83,7 +111,12 @@ export async function POST(request: NextRequest) {
           </div>
         </div>
       `,
-    });
+              },
+            },
+          },
+        },
+      })
+    );
 
     return NextResponse.json({ success: true });
   } catch (error) {
