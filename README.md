@@ -27,7 +27,17 @@ Una vez desplegado, el sitio contará con las siguientes URLs:
 
 ## Variables de Entorno
 
-Este proyecto no requiere variables de entorno para funcionar en su configuración actual. El formulario de contacto utiliza una acción `mailto:` y no depende de un servicio de envío de emails.
+Los formularios de `/contacto` y de waitlist envían mails vía **AWS SES** (SDK `@aws-sdk/client-sesv2`). Requieren estas variables (cargadas en Vercel; en local, en `.env.local`):
+
+| Variable | Descripción |
+|---|---|
+| `AWS_REGION` | Región de SES (`us-east-1`). |
+| `SES_ACCESS_KEY_ID` | Access key del usuario IAM `himalaya-web-ses`. |
+| `SES_SECRET_ACCESS_KEY` | Secret access key del mismo usuario (no commitear). |
+| `MAIL_FROM` | Remitente verificado en SES (`noreply@himalayasalud.com.ar`). |
+| `CONTACT_EMAIL` | Casilla destino de las consultas (`contacto@himalayasalud.com.ar`). |
+
+Si faltan estas variables, los endpoints `/api/contact` y `/api/waitlist` devuelven error 500. Setup canónico de SES y credenciales: `docs/ses-email-setup.md` (repo `himalaya/`).
 
 ---
 
