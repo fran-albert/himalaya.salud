@@ -10,7 +10,7 @@ export const metadata: Metadata = {
       "Lee los términos y condiciones de uso de Himalaya Salud.",
   },
   alternates: {
-    canonical: "https://www.himalayasalud.com.ar/terminos",
+    canonical: "https://www.himalayasalud.com.ar/terminos-y-condiciones",
   },
 };
 

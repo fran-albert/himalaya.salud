@@ -27,6 +27,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { BRAND, SHADOW } from "@/lib/brand-tokens";
 import { FEATURES } from "@/lib/feature-flags";
+import { MinimalHome } from "@/components/minimal-home";
 
 const C = BRAND;
 
@@ -50,7 +51,7 @@ const productosTabs: ProductoTab[] = [
     desc: "Una situación crítica no avisa. Mantené presionado 3 segundos y tu celular actúa por vos.",
     features: [
       "Avisa a tus 3 contactos de confianza con tu ubicación GPS exacta",
-      "Comparte tu info médica por WhatsApp al instante",
+      "Compartí tu info de tu Portal del Paciente y Mis Mediciones por WhatsApp al instante",
       "Funciona aunque tengas la app cerrada",
       "Pensado para vos y para toda tu familia",
     ],
@@ -130,14 +131,7 @@ const sosSteps = [
   },
 ];
 
-const infoMedicaChips = [
-  "Grupo sanguíneo",
-  "Alergias",
-  "Medicación",
-  "Antecedentes",
-  "Donante de órganos",
-  "Obra social",
-];
+const infoMedicaChips = ["Portal Paciente", "Mis Mediciones"];
 
 const planIncluye = [
   "Botón de Pánico — 4 activaciones por mes",
@@ -163,13 +157,30 @@ const eyebrowStyle: React.CSSProperties = {
   color: C.teal700,
 };
 
-function Eyebrow({ children, color }: { children: React.ReactNode; color?: string }) {
+function Eyebrow({
+  children,
+  color,
+  size = "sm",
+}: {
+  children: React.ReactNode;
+  color?: string;
+  size?: "sm" | "lg";
+}) {
+  const isLg = size === "lg";
   return (
-    <span style={{ ...eyebrowStyle, color: color ?? C.teal700 }}>
+    <span
+      style={{
+        ...eyebrowStyle,
+        color: color ?? C.teal700,
+        fontSize: isLg ? 14 : 11,
+        letterSpacing: isLg ? "2.2px" : "1.8px",
+        gap: isLg ? 12 : 10,
+      }}
+    >
       <span
         style={{
-          width: 18,
-          height: 2,
+          width: isLg ? 22 : 18,
+          height: isLg ? 3 : 2,
           borderRadius: 2,
           backgroundColor: color ?? C.mint500,
         }}
@@ -311,6 +322,13 @@ function FeatureSection({
 }
 
 export default function Home() {
+  if (FEATURES.minimalSite) {
+    return <MinimalHome />;
+  }
+  return <HomeFull />;
+}
+
+function HomeFull() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -439,7 +457,7 @@ export default function Home() {
                   </strong>
                   <div className="text-xs" style={{ color: C.textCaption }}>
                     <div style={{ fontWeight: 600, color: C.textBody }}>
-                      activación SOS
+                      EMERGENCIA
                     </div>
                     <div>avisa a tus 6 contactos</div>
                   </div>
@@ -630,7 +648,7 @@ export default function Home() {
       <section id="producto" className="pt-16 md:pt-24">
         <div className="container mx-auto px-4">
           <div className="stagger max-w-2xl">
-            <Eyebrow>Producto</Eyebrow>
+            <Eyebrow size="lg">Producto</Eyebrow>
             <h2
               className="mt-4 text-3xl font-extrabold sm:text-4xl"
               style={{
@@ -841,8 +859,9 @@ export default function Home() {
                 lineHeight: 1.1,
               }}
             >
-              Tu info médica, lista para cuando{" "}
-              <span style={{ color: C.verdeClaro }}>no podés hablar</span>.
+              Tu info de tu Portal del Paciente y Mis Mediciones, lista para
+              cuando <span style={{ color: C.verdeClaro }}>no podés hablar</span>
+              .
             </h2>
             <p
               className="mx-auto mt-4 max-w-xl text-base"
@@ -1282,7 +1301,7 @@ export default function Home() {
                   </span>
                 </a>
                 <a
-                  href="https://wa.me/"
+                  href="https://wa.me/5493412429819?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta."
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track("home_contacto_whatsapp")}

@@ -12,8 +12,30 @@
  *  - NEXT_PUBLIC_FEATURE_INSTITUCIONES  → muestra la sección "Sumando
  *    instituciones a la red" con el CTA para que las instituciones adhieran.
  *    Apagado hasta que el onboarding institucional esté listo.
+ *  - NEXT_PUBLIC_FEATURE_MINIMAL_SITE   → modo mínimo del sitio. Cuando está
+ *    en "true", el sitio queda reducido a la home mínima + /contacto +
+ *    /terminos-y-condiciones + /politica-de-privacidad. Cualquier otra ruta
+ *    redirige a /. Pensado
+ *    para el proceso de verificación de Apple Developer, donde solo
+ *    queremos exponer las URLs requeridas (soporte, T&C, privacidad).
+ *    Apagado por defecto: el sitio completo está activo.
  */
 export const FEATURES = {
   hci: process.env.NEXT_PUBLIC_FEATURE_HCI === "true",
   instituciones: process.env.NEXT_PUBLIC_FEATURE_INSTITUCIONES === "true",
+  minimalSite: process.env.NEXT_PUBLIC_FEATURE_MINIMAL_SITE === "true",
 } as const;
+
+/**
+ * Rutas accesibles cuando `FEATURES.minimalSite` está activo.
+ * El middleware redirige cualquier otra ruta a `/`.
+ */
+export const MINIMAL_SITE_ALLOWED_PATHS = [
+  "/",
+  "/contacto",
+  "/terminos-y-condiciones",
+  "/politica-de-privacidad",
+  // rutas legacy: se mantienen permitidas para que el redirect 301 actúe
+  "/terminos",
+  "/privacidad",
+] as const;

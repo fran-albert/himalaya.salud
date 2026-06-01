@@ -13,7 +13,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
   const whatsappUrl =
     process.env.NEXT_PUBLIC_WHATSAPP_URL ||
-    "https://wa.me/5493412586887?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta.";
+    "https://wa.me/5493412429819?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta.";
 
   const footerLinks = {
     producto: [
@@ -26,8 +26,8 @@ export function Footer() {
       { label: "Contacto", href: "/contacto" },
     ],
     legal: [
-      { label: "Privacidad", href: "/privacidad" },
-      { label: "Términos", href: "/terminos" },
+      { label: "Privacidad", href: "/politica-de-privacidad" },
+      { label: "Términos", href: "/terminos-y-condiciones" },
     ],
   };
 
