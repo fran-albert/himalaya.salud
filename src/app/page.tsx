@@ -62,11 +62,11 @@ const productosTabs: ProductoTab[] = [
     id: "portal",
     icon: FileText,
     tab: "Portal del paciente",
-    title: "Tu información médica, siempre con vos",
-    desc: "Llevá estudios, análisis y recetas en el bolsillo, listos para cualquier consulta.",
+    title: "Tus estudios autoingresados, siempre con vos",
+    desc: "Subí tus estudios y análisis una vez y tenelos a mano para cualquier consulta.",
     features: [
-      "Cargá estudios y análisis de las instituciones que quieras, una sola vez",
-      "Visualizalos por fecha, institución o especialidad",
+      "Cargá los estudios y análisis que vos quieras, de las instituciones que quieras",
+      "Etiquetalos por institución, especialidad o como más te sirva",
       "Exportalos cuando los necesites",
       "Al pulsar el Botón de Pánico, vos decidís si los compartís con tus contactos",
     ],
@@ -238,6 +238,9 @@ function FeatureSection({
           </div>
 
           <div className={`stagger ${reverse ? "lg:order-1" : ""}`}>
+            <div className="mb-4">
+              <Eyebrow>{producto.tab}</Eyebrow>
+            </div>
             <span
               className="inline-flex items-center justify-center"
               style={{
