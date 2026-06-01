@@ -363,6 +363,7 @@ function HomeFull() {
     );
 
     sections.forEach((s) => {
+      if (s.id === "inicio") return;
       s.classList.add("reveal");
       if (s.getBoundingClientRect().top < window.innerHeight * 0.9) {
         s.classList.add("reveal-visible");
@@ -404,7 +405,15 @@ function HomeFull() {
         >
           <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-[1.1fr_1fr]">
             <div className="stagger">
-              <Eyebrow>Tu salud en tus manos · Prevención digital</Eyebrow>
+              <p
+                className="text-3xl font-extrabold sm:text-4xl"
+                style={{ color: C.danger, letterSpacing: "-0.02em" }}
+              >
+                Botón de Pánico
+              </p>
+              <div className="mt-2">
+                <Eyebrow>Tu salud en tus manos · Prevención digital</Eyebrow>
+              </div>
               <h1
                 className="mt-6 text-4xl font-extrabold sm:text-5xl lg:text-6xl"
                 style={{
@@ -457,9 +466,9 @@ function HomeFull() {
                   </strong>
                   <div className="text-xs" style={{ color: C.textCaption }}>
                     <div style={{ fontWeight: 600, color: C.textBody }}>
-                      EMERGENCIA
+                      avisa a tus 6 contactos
                     </div>
-                    <div>avisa a tus 6 contactos</div>
+                    <div>indicados por vos</div>
                   </div>
                 </div>
                 {FEATURES.hci && (
@@ -497,12 +506,12 @@ function HomeFull() {
               </div>
             </div>
 
-            <div className="relative flex items-center justify-center lg:mt-12">
+            <div className="relative flex items-center justify-center">
               <Image
                 src="/images/app/hero-inicio.jpg"
                 alt="App Himalaya Salud en la pantalla de inicio"
                 width={1206}
-                height={2374}
+                height={2475}
                 priority
                 sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 300px"
                 className="float-y h-auto w-[220px] sm:w-[260px] lg:w-[300px]"
@@ -659,7 +668,7 @@ function HomeFull() {
             >
               Una app, todo lo que necesitás{" "}
               <span style={{ color: C.mint700 }}>
-                para tu salud y la de tu familia
+                cuando cada segundo cuenta
               </span>
               .
             </h2>
@@ -684,20 +693,10 @@ function HomeFull() {
       >
         <div className="container mx-auto px-4">
           <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-2">
-            <div className="stagger">
+            <div className="stagger lg:order-2">
               <Eyebrow color={C.danger}>Botón de Pánico</Eyebrow>
-              <h2
-                className="mt-4 text-3xl font-extrabold sm:text-4xl"
-                style={{
-                  color: C.teal900,
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.1,
-                }}
-              >
-                Cuando cada segundo cuenta.
-              </h2>
               <p
-                className="mt-6 max-w-xl text-lg"
+                className="mt-4 max-w-xl text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.55 }}
               >
                 Pedí ayuda con un solo toque. Mantené presionado{" "}
@@ -771,7 +770,7 @@ function HomeFull() {
               </p>
             </div>
 
-            <div className="relative flex items-center justify-center">
+            <div className="relative flex items-center justify-center lg:order-1">
               <div
                 aria-hidden
                 className="pulse-blob"
@@ -808,7 +807,7 @@ function HomeFull() {
         <FeatureSection
           key={p.id}
           producto={p}
-          reverse={i % 2 === 1}
+          reverse={i % 2 === 0}
           background={i % 2 === 0 ? "#FFFFFF" : C.bg}
         />
       ))}
