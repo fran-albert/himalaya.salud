@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { track } from "@vercel/analytics";
@@ -45,9 +45,9 @@ const productosTabs: ProductoTab[] = [
   {
     id: "panico",
     icon: ShieldAlert,
-    tab: "Botón de emergencia",
+    tab: "Botón de pánico",
     title: "Pedí ayuda con un solo toque",
-    desc: "Una emergencia no avisa. Mantené presionado 3 segundos y tu celular actúa por vos.",
+    desc: "Una situación crítica no avisa. Mantené presionado 3 segundos y tu celular actúa por vos.",
     features: [
       "Avisa a tus 3 contactos de confianza con tu ubicación GPS exacta",
       "Comparte tu info médica por WhatsApp al instante",
@@ -55,7 +55,7 @@ const productosTabs: ProductoTab[] = [
       "Pensado para vos y para toda tu familia",
     ],
     image: "/images/app/showcase-sos.png",
-    imageAlt: "Pantalla del botón de emergencia de Himalaya Salud",
+    imageAlt: "Pantalla del botón de pánico de Himalaya Salud",
   },
   {
     id: "portal",
@@ -64,10 +64,10 @@ const productosTabs: ProductoTab[] = [
     title: "Tu información médica, siempre con vos",
     desc: "Llevá estudios, análisis y recetas en el bolsillo, listos para cualquier consulta.",
     features: [
-      "Subí estudios, análisis, recetas e imágenes sin límite",
-      "Etiquetá y encontrá cualquier documento en segundos",
-      "Compartilo con tu médico cuando lo necesites",
-      "Disponible para vos y los tuyos",
+      "Cargá estudios y análisis de las instituciones que quieras, una sola vez",
+      "Visualizalos por fecha, institución o especialidad",
+      "Exportalos cuando los necesites",
+      "Al pulsar el Botón de Pánico, vos decidís si los compartís con tus contactos",
     ],
     image: "/images/app/showcase-portal.jpg",
     imageAlt: "Portal del paciente de Himalaya Salud",
@@ -79,10 +79,10 @@ const productosTabs: ProductoTab[] = [
     title: "Seguí tu salud en el tiempo",
     desc: "Presión, glucemia, peso y más, con un historial claro que entendés de un vistazo.",
     features: [
-      "Cargá tus valores en segundos",
-      "Visualizá tu evolución con gráficos simples",
-      "Detectá tendencias antes de que sean un problema",
-      "Llevá el control de toda la familia",
+      "Ingresá los datos que vos quieras y cargalos día a día",
+      "Visualizalos y filtralos como más te sirva",
+      "Exportá tus mediciones cuando las necesites",
+      "Al pulsar el Botón de Pánico, vos decidís si los compartís con tus contactos",
     ],
     image: "/images/app/showcase-mediciones.jpg",
     imageAlt: "Dashboard de mediciones de Himalaya Salud",
@@ -116,22 +116,17 @@ const sosSteps = [
   {
     n: "1",
     title: "Te geolocaliza",
-    desc: "Tu ubicación GPS exacta, al instante.",
+    desc: "Tu ubicación GPS al instante.",
   },
   {
     n: "2",
-    title: "Avisa a tus 3 contactos",
-    desc: "Las personas de confianza que vos elegís.",
+    title: "Avisa a tus contactos principales",
+    desc: "Con 3 llamados y WhatsApp a las personas de confianza que vos elegís. El llamado les avisa que estás en una situación crítica grave.",
   },
   {
     n: "3",
-    title: "Manda tu info por WhatsApp",
-    desc: "A tu médico, institución o ambulancia.",
-  },
-  {
-    n: "4",
-    title: "Comparte tus datos de salud",
-    desc: "Grupo sanguíneo, alergias, medicación y antecedentes.",
+    title: "Comparte con tus contactos secundarios",
+    desc: "Por WhatsApp les avisa y comparte tus datos autoingresados del Portal del Paciente y mediciones.",
   },
 ];
 
@@ -145,7 +140,7 @@ const infoMedicaChips = [
 ];
 
 const planIncluye = [
-  "Botón de emergencia — 4 activaciones por mes",
+  "Botón de Pánico — 4 activaciones por mes",
   "Portal del paciente sin límites de almacenamiento",
   "Servicios de salud geolocalizados",
   "Mis mediciones con historial completo",
@@ -184,9 +179,139 @@ function Eyebrow({ children, color }: { children: React.ReactNode; color?: strin
   );
 }
 
+function FeatureSection({
+  producto,
+  reverse,
+  background,
+}: {
+  producto: ProductoTab;
+  reverse?: boolean;
+  background: string;
+}) {
+  const Icon = producto.icon;
+  const esServicios = producto.id === "servicios";
+  return (
+    <section className="py-16 md:py-24" style={{ backgroundColor: background }}>
+      <div className="container mx-auto px-4">
+        <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-2">
+          <div
+            className={`relative flex items-center justify-center ${
+              reverse ? "lg:order-2" : ""
+            }`}
+          >
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                width: 360,
+                height: 360,
+                borderRadius: "50%",
+                background: `radial-gradient(circle, ${C.mint50} 0%, transparent 70%)`,
+              }}
+            />
+            <Image
+              src={producto.image}
+              alt={producto.imageAlt}
+              width={1206}
+              height={2470}
+              sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 300px"
+              className="float-y h-auto w-[220px] sm:w-[260px] lg:w-[300px]"
+              style={{
+                position: "relative",
+                zIndex: 1,
+                borderRadius: 24,
+                border: `1px solid ${C.teal50}`,
+                boxShadow: SHADOW.hero,
+              }}
+            />
+          </div>
+
+          <div className={`stagger ${reverse ? "lg:order-1" : ""}`}>
+            <span
+              className="inline-flex items-center justify-center"
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 16,
+                backgroundColor: C.mint50,
+                color: C.teal700,
+              }}
+            >
+              <Icon size={26} />
+            </span>
+            <h2
+              className="mt-5 text-3xl font-extrabold sm:text-4xl"
+              style={{
+                color: C.teal900,
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+              }}
+            >
+              {producto.title}
+            </h2>
+            <p
+              className="mt-4 max-w-xl text-lg"
+              style={{ color: C.textCaption, lineHeight: 1.55 }}
+            >
+              {producto.desc}
+            </p>
+            <ul className="mt-6 grid gap-3">
+              {producto.features.map((f) => (
+                <li key={f} className="flex items-start gap-3">
+                  <span
+                    className="flex flex-shrink-0 items-center justify-center"
+                    style={{
+                      width: 24,
+                      height: 24,
+                      borderRadius: "50%",
+                      backgroundColor: C.mint50,
+                      color: C.mint700,
+                      marginTop: 1,
+                    }}
+                  >
+                    <Check size={14} strokeWidth={3} />
+                  </span>
+                  <span
+                    className="text-base"
+                    style={{ color: C.textBody, lineHeight: 1.5 }}
+                  >
+                    {f}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            {esServicios && (
+              <div className="mt-7 flex flex-wrap gap-2">
+                {serviciosCategorias.map((cat) => {
+                  const CatIcon = cat.icon;
+                  return (
+                    <span
+                      key={cat.label}
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold"
+                      style={{
+                        backgroundColor: C.mint50,
+                        color: C.teal900,
+                        padding: "7px 14px",
+                        borderRadius: 999,
+                      }}
+                    >
+                      <CatIcon size={14} style={{ color: C.teal700 }} />
+                      {cat.label}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [activeTab, setActiveTab] = useState(0);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -277,26 +402,12 @@ export default function Home() {
                 className="mt-6 max-w-xl text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.55 }}
               >
-                Un botón de emergencia que avisa a tu familia, tus estudios médicos
-                ordenados y los servicios de salud cerca tuyo. Todo en una sola
-                app, pensada para Argentina.
+                Un botón de pánico que avisa a 6 contactos indicados por vos, tus
+                estudios auto-ingresados del Portal del Paciente y Mis Mediciones
+                ordenados, e instituciones médicas de cercanía. Todo en una sola
+                app, pensada para vos y tu familia.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <Link
-                  href="#planes"
-                  onClick={() => track("home_cta_hero_probar")}
-                  className="inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all sm:w-auto sm:justify-start"
-                  style={{
-                    backgroundColor: C.teal700,
-                    color: "#FFFFFF",
-                    padding: "14px 22px",
-                    borderRadius: 8,
-                    boxShadow: SHADOW.card,
-                  }}
-                >
-                  Probar la app
-                  <ArrowRight size={16} />
-                </Link>
                 <Link
                   href="#producto"
                   className="inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all sm:w-auto sm:justify-start"
@@ -330,7 +441,7 @@ export default function Home() {
                     <div style={{ fontWeight: 600, color: C.textBody }}>
                       activación SOS
                     </div>
-                    <div>avisa a tus contactos</div>
+                    <div>avisa a tus 6 contactos</div>
                   </div>
                 </div>
                 {FEATURES.hci && (
@@ -373,7 +484,7 @@ export default function Home() {
                 src="/images/app/hero-inicio.jpg"
                 alt="App Himalaya Salud en la pantalla de inicio"
                 width={1206}
-                height={2474}
+                height={2374}
                 priority
                 sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 300px"
                 className="float-y h-auto w-[220px] sm:w-[260px] lg:w-[300px]"
@@ -414,7 +525,7 @@ export default function Home() {
                       color: C.danger,
                     }}
                   >
-                    SOS · 3 SEG
+                    3 SEG
                   </div>
                   <div
                     style={{
@@ -485,11 +596,12 @@ export default function Home() {
                 className="text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.6 }}
               >
-                Somos una empresa especializada en software de salud.
-                Desarrollamos, implementamos y damos soporte a un sistema
-                integral que opera desde tu celular, enfocado en la{" "}
-                <strong style={{ color: C.textBody }}>prevención</strong> y la
-                respuesta ante situaciones de emergencia.
+                Somos una empresa de software especializada en salud y
+                prevención en situaciones críticas. Desarrollamos, implementamos
+                y damos soporte a un sistema integral que opera desde tu celular,
+                enfocado en la{" "}
+                <strong style={{ color: C.textBody }}>prevención</strong> ante
+                situaciones críticas para vos y tu familia.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 {respaldo.map((r) => (
@@ -515,9 +627,9 @@ export default function Home() {
       </section>
 
       {/* ——— 3. Producto ——— */}
-      <section id="producto" className="py-16 md:py-24">
+      <section id="producto" className="pt-16 md:pt-24">
         <div className="container mx-auto px-4">
-          <div className="stagger mb-12 max-w-2xl">
+          <div className="stagger max-w-2xl">
             <Eyebrow>Producto</Eyebrow>
             <h2
               className="mt-4 text-3xl font-extrabold sm:text-4xl"
@@ -528,190 +640,23 @@ export default function Home() {
               }}
             >
               Una app, todo lo que necesitás{" "}
-              <span style={{ color: C.mint700 }}>para tu salud</span>.
+              <span style={{ color: C.mint700 }}>
+                para tu salud y la de tu familia
+              </span>
+              .
             </h2>
             <p
               className="mt-4 text-lg"
               style={{ color: C.textCaption, lineHeight: 1.55 }}
             >
-              Pensada para que vos y tu familia tengan la información médica
-              importante a un toque.
+              Pensada para que vos y tu familia dispongan de una herramienta
+              sencilla y eficaz en una situación crítica.
             </p>
           </div>
-          {/* Tabs */}
-          <div
-            className="grid grid-cols-2 gap-2 sm:gap-3 lg:flex lg:flex-wrap lg:justify-center"
-            role="tablist"
-            aria-label="Productos de Himalaya Salud"
-          >
-            {productosTabs.map((p, i) => {
-              const Icon = p.icon;
-              const isActive = i === activeTab;
-              return (
-                <button
-                  key={p.id}
-                  role="tab"
-                  aria-selected={isActive}
-                  onClick={() => setActiveTab(i)}
-                  className="flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all lg:inline-flex lg:w-auto lg:flex-shrink-0 lg:justify-start"
-                  style={{
-                    padding: "11px 18px",
-                    borderRadius: 999,
-                    backgroundColor: isActive ? C.teal700 : C.bg,
-                    color: isActive ? "#FFFFFF" : C.textCaption,
-                    border: `1px solid ${isActive ? C.teal700 : C.teal50}`,
-                    boxShadow: isActive ? SHADOW.card : "none",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.backgroundColor = C.mint50;
-                      e.currentTarget.style.color = C.teal700;
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.backgroundColor = C.bg;
-                      e.currentTarget.style.color = C.textCaption;
-                    }
-                  }}
-                >
-                  <Icon size={17} />
-                  {p.tab}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Panel */}
-          {(() => {
-            const p = productosTabs[activeTab];
-            const Icon = p.icon;
-            const esServicios = p.id === "servicios";
-            return (
-              <div
-                key={p.id}
-                className="tab-panel mt-8 grid items-center gap-8 overflow-hidden p-6 sm:p-8 md:gap-10 lg:grid-cols-2 lg:p-10"
-                style={{
-                  backgroundColor: C.bg,
-                  border: `1px solid ${C.teal50}`,
-                  borderRadius: 24,
-                  boxShadow: SHADOW.card,
-                }}
-              >
-                <div className="relative flex min-h-[300px] items-center justify-center lg:min-h-[360px]">
-                  <div
-                    aria-hidden
-                    style={{
-                      position: "absolute",
-                      width: 360,
-                      height: 360,
-                      borderRadius: "50%",
-                      background: `radial-gradient(circle, ${C.mint50} 0%, transparent 70%)`,
-                    }}
-                  />
-                  <Image
-                    src={p.image}
-                    alt={p.imageAlt}
-                    width={900}
-                    height={1600}
-                    sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 280px"
-                    className="tab-img h-auto w-[220px] sm:w-[260px] lg:w-[280px]"
-                    style={{
-                      position: "relative",
-                      zIndex: 1,
-                      borderRadius: 22,
-                      border: `1px solid ${C.teal50}`,
-                      boxShadow: SHADOW.hero,
-                    }}
-                  />
-                </div>
-
-                <div>
-                  <span
-                    className="inline-flex items-center justify-center"
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: 16,
-                      backgroundColor: C.mint50,
-                      color: C.teal700,
-                    }}
-                  >
-                    <Icon size={26} />
-                  </span>
-                  <h3
-                    className="mt-5 text-2xl font-extrabold sm:text-3xl"
-                    style={{ color: C.teal900, letterSpacing: "-0.02em" }}
-                  >
-                    {p.title}
-                  </h3>
-                  <p
-                    className="mt-3 text-lg"
-                    style={{ color: C.textCaption, lineHeight: 1.55 }}
-                  >
-                    {p.desc}
-                  </p>
-                  <ul className="mt-6 grid gap-3">
-                    {p.features.map((f, fi) => (
-                      <li
-                        key={f}
-                        className="tab-feat flex items-start gap-3"
-                        style={{ animationDelay: `${120 + fi * 80}ms` }}
-                      >
-                        <span
-                          className="flex flex-shrink-0 items-center justify-center"
-                          style={{
-                            width: 24,
-                            height: 24,
-                            borderRadius: "50%",
-                            backgroundColor: C.mint50,
-                            color: C.mint700,
-                            marginTop: 1,
-                          }}
-                        >
-                          <Check size={14} strokeWidth={3} />
-                        </span>
-                        <span
-                          className="text-base"
-                          style={{ color: C.textBody, lineHeight: 1.5 }}
-                        >
-                          {f}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  {esServicios && (
-                    <div className="mt-7 flex flex-wrap gap-2">
-                      {serviciosCategorias.map((cat, ci) => {
-                        const CatIcon = cat.icon;
-                        return (
-                          <span
-                            key={cat.label}
-                            className="tab-feat inline-flex items-center gap-1.5 text-sm font-semibold"
-                            style={{
-                              backgroundColor: C.mint50,
-                              color: C.teal900,
-                              padding: "7px 14px",
-                              borderRadius: 999,
-                              animationDelay: `${360 + ci * 60}ms`,
-                            }}
-                          >
-                            <CatIcon size={14} style={{ color: C.teal700 }} />
-                            {cat.label}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })()}
         </div>
       </section>
 
-      {/* ——— 4. Botón de emergencia ——— */}
+      {/* ——— 4. Botón de pánico ——— */}
       <section
         id="emergencia"
         className="py-16 md:py-24"
@@ -722,7 +667,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-2">
             <div className="stagger">
-              <Eyebrow color={C.danger}>Botón de emergencia</Eyebrow>
+              <Eyebrow color={C.danger}>Botón de Pánico</Eyebrow>
               <h2
                 className="mt-4 text-3xl font-extrabold sm:text-4xl"
                 style={{
@@ -737,16 +682,14 @@ export default function Home() {
                 className="mt-6 max-w-xl text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.55 }}
               >
-                Mantené presionado{" "}
-                <strong style={{ color: C.textBody }}>3 segundos</strong> y
-                avisamos a tus contactos de confianza con tu ubicación,
-                condiciones médicas y la información relevante.
+                Pedí ayuda con un solo toque. Mantené presionado{" "}
+                <strong style={{ color: C.textBody }}>3 segundos</strong>.
               </p>
               <p
                 className="mt-8 text-xs font-bold uppercase"
                 style={{ letterSpacing: "1.6px", color: C.danger }}
               >
-                Un toque, 4 acciones automáticas
+                Un toque, 3 acciones en orden
               </p>
               <ol className="mt-5 grid gap-0">
                 {sosSteps.map((step, i) => (
@@ -804,7 +747,7 @@ export default function Home() {
                 className="mt-8 text-lg font-semibold"
                 style={{ color: C.teal900, lineHeight: 1.45 }}
               >
-                No podés evitar que pase una emergencia. Sí podés estar
+                No podés evitar una situación grave. Sí podés estar
                 preparado —{" "}
                 <span style={{ color: C.mint700 }}>vos y tu familia</span>.
               </p>
@@ -824,9 +767,9 @@ export default function Home() {
               />
               <Image
                 src="/images/app/sos-panico.png"
-                alt="Pantalla del botón de emergencia de Himalaya Salud"
+                alt="Pantalla del botón de pánico de Himalaya Salud"
                 width={1206}
-                height={2452}
+                height={2493}
                 sizes="(max-width: 640px) 240px, (max-width: 1024px) 280px, 320px"
                 className="float-y h-auto w-[240px] sm:w-[280px] lg:w-[320px]"
                 style={{
@@ -842,7 +785,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ——— 4b. Tu info médica ——— */}
+      {/* ——— 4b. Portal · Mediciones · Servicios ——— */}
+      {productosTabs.slice(1).map((p, i) => (
+        <FeatureSection
+          key={p.id}
+          producto={p}
+          reverse={i % 2 === 1}
+          background={i % 2 === 0 ? "#FFFFFF" : C.bg}
+        />
+      ))}
+
+      {/* ——— 4d. Tu info médica ——— */}
       <section
         className="py-16 md:py-24"
         style={{
@@ -895,8 +848,8 @@ export default function Home() {
               className="mx-auto mt-4 max-w-xl text-base"
               style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
             >
-              Cargás lo que quieras, una sola vez. En una emergencia se comparte
-              automáticamente con quien te asiste.
+              Cargás lo que quieras, una sola vez. En una situación crítica se
+              comparte automáticamente con quien te asiste.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-2.5">
               {infoMedicaChips.map((chip) => (
@@ -924,7 +877,16 @@ export default function Home() {
               className="mx-auto mt-10 max-w-xl text-2xl font-bold italic"
               style={{ color: "#FFFFFF", lineHeight: 1.35 }}
             >
-              “En una emergencia, el celular habla por vos.”
+              “En una situación crítica, el celular habla por vos.”
+            </p>
+            <p
+              className="mx-auto mt-8 max-w-2xl text-xs"
+              style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}
+            >
+              Himalaya Salud no es una ART, una obra social ni un servicio de
+              emergencias médicas. Es una herramienta para tener tu información a
+              mano y avisar a tus contactos: no reemplaza al 911, 107/SAME ni a la
+              atención médica profesional.
             </p>
           </div>
         </div>
@@ -966,7 +928,7 @@ export default function Home() {
                 style={{ color: C.teal700 }}
               >
                 <ShieldAlert size={16} />
-                Plan Emergencia
+                Plan Botón de Pánico
               </span>
               <span
                 style={{
@@ -1000,15 +962,8 @@ export default function Home() {
               ))}
             </ul>
 
-            <p
-              className="mt-4 text-xs"
-              style={{ color: C.textCaption, lineHeight: 1.5 }}
-            >
-              ¿Necesitás más activaciones? Se pueden contratar aparte.
-            </p>
-
             <Link
-              href="/contacto"
+              href="#descargar"
               onClick={() => track("home_cta_plan_emergencia")}
               className="mt-8 inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all"
               style={{
@@ -1018,7 +973,7 @@ export default function Home() {
                 borderRadius: 8,
               }}
             >
-              Empezar gratis
+              Empezar
               <ArrowRight size={16} />
             </Link>
 
@@ -1429,13 +1384,13 @@ export default function Home() {
                 className="mt-4 text-2xl font-extrabold"
                 style={{ color: "#FFFFFF", letterSpacing: "-0.02em" }}
               >
-                El Plan Emergencia para tu equipo.
+                El Plan Botón de Pánico para tu equipo.
               </h3>
               <p
                 className="mt-4 text-base"
                 style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
               >
-                Ofrecé el Plan Emergencia a tus empleados con un único cobro
+                Ofrecé el Plan Botón de Pánico a tus empleados con un único cobro
                 por cantidad. Contanos cuántas personas son y armamos una
                 propuesta a medida.
               </p>

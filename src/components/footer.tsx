@@ -17,8 +17,8 @@ export function Footer() {
 
   const footerLinks = {
     producto: [
-      { label: "Plan Emergencia", href: "/#planes" },
-      { label: "Botón de emergencia", href: "/#emergencia" },
+      { label: "Plan Botón de Pánico", href: "/#planes" },
+      { label: "Botón de Pánico", href: "/#emergencia" },
       { label: "FAQ", href: "/faq" },
     ],
     empresa: [
@@ -134,7 +134,7 @@ export function Footer() {
               </div>
               <h4 className="font-semibold text-sm mb-2">Atención y soporte</h4>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Consultas sobre el Plan Emergencia, planes para empresas o ayuda para usuarios.
+                Consultas sobre el Plan Botón de Pánico, planes para empresas o ayuda para usuarios.
               </p>
               <Link
                 href="/contacto"

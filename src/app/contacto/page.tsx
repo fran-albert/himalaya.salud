@@ -129,7 +129,7 @@ export default function ContactPage() {
                   className="text-base md:text-lg leading-relaxed"
                   style={{ color: BRAND.textBody }}
                 >
-                  ¿Tenés consultas sobre el Plan Emergencia{FEATURES.instituciones ? " o querés implementar Himalaya en tu institución" : ""}? Escribinos y un asesor te contactará a la brevedad.
+                  ¿Tenés consultas sobre el Plan Botón de Pánico{FEATURES.instituciones ? " o querés implementar Himalaya en tu institución" : ""}? Escribinos y un asesor te contactará a la brevedad.
                 </p>
               </div>
 
@@ -376,7 +376,7 @@ export default function ContactPage() {
                         <input
                           id="subject"
                           name="subject"
-                          placeholder="Ej: Consulta sobre el Plan Emergencia"
+                          placeholder="Ej: Consulta sobre el Plan Botón de Pánico"
                           value={formData.subject}
                           onChange={handleChange}
                           required

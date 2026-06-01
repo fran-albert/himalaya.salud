@@ -46,7 +46,7 @@ const fallbackCategories: FaqCategory[] = [
       },
       {
         id: "boton-emergencia",
-        question: "¿Qué sucede cuando uso el Botón de Emergencia?",
+        question: "¿Qué sucede cuando uso el Botón de Pánico?",
         answer:
           "El botón permite actuar rápido y avisar a contactos de emergencia configurados. También ayuda a tener a mano información médica relevante. No reemplaza a los servicios de emergencia locales.",
         sort_order: 20,
@@ -177,7 +177,7 @@ export default function FAQPage() {
             </div>
             <input
               type="text"
-              placeholder="Buscá tu duda (ej: botón de emergencia, demo...)"
+              placeholder="Buscá tu duda (ej: botón de pánico, demo...)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full h-12 pl-12 pr-4 text-base outline-none transition-colors"

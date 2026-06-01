@@ -24,7 +24,7 @@ const features = [
     icon: User,
   },
   {
-    title: "Botón de emergencia",
+    title: "Botón de Pánico",
     copy: "Asistencia inmediata con geolocalización y notificación a contactos y centros de ayuda.",
     icon: HeartPulse,
   },
@@ -340,7 +340,7 @@ function PhoneMockup() {
               SOS
             </button>
             <div>
-              <h3 className="text-lg font-black uppercase leading-none">Emergencia</h3>
+              <h3 className="text-lg font-black uppercase leading-none">Botón de Pánico</h3>
               <p className="mt-1.5 text-sm font-black">Mantener presionado</p>
               <span className="mt-3 block h-0.5 w-8 bg-white/75" />
               <p className="mt-3 text-xs font-medium leading-relaxed">
@@ -473,7 +473,7 @@ function EmergencyScreen() {
       <MiniStatusBar light />
       <div className="mt-5 flex items-center justify-between text-sm font-bold">
         <ChevronRight className="h-5 w-5 rotate-180" />
-        <span>Emergencia</span>
+        <span>Botón de Pánico</span>
         <ChevronRight className="h-5 w-5" />
       </div>
       <div className="flex flex-1 flex-col items-center justify-center text-center">
