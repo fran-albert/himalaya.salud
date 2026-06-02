@@ -595,6 +595,104 @@ function HomeFull() {
         </div>
       </section>
 
+      {/* ——— 4d. Tu info médica ——— */}
+      <section
+        className="py-16 md:py-24"
+        style={{
+          backgroundColor: C.teal900,
+          color: "#FFFFFF",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: "-10%",
+            bottom: "-30%",
+            width: "50%",
+            height: "100%",
+            background: `radial-gradient(ellipse at center, ${C.mint500}24 0%, transparent 60%)`,
+          }}
+        />
+        <div
+          className="container mx-auto px-4"
+          style={{ position: "relative", zIndex: 1 }}
+        >
+          <div className="stagger mx-auto max-w-3xl text-center">
+            <span
+              className="mx-auto flex items-center justify-center"
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 16,
+                backgroundColor: "rgba(255,255,255,0.1)",
+                color: C.verdeClaro,
+              }}
+            >
+              <HeartPulse size={26} />
+            </span>
+            <h2
+              className="mx-auto mt-6 max-w-2xl text-3xl font-extrabold sm:text-4xl"
+              style={{
+                color: "#FFFFFF",
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+              }}
+            >
+              Tu info de tus datos autoingresados del Portal del Paciente y Mis
+              Mediciones, lista para cuando{" "}
+              <span style={{ color: C.verdeClaro }}>no podés hablar</span>.
+            </h2>
+            <p
+              className="mx-auto mt-4 max-w-xl text-base"
+              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
+            >
+              Cargás lo que quieras, una sola vez. En una situación crítica se
+              comparte automáticamente con quien te asiste.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-2.5">
+              {infoMedicaChips.map((chip) => (
+                <span
+                  key={chip}
+                  className="inline-flex items-center gap-2 text-sm font-semibold"
+                  style={{
+                    backgroundColor: "rgba(255,255,255,0.08)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    borderRadius: 999,
+                    padding: "9px 16px",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  <Check
+                    size={14}
+                    strokeWidth={3}
+                    style={{ color: C.verdeClaro }}
+                  />
+                  {chip}
+                </span>
+              ))}
+            </div>
+            <p
+              className="mx-auto mt-10 max-w-xl text-2xl font-bold italic"
+              style={{ color: "#FFFFFF", lineHeight: 1.35 }}
+            >
+              “En una situación crítica, el celular habla por vos.”
+            </p>
+            <p
+              className="mx-auto mt-8 max-w-2xl text-sm sm:text-base"
+              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
+            >
+              Himalaya Salud no es una ART, una obra social ni un servicio de
+              emergencias médicas. Es una herramienta para tener tu información a
+              mano y avisar a tus contactos: no reemplaza al 911, 107/SAME ni a la
+              atención médica profesional.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ——— 2. Quiénes somos ——— */}
       <section
         id="quienes"
@@ -697,7 +795,12 @@ function HomeFull() {
         <div className="container mx-auto px-4">
           <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-2">
             <div className="stagger lg:order-2">
-              <Eyebrow color={C.danger}>Botón de Pánico</Eyebrow>
+              <p
+                className="text-3xl font-extrabold sm:text-4xl"
+                style={{ color: C.danger, letterSpacing: "-0.02em" }}
+              >
+                Botón de Pánico
+              </p>
               <p
                 className="mt-4 max-w-xl text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.55 }}
@@ -814,104 +917,6 @@ function HomeFull() {
           background={i % 2 === 0 ? "#FFFFFF" : C.bg}
         />
       ))}
-
-      {/* ——— 4d. Tu info médica ——— */}
-      <section
-        className="py-16 md:py-24"
-        style={{
-          backgroundColor: C.teal900,
-          color: "#FFFFFF",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            left: "-10%",
-            bottom: "-30%",
-            width: "50%",
-            height: "100%",
-            background: `radial-gradient(ellipse at center, ${C.mint500}24 0%, transparent 60%)`,
-          }}
-        />
-        <div
-          className="container mx-auto px-4"
-          style={{ position: "relative", zIndex: 1 }}
-        >
-          <div className="stagger mx-auto max-w-3xl text-center">
-            <span
-              className="mx-auto flex items-center justify-center"
-              style={{
-                width: 56,
-                height: 56,
-                borderRadius: 16,
-                backgroundColor: "rgba(255,255,255,0.1)",
-                color: C.verdeClaro,
-              }}
-            >
-              <HeartPulse size={26} />
-            </span>
-            <h2
-              className="mx-auto mt-6 max-w-2xl text-3xl font-extrabold sm:text-4xl"
-              style={{
-                color: "#FFFFFF",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.1,
-              }}
-            >
-              Tu info de tu Portal del Paciente y Mis Mediciones, lista para
-              cuando <span style={{ color: C.verdeClaro }}>no podés hablar</span>
-              .
-            </h2>
-            <p
-              className="mx-auto mt-4 max-w-xl text-base"
-              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
-            >
-              Cargás lo que quieras, una sola vez. En una situación crítica se
-              comparte automáticamente con quien te asiste.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-2.5">
-              {infoMedicaChips.map((chip) => (
-                <span
-                  key={chip}
-                  className="inline-flex items-center gap-2 text-sm font-semibold"
-                  style={{
-                    backgroundColor: "rgba(255,255,255,0.08)",
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    borderRadius: 999,
-                    padding: "9px 16px",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <Check
-                    size={14}
-                    strokeWidth={3}
-                    style={{ color: C.verdeClaro }}
-                  />
-                  {chip}
-                </span>
-              ))}
-            </div>
-            <p
-              className="mx-auto mt-10 max-w-xl text-2xl font-bold italic"
-              style={{ color: "#FFFFFF", lineHeight: 1.35 }}
-            >
-              “En una situación crítica, el celular habla por vos.”
-            </p>
-            <p
-              className="mx-auto mt-8 max-w-2xl text-xs"
-              style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.6 }}
-            >
-              Himalaya Salud no es una ART, una obra social ni un servicio de
-              emergencias médicas. Es una herramienta para tener tu información a
-              mano y avisar a tus contactos: no reemplaza al 911, 107/SAME ni a la
-              atención médica profesional.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* ——— 5. Planes ——— */}
       <section
