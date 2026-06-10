@@ -34,6 +34,8 @@ export async function GET() {
     const response = await fetch(endpoint, {
       headers: {
         Accept: "application/json",
+        // Cloudflare (error 1010) banea firmas de cliente desconocidas.
+        "User-Agent": "himalaya-web/1.0",
         ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       next: {
