@@ -8,12 +8,10 @@ import {
   MessageCircle,
   ShieldCheck,
 } from "lucide-react";
+import { socialLinks, whatsappUrl } from "@/lib/social-links";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const whatsappUrl =
-    process.env.NEXT_PUBLIC_WHATSAPP_URL ||
-    "https://wa.me/5493412429819?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta.";
 
   const footerLinks = {
     producto: [
@@ -69,6 +67,21 @@ export function Footer() {
                 <MapPin className="w-4 h-4" />
                 <span>Argentina</span>
               </div>
+            </div>
+
+            <div className="mt-6 flex items-center gap-3">
+              {socialLinks.map(({ key, label, href, icon: Icon }) => (
+                <a
+                  key={key}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
             </div>
           </div>
 

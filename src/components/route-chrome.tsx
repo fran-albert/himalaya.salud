@@ -5,7 +5,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { FEATURES } from "@/lib/feature-flags";
 
-const chromeLessRoutes = new Set(["/plan-estandar"]);
+const chromeLessRoutes = new Set(["/plan-estandar", "/enlaces"]);
 
 export function RouteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
