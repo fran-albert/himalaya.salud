@@ -152,7 +152,6 @@ const planIncluye = [
 ];
 
 const respaldo = [
-  "Hecho en Argentina",
   "Cumple las Leyes 25.326 y 26.529",
 ];
 
