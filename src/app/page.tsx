@@ -40,6 +40,8 @@ type ProductoTab = {
   features: string[];
   image: string;
   imageAlt: string;
+  imageWidth: number;
+  imageHeight: number;
 };
 
 const productosTabs: ProductoTab[] = [
@@ -55,8 +57,10 @@ const productosTabs: ProductoTab[] = [
       "Funciona aunque tengas la app cerrada",
       "Pensado para vos y para toda tu familia",
     ],
-    image: "/images/app/showcase-sos.png",
+    image: "/images/app/app-boton-panico.png",
     imageAlt: "Pantalla del botón de pánico de Himalaya Salud",
+    imageWidth: 1284,
+    imageHeight: 2778,
   },
   {
     id: "portal",
@@ -70,8 +74,10 @@ const productosTabs: ProductoTab[] = [
       "Exportalos cuando los necesites",
       "Al pulsar el Botón de Pánico, vos decidís si los compartís con tus contactos",
     ],
-    image: "/images/app/showcase-portal.jpg",
+    image: "/images/app/app-portal-paciente.png",
     imageAlt: "Portal del paciente de Himalaya Salud",
+    imageWidth: 1284,
+    imageHeight: 2778,
   },
   {
     id: "mediciones",
@@ -85,8 +91,10 @@ const productosTabs: ProductoTab[] = [
       "Exportá tus mediciones cuando las necesites",
       "Al pulsar el Botón de Pánico, vos decidís si los compartís con tus contactos",
     ],
-    image: "/images/app/showcase-mediciones.jpg",
+    image: "/images/app/app-mis-mediciones.png",
     imageAlt: "Dashboard de mediciones de Himalaya Salud",
+    imageWidth: 1284,
+    imageHeight: 2778,
   },
   {
     id: "servicios",
@@ -101,6 +109,8 @@ const productosTabs: ProductoTab[] = [
     ],
     image: "/images/app/showcase-servicios.jpg",
     imageAlt: "Mapa de servicios de salud de Himalaya Salud",
+    imageWidth: 1206,
+    imageHeight: 2470,
   },
 ];
 
@@ -223,8 +233,8 @@ function FeatureSection({
             <Image
               src={producto.image}
               alt={producto.imageAlt}
-              width={1206}
-              height={2470}
+              width={producto.imageWidth}
+              height={producto.imageHeight}
               sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 300px"
               className="float-y h-auto w-[220px] sm:w-[260px] lg:w-[300px]"
               style={{
@@ -406,8 +416,8 @@ function HomeFull() {
           className="container mx-auto px-4"
           style={{ position: "relative", zIndex: 1 }}
         >
-          <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-[1.1fr_1fr]">
-            <div className="stagger">
+          <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-[1fr_1.1fr]">
+            <div className="stagger lg:order-2">
               <p
                 className="text-3xl font-extrabold sm:text-4xl"
                 style={{ color: C.danger, letterSpacing: "-0.02em" }}
@@ -509,20 +519,15 @@ function HomeFull() {
               </div>
             </div>
 
-            <div className="relative flex items-center justify-center">
+            <div className="relative flex items-center justify-center lg:order-1">
               <Image
-                src="/images/app/hero-inicio.jpg"
-                alt="App Himalaya Salud en la pantalla de inicio"
-                width={1206}
-                height={2475}
+                src="/images/app/mano-inicio.png"
+                alt="Mano sosteniendo la app Himalaya Salud en la pantalla de inicio"
+                width={1024}
+                height={1536}
                 priority
-                sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 300px"
-                className="float-y h-auto w-[220px] sm:w-[260px] lg:w-[300px]"
-                style={{
-                  borderRadius: 28,
-                  border: `1px solid ${C.teal50}`,
-                  boxShadow: SHADOW.hero,
-                }}
+                sizes="(max-width: 640px) 300px, (max-width: 1024px) 360px, 420px"
+                className="float-y h-auto w-[300px] sm:w-[360px] lg:w-[420px]"
               />
               <div
                 className="absolute right-0 top-16 flex items-center gap-3"
@@ -591,104 +596,6 @@ function HomeFull() {
                 Estudios siempre con vos
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ——— 4d. Tu info médica ——— */}
-      <section
-        className="py-16 md:py-24"
-        style={{
-          backgroundColor: C.teal900,
-          color: "#FFFFFF",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            left: "-10%",
-            bottom: "-30%",
-            width: "50%",
-            height: "100%",
-            background: `radial-gradient(ellipse at center, ${C.mint500}24 0%, transparent 60%)`,
-          }}
-        />
-        <div
-          className="container mx-auto px-4"
-          style={{ position: "relative", zIndex: 1 }}
-        >
-          <div className="stagger mx-auto max-w-3xl text-center">
-            <span
-              className="mx-auto flex items-center justify-center"
-              style={{
-                width: 56,
-                height: 56,
-                borderRadius: 16,
-                backgroundColor: "rgba(255,255,255,0.1)",
-                color: C.verdeClaro,
-              }}
-            >
-              <HeartPulse size={26} />
-            </span>
-            <h2
-              className="mx-auto mt-6 max-w-2xl text-3xl font-extrabold sm:text-4xl"
-              style={{
-                color: "#FFFFFF",
-                letterSpacing: "-0.025em",
-                lineHeight: 1.1,
-              }}
-            >
-              Tu info de tus datos autoingresados del Portal del Paciente y Mis
-              Mediciones, lista para cuando{" "}
-              <span style={{ color: C.verdeClaro }}>no podés hablar</span>.
-            </h2>
-            <p
-              className="mx-auto mt-4 max-w-xl text-base"
-              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
-            >
-              Cargás lo que quieras, una sola vez. En una situación crítica se
-              comparte automáticamente con quien te asiste.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-2.5">
-              {infoMedicaChips.map((chip) => (
-                <span
-                  key={chip}
-                  className="inline-flex items-center gap-2 text-sm font-semibold"
-                  style={{
-                    backgroundColor: "rgba(255,255,255,0.08)",
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    borderRadius: 999,
-                    padding: "9px 16px",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <Check
-                    size={14}
-                    strokeWidth={3}
-                    style={{ color: C.verdeClaro }}
-                  />
-                  {chip}
-                </span>
-              ))}
-            </div>
-            <p
-              className="mx-auto mt-10 max-w-xl text-2xl font-bold italic"
-              style={{ color: "#FFFFFF", lineHeight: 1.35 }}
-            >
-              “En una situación crítica, el celular habla por vos.”
-            </p>
-            <p
-              className="mx-auto mt-8 max-w-2xl text-sm sm:text-base"
-              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
-            >
-              Himalaya Salud no es una ART, una obra social ni un servicio de
-              emergencias médicas. Es una herramienta para tener tu información a
-              mano y avisar a tus contactos: no reemplaza al 911, 107/SAME ni a la
-              atención médica profesional.
-            </p>
           </div>
         </div>
       </section>
@@ -889,10 +796,10 @@ function HomeFull() {
                 }}
               />
               <Image
-                src="/images/app/sos-panico.png"
+                src="/images/app/app-boton-panico.png"
                 alt="Pantalla del botón de pánico de Himalaya Salud"
-                width={1206}
-                height={2493}
+                width={1284}
+                height={2778}
                 sizes="(max-width: 640px) 240px, (max-width: 1024px) 280px, 320px"
                 className="float-y h-auto w-[240px] sm:w-[280px] lg:w-[320px]"
                 style={{
@@ -1145,6 +1052,104 @@ function HomeFull() {
           </div>
         </section>
       )}
+
+      {/* ——— 6b. Tu info médica ——— */}
+      <section
+        className="py-16 md:py-24"
+        style={{
+          backgroundColor: C.teal900,
+          color: "#FFFFFF",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            left: "-10%",
+            bottom: "-30%",
+            width: "50%",
+            height: "100%",
+            background: `radial-gradient(ellipse at center, ${C.mint500}24 0%, transparent 60%)`,
+          }}
+        />
+        <div
+          className="container mx-auto px-4"
+          style={{ position: "relative", zIndex: 1 }}
+        >
+          <div className="stagger mx-auto max-w-3xl text-center">
+            <span
+              className="mx-auto flex items-center justify-center"
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 16,
+                backgroundColor: "rgba(255,255,255,0.1)",
+                color: C.verdeClaro,
+              }}
+            >
+              <HeartPulse size={26} />
+            </span>
+            <h2
+              className="mx-auto mt-6 max-w-2xl text-3xl font-extrabold sm:text-4xl"
+              style={{
+                color: "#FFFFFF",
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+              }}
+            >
+              Tu info de tus datos autoingresados del Portal del Paciente y Mis
+              Mediciones, lista para cuando{" "}
+              <span style={{ color: C.verdeClaro }}>no podés hablar</span>.
+            </h2>
+            <p
+              className="mx-auto mt-4 max-w-xl text-base"
+              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
+            >
+              Cargás lo que quieras, una sola vez. En una situación crítica se
+              comparte automáticamente con quien te asiste.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-2.5">
+              {infoMedicaChips.map((chip) => (
+                <span
+                  key={chip}
+                  className="inline-flex items-center gap-2 text-sm font-semibold"
+                  style={{
+                    backgroundColor: "rgba(255,255,255,0.08)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    borderRadius: 999,
+                    padding: "9px 16px",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  <Check
+                    size={14}
+                    strokeWidth={3}
+                    style={{ color: C.verdeClaro }}
+                  />
+                  {chip}
+                </span>
+              ))}
+            </div>
+            <p
+              className="mx-auto mt-10 max-w-xl text-2xl font-bold italic"
+              style={{ color: "#FFFFFF", lineHeight: 1.35 }}
+            >
+              “En una situación crítica, el celular habla por vos.”
+            </p>
+            <p
+              className="mx-auto mt-8 max-w-2xl text-sm sm:text-base"
+              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
+            >
+              Himalaya Salud no es una ART, una obra social ni un servicio de
+              emergencias médicas. Es una herramienta para tener tu información a
+              mano y avisar a tus contactos: no reemplaza al 911, 107/SAME ni a la
+              atención médica profesional.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* ——— 7b. Descargar la app ——— */}
       <section id="descargar" className="pb-16 md:pb-24">
