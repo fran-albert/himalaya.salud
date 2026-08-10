@@ -152,10 +152,10 @@ export function HeroInformacion() {
                     className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-gray-900"
                   >
                     <Image
-                      src="/images/app/Home.png"
+                      src="/images/app/app-inicio.png"
                       alt="Himalaya Salud App - Home"
-                      width={400}
-                      height={800}
+                      width={1284}
+                      height={2778}
                       className="w-full h-auto"
                       priority
                     />
