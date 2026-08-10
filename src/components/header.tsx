@@ -389,7 +389,7 @@ export function Header() {
               className="text-center text-[10px]"
               style={{ color: BRAND.textCaption }}
             >
-              © {new Date().getFullYear()} Himalaya Salud · Hecho en Argentina
+              © {new Date().getFullYear()} Himalaya Salud
             </p>
           </div>
         </div>

@@ -2,11 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowUpRight,
-  HeartPulse,
   Mail,
   MapPin,
   MessageCircle,
-  ShieldCheck,
 } from "lucide-react";
 import { socialLinks, whatsappUrl } from "@/lib/social-links";
 
@@ -16,6 +14,7 @@ export function Footer() {
   const footerLinks = {
     producto: [
       { label: "Plan Botón de Pánico", href: "/#planes" },
+      { label: "Plan Empresas", href: "/contacto?tipo=empresa" },
       { label: "Botón de Pánico", href: "/#emergencia" },
       { label: "FAQ", href: "/faq" },
     ],
@@ -162,23 +161,9 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-border/50">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">
-              &copy; {currentYear} Himalaya Salud S.A.S. Todos los derechos reservados.
-            </p>
-
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-primary" />
-                Datos sensibles, trato responsable
-              </span>
-              <span className="hidden md:inline text-border">|</span>
-              <span className="inline-flex items-center gap-2">
-                <HeartPulse className="w-4 h-4 text-red-500" />
-                Hecho en Argentina
-              </span>
-            </div>
-          </div>
+          <p className="text-sm text-muted-foreground text-center md:text-left">
+            &copy; {currentYear} Himalaya Salud S.A.S. Todos los derechos reservados.
+          </p>
         </div>
       </div>
     </footer>
