@@ -151,6 +151,13 @@ const planIncluye = [
   "Soporte humano, equipo argentino",
 ];
 
+const planEmpresaIncluye = [
+  "Todo lo del Plan Botón de Pánico, para cada miembro del equipo",
+  "Alta sin fricción: nos pasás la lista y cada persona recibe su link de registro",
+  "Un único cobro mensual por la cantidad de personas",
+  "Las alertas van a los contactos que tu empresa define",
+];
+
 const respaldo = [
   "Cumple las Leyes 25.326 y 26.529",
 ];
@@ -841,12 +848,13 @@ function HomeFull() {
                 lineHeight: 1.1,
               }}
             >
-              Un plan, todo incluido.
+              Un plan para vos. Otro para tu equipo.
             </h2>
           </div>
 
+          <div className="stagger mx-auto grid max-w-4xl items-stretch gap-6 lg:grid-cols-2">
           <div
-            className="stagger mx-auto max-w-lg p-7 md:p-10 lift"
+            className="flex flex-col p-7 md:p-10 lift"
             style={{
               backgroundColor: "#FFFFFF",
               border: `1px solid ${C.teal50}`,
@@ -919,6 +927,94 @@ function HomeFull() {
                 <strong style={{ color: "#009EE3" }}>Mercado&nbsp;Pago</strong>
               </span>
             </div>
+          </div>
+
+          <div
+            className="flex flex-col p-7 md:p-10 lift"
+            style={{
+              backgroundColor: C.teal900,
+              borderRadius: 24,
+              boxShadow: SHADOW.cardHover,
+              color: "#FFFFFF",
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <span
+                className="inline-flex items-center gap-2 text-sm font-semibold"
+                style={{ color: C.verdeClaro }}
+              >
+                <Building2 size={16} />
+                Plan Empresas
+              </span>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  letterSpacing: "1.2px",
+                  textTransform: "uppercase",
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  color: C.verdeClaro,
+                  padding: "5px 10px",
+                  borderRadius: 999,
+                }}
+              >
+                A medida
+              </span>
+            </div>
+
+            <p
+              className="mt-6 text-lg font-semibold"
+              style={{ color: "#FFFFFF", lineHeight: 1.45 }}
+            >
+              El Botón de Pánico para cada persona de tu equipo, con un solo
+              cobro mensual.
+            </p>
+
+            <ul
+              className="mt-6 grid gap-3"
+              style={{
+                borderTop: "1px solid rgba(255,255,255,0.14)",
+                paddingTop: 24,
+              }}
+            >
+              {planEmpresaIncluye.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 text-sm"
+                  style={{ color: "rgba(255,255,255,0.85)" }}
+                >
+                  <Check
+                    size={16}
+                    style={{ color: C.verdeClaro, flexShrink: 0, marginTop: 2 }}
+                  />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <p
+              className="mt-6 text-sm"
+              style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.55 }}
+            >
+              Pensado para equipos que trabajan en la calle, personal de campo y
+              empresas que cuidan a su gente.
+            </p>
+
+            <Link
+              href="/contacto?tipo=empresa"
+              onClick={() => track("home_cta_plan_empresas_planes")}
+              className="mt-8 inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all"
+              style={{
+                backgroundColor: "#FFFFFF",
+                color: C.teal900,
+                padding: "14px 22px",
+                borderRadius: 8,
+              }}
+            >
+              Consultar propuesta
+              <ArrowRight size={16} />
+            </Link>
+          </div>
           </div>
         </div>
       </section>
