@@ -530,11 +530,11 @@ function HomeFull() {
               <Image
                 src="/images/app/mano-inicio-clara.png"
                 alt="Mano sosteniendo la app Himalaya Salud en la pantalla de inicio"
-                width={688}
-                height={1012}
+                width={568}
+                height={870}
                 priority
-                sizes="(max-width: 640px) 300px, (max-width: 1024px) 360px, 420px"
-                className="float-y h-auto w-[300px] sm:w-[360px] lg:w-[420px]"
+                sizes="(max-width: 640px) 250px, (max-width: 1024px) 300px, 345px"
+                className="float-y h-auto w-[250px] sm:w-[300px] lg:w-[345px]"
               />
               <div
                 className="absolute right-0 top-16 flex items-center gap-3"
