@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { EnlacesHub } from "./enlaces-hub";
 
 const description =
-  "Todos los canales oficiales de Himalaya Salud en un solo lugar: WhatsApp, sitio web, correo y redes. Software de salud para clínicas y empresas.";
+  "Descargá la app y encontrá todos los canales oficiales de Himalaya Salud en un solo lugar: App Store, Google Play, WhatsApp, correo y redes.";
 
 export const metadata: Metadata = {
   title: "Enlaces",

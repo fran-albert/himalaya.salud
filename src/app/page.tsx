@@ -27,6 +27,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import { BRAND, SHADOW } from "@/lib/brand-tokens";
 import { FEATURES } from "@/lib/feature-flags";
+import { appStoreUrl, googlePlayUrl } from "@/lib/social-links";
 import { MinimalHome } from "@/components/minimal-home";
 
 const C = BRAND;
@@ -527,10 +528,10 @@ function HomeFull() {
 
             <div className="relative flex items-center justify-center lg:order-1">
               <Image
-                src="/images/app/mano-inicio.png"
+                src="/images/app/mano-inicio-clara.png"
                 alt="Mano sosteniendo la app Himalaya Salud en la pantalla de inicio"
-                width={1024}
-                height={1536}
+                width={688}
+                height={1012}
                 priority
                 sizes="(max-width: 640px) 300px, (max-width: 1024px) 360px, 420px"
                 className="float-y h-auto w-[300px] sm:w-[360px] lg:w-[420px]"
@@ -1247,7 +1248,7 @@ function HomeFull() {
       </section>
 
       {/* ——— 7b. Descargar la app ——— */}
-      <section id="descargar" className="pb-16 md:pb-24">
+      <section id="descargar" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div
             className="relative overflow-hidden px-6 py-12 text-center md:px-10 md:py-16"
@@ -1285,11 +1286,13 @@ function HomeFull() {
                 className="mx-auto mt-4 max-w-lg text-base"
                 style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
               >
-                Disponible muy pronto para iOS y Android.
+                Disponible para iOS y Android.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 <a
-                  href="#"
+                  href={appStoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => track("home_cta_descargar_ios")}
                   className="inline-flex items-center gap-3 transition-transform lift"
                   style={{
@@ -1313,7 +1316,9 @@ function HomeFull() {
                   </span>
                 </a>
                 <a
-                  href="#"
+                  href={googlePlayUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => track("home_cta_descargar_android")}
                   className="inline-flex items-center gap-3 transition-transform lift"
                   style={{

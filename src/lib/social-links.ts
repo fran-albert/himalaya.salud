@@ -1,10 +1,12 @@
 import {
+  Apple,
   Facebook,
   Globe,
   Instagram,
   Linkedin,
   Mail,
   MessageCircle,
+  Play,
   type LucideIcon,
 } from "lucide-react";
 
@@ -23,6 +25,14 @@ const WHATSAPP_FALLBACK =
 
 export const whatsappUrl =
   process.env.NEXT_PUBLIC_WHATSAPP_URL || WHATSAPP_FALLBACK;
+
+export const appStoreUrl =
+  process.env.NEXT_PUBLIC_APP_STORE_URL ||
+  "https://apps.apple.com/ar/app/himalaya-salud/id6756281486";
+
+export const googlePlayUrl =
+  process.env.NEXT_PUBLIC_GOOGLE_PLAY_URL ||
+  "https://play.google.com/store/apps/details?id=com.hciimalaya";
 
 export const linkedinUrl =
   process.env.NEXT_PUBLIC_LINKEDIN_URL ||
@@ -79,6 +89,22 @@ export const socialLinks: ContactChannel[] = [
 
 /** Todos los canales del hub /enlaces, en orden de prioridad. */
 export const contactChannels: ContactChannel[] = [
+  {
+    key: "app-store",
+    label: "App Store",
+    description: "Descargá la app para iPhone",
+    href: appStoreUrl,
+    icon: Apple,
+    external: true,
+  },
+  {
+    key: "google-play",
+    label: "Google Play",
+    description: "Descargá la app para Android",
+    href: googlePlayUrl,
+    icon: Play,
+    external: true,
+  },
   {
     key: "whatsapp",
     label: "WhatsApp",

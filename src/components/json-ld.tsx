@@ -1,3 +1,5 @@
+import { appStoreUrl, googlePlayUrl } from "@/lib/social-links";
+
 export function OrganizationJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -43,11 +45,8 @@ export function SoftwareApplicationJsonLd() {
       priceCurrency: "ARS",
       description: "Descarga gratuita con suscripción premium disponible",
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "100",
-    },
+    installUrl: googlePlayUrl,
+    sameAs: [appStoreUrl, googlePlayUrl],
   };
 
   return (
