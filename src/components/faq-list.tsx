@@ -1,7 +1,7 @@
 import { Plus } from "lucide-react";
 import type { Faq } from "@/lib/faq-content";
 
-export function FaqList({ faqs }: { faqs: Faq[] }) {
+export function FaqList({ faqs }: { faqs: Pick<Faq, "id" | "question" | "answer">[] }) {
   return (
     <div className="h-faq-list">
       {faqs.map((faq) => (

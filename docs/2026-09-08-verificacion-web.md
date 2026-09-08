@@ -40,6 +40,16 @@ La fuente remota de FAQ configurada localmente responde, pero conserva siete dí
 
 No se hicieron envíos reales, compras, cambios en HCI ni despliegues. La recepción efectiva de correo en producción no se probó.
 
+## Ampliación del paso a paso
+
+Se desarrollaron las guías existentes con tres entradas desde la portada: contratación individual, beneficio empresarial y plan activo. La guía general incorpora anclas, pasos de contratación y preparación de la app, tipos de contacto, aceptación de la verificación, permisos y una lista de comprobación. La empresarial explica la invitación y el mismo correo, diferencia confirmación de cuenta de beneficio activo y continúa en la preparación de la app. Ambas tienen ayuda desplegable y canales de contacto existentes. No hay autenticación ni comprobación automática del estado del usuario en estas guías.
+
+El contenido de configuración toma como referencia la captura pública existente y `../../docs/cierre-release-02-07.md`. No se reutilizan enlaces personales ni datos de empleados. Una prueba real del botón se presenta como una acción que debe coordinarse con los contactos; recorrer la guía no dispara avisos.
+
+Verificación: 20 pruebas existentes y build correctos, sin advertencias nuevas. Portada y guías revisadas a 320 y 768 px: un H1 por página, sin anclas rotas ni desbordes en texto, enlaces o imágenes. Revisión visual adicional de primeros pasos en escritorio y a 390 px; pregunta de contacto no validado abierta con Enter. Recorrido empresarial hacia `/primeros-pasos#preparar-app` comprobado. Se verificó que el catálogo local sigue mostrando los cuatro planes actuales, incluido el de pruebas. La portada pública sigue siendo la versión anterior.
+
+Pendiente para publicación: cerrar catálogo comercial y precios; preparar y autorizar el despliegue; coordinar una prueba de recepción real del formulario. Los envíos de la app y sus cinco plantillas siguen integrándose por separado en HCI. No se repitió la compra por Mercado Pago ni se enviaron mensajes.
+
 ## Hallazgo para revisar con Kozaca
 
 Al identificar el endpoint público en el JavaScript del portal HCI, se observó una cadena configurada como `x-client-secret`, junto con `x-client-id`, en el cliente de `/api/external-himalaya`. Está en el recurso público `/_expo/static/js/web/entry-3d584085b724c17d91f9e426c69b9586.js` de `app.hci.himalayasalud.com.ar`. No se copia su valor, no se utiliza y no se comprueba su alcance. Kozaca debe revisar si autentica operaciones y, en ese caso, retirarla del navegador y rotarla. La conexión nueva de planes usa exclusivamente el endpoint público, sin esa integración.

@@ -20,3 +20,11 @@ Tarjetas con Inter, títulos claros, precio destacado y prestaciones en lista. C
 6. Probar envíos con transporte simulado, errores y aceptación parcial. El modo de vista previa solo funciona en desarrollo y avisa antes de completar el formulario. Build, lint, rutas y revisión visual local.
 
 Esta implementación no publica el sitio ni envía mensajes reales. El cobro por Mercado Pago ya se probó; no se modifica su integración ni el portal de Kozaca.
+
+## Ampliación del paso a paso
+
+El 2026-09-08 se refuerzan las guías ya incluidas en el diseño, a pedido de Francisco. Se mantienen las rutas y la identidad visual. La portada y la guía ofrecen tres entradas: contratar, beneficio empresarial y plan activo. `/primeros-pasos` desarrolla contratación y preparación de la app con enlaces a secciones; `/beneficio-empresarial` acompaña la invitación, el uso del mismo correo y la comprobación del beneficio antes de continuar a la app.
+
+El contenido de contactos se apoya en la captura real existente y en el cierre del release del 2026-07-02: Primario/Secundario, envío de verificación, aceptación y estado Validado. Se explica la configuración por separado de una prueba real. Hay ayuda contextual mediante preguntas desplegables nativas y los canales de contacto existentes. No se infiere el estado de ninguna cuenta desde la guía ni se ejecutan activaciones o envíos. Las nuevas guías se renderizan en servidor; los enlaces de tienda y contacto conservan su comportamiento.
+
+Validación: build y pruebas existentes, enlaces/anclas, navegación por teclado y revisión visual en escritorio y celular. Publicación y entrega real de correo continúan pendientes de autorización.

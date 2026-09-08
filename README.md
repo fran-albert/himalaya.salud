@@ -21,13 +21,15 @@ Las pruebas usan el soporte nativo de TypeScript de Node 22.6 o posterior.
 ## Páginas
 
 - `/`: producto, pasos, planes y acceso a la app.
-- `/primeros-pasos`: ingreso con la misma cuenta y configuración de contactos.
-- `/beneficio-empresarial`: activación desde la invitación personal.
+- `/primeros-pasos`: contratación, descarga, ingreso con la misma cuenta y preparación de contactos. Accesos directos `#contratar`, `#preparar-app`, `#contactos`, `#verificacion` y `#ayuda`.
+- `/beneficio-empresarial`: invitación personal, activación con el correo invitado, comprobación del beneficio y continuación a la configuración de la app.
 - `/contacto` y `/contacto?tipo=empresa`: formulario general y empresarial.
 - `/faq` y `/enlaces`: ayuda y canales oficiales.
 - `/politica-de-privacidad` y `/terminos-y-condiciones`: documentos existentes.
 
 Las páginas anteriores `/informacion`, `/plan-estandar` y `/plan-estandar/contacto` redirigen al recorrido actual. `/soporte` redirige a `/contacto`.
+
+La portada ofrece tres entradas al paso a paso: contratar, beneficio empresarial o plan activo. Las guías incluyen una pantalla real de referencia, diferencia entre contactos primarios/secundarios, verificación y ayuda desplegable. No consultan cuentas ni activan planes: el empleado conserva su enlace personal recibido por correo. Estos enlaces públicos podrán incorporarse a correos e instructivos después de publicar la web.
 
 ## Contacto y correos
 

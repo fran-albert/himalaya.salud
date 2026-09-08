@@ -21,6 +21,7 @@ import { PlanCatalog, PlanCatalogLoading } from "@/components/plan-catalog";
 import { homeFaqs } from "@/lib/faq-content";
 import { FEATURES } from "@/lib/feature-flags";
 import { MinimalHome } from "@/components/minimal-home";
+import { GettingStartedPaths } from "@/components/getting-started";
 
 const steps = [
   {
@@ -121,7 +122,7 @@ export default function Home() {
         <div className="h-container">
           <div className="h-heading">
             <span className="h-eyebrow">De la web a tu celular</span>
-            <h2>Empezar tiene tres pasos.</h2>
+            <h2>Te acompañamos, paso a paso.</h2>
             <p>
               Primero activás tu plan. Después preparás la app para que pueda
               avisar a tus contactos.
@@ -136,6 +137,7 @@ export default function Home() {
               </article>
             ))}
           </div>
+          <GettingStartedPaths />
         </div>
       </section>
 
@@ -172,7 +174,7 @@ export default function Home() {
                   Vos elegís qué información disponible de tu salud compartir.
                 </li>
               </ul>
-              <Link href="/primeros-pasos" className="h-text-link">
+              <Link href="/primeros-pasos#contactos" className="h-text-link">
                 Cómo preparar mis contactos <ArrowRight size={16} />
               </Link>
               <p className="h-disclaimer" style={{ marginTop: 24 }}>

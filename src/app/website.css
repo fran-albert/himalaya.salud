@@ -916,7 +916,8 @@
   height: 38px;
   border-radius: 50%;
 }
-.h-guide-step h2 {
+.h-guide-step h2,
+.h-guide-step h3 {
   font-size: 24px;
   margin: 3px 0 12px;
 }
@@ -1397,7 +1398,8 @@
     width: 32px;
     height: 32px;
   }
-  .h-guide-step h2 {
+  .h-guide-step h2,
+  .h-guide-step h3 {
     font-size: 22px;
   }
   .h-contact-grid {
@@ -1477,4 +1479,90 @@
 
 .h-contact-channel[href^="mailto:"] strong {
   font-size: 13px;
+}
+
+/* Guías de contratación, beneficio empresarial y preparación de la app. */
+.h-journeys {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.h-steps + .h-journeys { margin-top: 38px; }
+.h-journey {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 22px 20px;
+  border: 1px solid #bfd6d4;
+  border-radius: 12px;
+  color: #0c606e;
+  background: #f7faf9;
+  transition: background .18s, border-color .18s;
+}
+.h-journey:hover { background: #eaf8f1; border-color: #0c606e; }
+.h-journey > svg { flex-shrink: 0; margin-top: 2px; }
+.h-journey > span { flex: 1; min-width: 0; }
+.h-journey strong { display: block; font-size: 15px; line-height: 1.5; }
+.h-journey small { display: block; font-size: 12px; line-height: 1.6; color: #42585d; margin-top: 7px; }
+.h-guide-body { margin-top: 56px; }
+.h-guide-main, .h-guide-step > div { min-width: 0; }
+.h-guide-section + .h-guide-section { margin-top: 42px; }
+.h-guide-section-heading { margin-bottom: 28px; }
+.h-guide-section-heading h2 { font-size: clamp(28px, 3vw, 36px); margin: 12px 0 16px; }
+.h-guide-section-heading p { font-size: 15px; }
+.h-guide-section-heading p a { color: #0c606e; text-decoration: underline; text-underline-offset: 3px; }
+.h-guide-step p:last-child { margin-bottom: 0; }
+.h-guide-note { background: #eaf8f1; border-left: 3px solid #70c9a6; padding: 16px 18px; border-radius: 0 8px 8px 0; }
+.h-guide-note strong { color: #073942; }
+.h-contact-types { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+.h-contact-types > div { border-top: 1px solid #b8d4d9; padding-top: 12px; }
+.h-contact-types strong { display: block; color: #0c606e; font-size: 14px; margin-bottom: 6px; }
+.h-contact-types span { display: block; color: #42585d; font-size: 13px; line-height: 1.6; }
+.h-guide-sticky { position: sticky; top: 110px; }
+.h-guide-index { display: grid; }
+.h-guide-index a { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-bottom: 1px solid #d6e4e4; color: #0c606e; font-size: 13px; font-weight: 600; }
+.h-guide-index a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.h-guide-index svg { flex-shrink: 0; }
+.h-guide-figure { margin: 28px 0 0; }
+.h-guide-figure img { display: block; width: 190px; max-width: 100%; height: auto; margin-inline: auto; border: 1px solid #c9deda; border-radius: 16px; }
+.h-guide-figure figcaption { font-size: 12px; line-height: 1.6; color: #52666b; text-align: center; margin-top: 14px; }
+.h-guide-mobile-screen { display: none; }
+.h-guide-review { margin-top: 16px; padding: 28px; border: 1px solid #c8e4d6; border-radius: 14px; background: #f7faf9; }
+.h-guide-review h3 { margin-top: 12px; font-size: 24px; }
+.h-guide-review .h-check-list { margin-bottom: 20px; }
+.h-guide-review p { font-size: 13px; }
+.h-guide-faq { padding: 64px 0; }
+.h-guide-faq > h2 { margin: 12px 0 28px; }
+.h-guide-personal-link { margin-top: 24px; font-size: 13px; }
+.h-benefit-intro { display: flex; align-items: center; gap: 24px; padding: 28px 32px; background: #eaf8f1; border: 1px solid #c8e4d6; border-radius: 14px; }
+.h-benefit-intro > svg { flex-shrink: 0; color: #0c606e; }
+.h-benefit-intro > div { flex: 1; }
+.h-benefit-intro h2 { font-size: 23px; margin-bottom: 10px; }
+.h-benefit-intro p { font-size: 14px; }
+.h-benefit-intro > a { flex-shrink: 0; }
+.h-guide-supplies { list-style: disc; padding-left: 18px; display: grid; gap: 12px; color: #42585d; font-size: 14px; line-height: 1.65; }
+@media (max-width: 1023px) {
+  .h-journey { padding: 20px 16px; gap: 10px; }
+  .h-journey-arrow { display: none; }
+  .h-benefit-intro { flex-wrap: wrap; }
+  .h-benefit-intro > a { margin-left: 54px; }
+  .h-guide-sticky { position: static; }
+}
+@media (max-width: 767px) {
+  .h-journeys { grid-template-columns: 1fr; gap: 12px; }
+  .h-journey { padding: 18px; align-items: center; gap: 14px; }
+  .h-journey-arrow { display: block; }
+  .h-journey small { margin-top: 4px; }
+  .h-guide-body { margin-top: 36px; }
+  .h-guide-sticky { order: -1; padding: 22px; }
+  .h-guide-sticky .h-guide-figure { display: none; }
+  .h-guide-mobile-screen { display: block; }
+  .h-guide-mobile-screen img { width: 180px; }
+  .h-guide-section + .h-guide-section { margin-top: 30px; }
+  .h-guide-note { padding: 14px; }
+  .h-guide-review { padding: 24px; }
+  .h-guide-faq { padding: 48px 0; }
+  .h-benefit-intro { display: block; padding: 24px; }
+  .h-benefit-intro > svg { margin-bottom: 16px; }
+  .h-benefit-intro > a { margin: 20px 0 0; }
 }
