@@ -3,7 +3,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contacto",
   description:
-    "¿Tenés dudas o necesitás ayuda? Contactá al equipo de Himalaya Salud. Estamos para ayudarte con tu historia clínica digital.",
+    "Consultanos por tu cuenta, tu plan o una propuesta para tu empresa. WhatsApp 341 242 9819 y contacto@himalayasalud.com.ar.",
   openGraph: {
     title: "Contacto | Himalaya Salud",
     description:

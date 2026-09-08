@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { contactChannels } from "@/lib/social-links";
 import { cn } from "@/lib/utils";
+import { WhatsappIcon } from "@/components/whatsapp-icon";
 
 const container = {
   hidden: {},
@@ -47,7 +48,7 @@ export function EnlacesHub() {
           />
           <h1 className="text-2xl font-bold text-foreground">Himalaya Salud</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Software de salud para clínicas y empresas
+            Tu salud en tus manos. Elegí cómo empezar.
           </p>
         </motion.header>
 
@@ -75,7 +76,7 @@ export function EnlacesHub() {
                         : undefined
                     }
                   >
-                    <Icon className="h-5 w-5" />
+                    {key === "whatsapp" ? <WhatsappIcon className="h-5 w-5" /> : <Icon className="h-5 w-5" />}
                   </span>
 
                   <span className="flex min-w-0 flex-1 flex-col">

@@ -1,182 +1,102 @@
 import Link from "next/link";
-import Image from "next/image";
-import {
-  ArrowUpRight,
-  Mail,
-  MapPin,
-  MessageCircle,
-} from "lucide-react";
-import { socialLinks, whatsappUrl } from "@/lib/social-links";
+import { Mail } from "lucide-react";
+import { socialLinks, whatsappUrl, contactEmail } from "@/lib/social-links";
+import { BrandLogo } from "./site-ui";
+import { WhatsappIcon } from "./whatsapp-icon";
+import { TrackedLink } from "./tracked-link";
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
-  const footerLinks = {
-    producto: [
-      { label: "Plan Botón de Pánico", href: "/#planes" },
-      { label: "Plan Empresas", href: "/contacto?tipo=empresa" },
-      { label: "Botón de Pánico", href: "/#emergencia" },
-      { label: "FAQ", href: "/faq" },
-    ],
-    empresa: [
-      { label: "Inicio", href: "/" },
-      { label: "Contacto", href: "/contacto" },
-    ],
-    legal: [
-      { label: "Privacidad", href: "/politica-de-privacidad" },
-      { label: "Términos", href: "/terminos-y-condiciones" },
-    ],
-  };
-
+  const groups = [
+    {
+      title: "Himalaya",
+      links: [
+        ["La app", "/#producto"],
+        ["Planes", "/#planes"],
+        ["Para empresas", "/#empresas"],
+        ["Quiénes somos", "/#quienes"],
+      ],
+    },
+    {
+      title: "Tu acceso",
+      links: [
+        ["Primeros pasos", "/primeros-pasos"],
+        ["Beneficio empresarial", "/beneficio-empresarial"],
+        ["Preguntas frecuentes", "/faq"],
+        ["Contacto", "/contacto"],
+      ],
+    },
+  ];
   return (
     <>
-      <footer className="relative bg-card border-t border-border">
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-8 lg:gap-10">
-          {/* Brand column */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-5">
-            <Link href="/" className="inline-flex items-center gap-3 group mb-4">
-              <div className="relative">
-                <Image
-                  src="/logo-himalaya-salud.svg"
-                  alt="Himalaya Salud"
-                  width={36}
-                  height={36}
-                  className="relative w-9 h-9"
-                />
-              </div>
-              <span className="font-bold text-lg text-foreground">
-                Himalaya Salud
-              </span>
-            </Link>
-
-            <p className="text-sm text-muted-foreground mb-6 max-w-sm leading-relaxed">
-              Tu salud en tus manos. Con un toque, tu celular pide ayuda por vos y avisa a tus contactos de confianza. Para que vos y tu familia estén preparados ante una emergencia.
-            </p>
-
-            <div className="grid gap-3 text-sm">
-              <a
-                href="mailto:contacto@himalayasalud.com.ar"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors group"
-              >
-                <Mail className="w-4 h-4" />
-                <span>contacto@himalayasalud.com.ar</span>
+      <footer className="h-footer">
+        <div className="h-container">
+          <div className="h-footer-grid">
+            <div>
+              <BrandLogo />
+              <p>
+                Una app para avisar a las personas que elegiste y tener tu
+                información de salud a mano.
+              </p>
+              <a className="h-footer-email" href={`mailto:${contactEmail}`}>
+                <Mail size={16} aria-hidden="true" />
+                {contactEmail}
               </a>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4" />
-                <span>Argentina</span>
-              </div>
+              <a
+                className="h-footer-email"
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WhatsappIcon width={17} height={17} />
+                341 242 9819
+              </a>
             </div>
-
-            <div className="mt-6 flex items-center gap-3">
+            {groups.map((g) => (
+              <div key={g.title}>
+                <h2>{g.title}</h2>
+                <nav aria-label={g.title}>
+                  {g.links.map(([text, href]) => (
+                    <Link key={href} href={href}>
+                      {text}
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            ))}
+          </div>
+          <div className="h-footer-bottom">
+            <span>© {new Date().getFullYear()} Himalaya Salud S.A.S.</span>
+            <div>
+              <Link href="/politica-de-privacidad">Privacidad</Link>
+              <Link href="/terminos-y-condiciones">Términos y condiciones</Link>
+            </div>
+            <div>
               {socialLinks.map(({ key, label, href, icon: Icon }) => (
                 <a
                   key={key}
                   href={href}
+                  aria-label={label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={label}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary"
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon size={18} />
                 </a>
               ))}
             </div>
           </div>
-
-          {/* Producto */}
-          <div className="lg:col-span-2">
-            <h4 className="font-semibold text-sm mb-4">Producto</h4>
-            <ul className="space-y-3">
-              {footerLinks.producto.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 group"
-                  >
-                    {link.label}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Empresa */}
-          <div className="lg:col-span-2">
-            <h4 className="font-semibold text-sm mb-4">Empresa</h4>
-            <ul className="space-y-3">
-              {footerLinks.empresa.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 group"
-                  >
-                    {link.label}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Legal */}
-          <div className="lg:col-span-1">
-            <h4 className="font-semibold text-sm mb-4">Legal</h4>
-            <ul className="space-y-3">
-              {footerLinks.legal.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1 group"
-                  >
-                    {link.label}
-                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Support card */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-2">
-            <div className="rounded-3xl border border-border bg-muted/35 p-5">
-              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                <MessageCircle className="h-5 w-5" />
-              </div>
-              <h4 className="font-semibold text-sm mb-2">Atención y soporte</h4>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Consultas sobre el Plan Botón de Pánico, planes para empresas o ayuda para usuarios.
-              </p>
-              <Link
-                href="/contacto"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
-              >
-                Contactar
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-          </div>
         </div>
-
-        {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-border/50">
-          <p className="text-sm text-muted-foreground text-center md:text-left">
-            &copy; {currentYear} Himalaya Salud S.A.S. Todos los derechos reservados.
-          </p>
-        </div>
-      </div>
-    </footer>
-
-      <Link
+      </footer>
+      <TrackedLink
         href={whatsappUrl}
+        event="whatsapp_clicked"
+        origin="floating"
+        className="h-floating-whatsapp"
+        aria-label="Consultar por WhatsApp al 341 242 9819"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Enviar WhatsApp a Himalaya Salud"
-        className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-slate-950/20 transition-transform hover:scale-105"
       >
-        <MessageCircle className="h-7 w-7" />
-      </Link>
+        <WhatsappIcon width={27} height={27} />
+      </TrackedLink>
     </>
   );
 }

@@ -8,7 +8,7 @@ export function OrganizationJsonLd() {
     url: "https://www.himalayasalud.com.ar",
     logo: "https://www.himalayasalud.com.ar/logo-himalaya-salud.svg",
     description:
-      "Himalaya Salud ofrece soluciones de software para la gestión de salud digital, incluyendo historia clínica digital segura e interoperable.",
+      "Himalaya Salud desarrolla software de salud y prevención para personas y empresas.",
     address: {
       "@type": "PostalAddress",
       addressCountry: "AR",
@@ -38,13 +38,7 @@ export function SoftwareApplicationJsonLd() {
     applicationCategory: "HealthApplication",
     operatingSystem: "iOS, Android",
     description:
-      "Aplicación de historia clínica digital que permite gestionar y compartir información médica de forma segura.",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "ARS",
-      description: "Descarga gratuita con suscripción premium disponible",
-    },
+      "Aplicación con Botón de Pánico para avisar a contactos y herramientas de información de salud disponibles según el plan.",
     installUrl: googlePlayUrl,
     sameAs: [appStoreUrl, googlePlayUrl],
   };

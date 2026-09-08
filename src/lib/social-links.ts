@@ -7,6 +7,9 @@ import {
   Mail,
   MessageCircle,
   Play,
+  CreditCard,
+  Smartphone,
+  Building2,
   type LucideIcon,
 } from "lucide-react";
 
@@ -21,7 +24,7 @@ import {
  */
 
 const WHATSAPP_FALLBACK =
-  "https://wa.me/5493412429819?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta.";
+  "https://wa.me/5493412429819?text=Hola%2C%20necesito%20ayuda%20con%20mi%20cuenta%20de%20Himalaya%20Salud.";
 
 export const whatsappUrl =
   process.env.NEXT_PUBLIC_WHATSAPP_URL || WHATSAPP_FALLBACK;
@@ -89,6 +92,10 @@ export const socialLinks: ContactChannel[] = [
 
 /** Todos los canales del hub /enlaces, en orden de prioridad. */
 export const contactChannels: ContactChannel[] = [
+  { key: "planes", label: "Ver planes y contratar", description: "Conocé las opciones para vos", href: "/#planes", icon: CreditCard, external: false },
+  { key: "acceso", label: "Ya tengo un plan", description: "Descarga y primeros pasos", href: "/primeros-pasos", icon: Smartphone, external: false },
+  { key: "beneficio", label: "Mi empresa me dio acceso", description: "Cómo activar tu invitación", href: "/beneficio-empresarial", icon: Building2, external: false },
+  { key: "empresa", label: "Himalaya para mi empresa", description: "Consultá una propuesta para tu equipo", href: "/contacto?tipo=empresa", icon: Building2, external: false },
   {
     key: "app-store",
     label: "App Store",

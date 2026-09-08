@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "dev:preview": "CONTACT_MAIL_MODE=preview next dev --hostname 127.0.0.1"
   },
   "dependencies": {
     "@aws-sdk/client-sesv2": "^3.1057.0",

@@ -5,7 +5,7 @@ import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { FEATURES } from "@/lib/feature-flags";
 
-const chromeLessRoutes = new Set(["/plan-estandar", "/enlaces"]);
+const chromeLessRoutes = new Set(["/enlaces"]);
 
 export function RouteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -14,7 +14,7 @@ export function RouteChrome({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative flex min-h-screen flex-col">
       {!hideChrome && <Header />}
-      <main className={hideChrome ? "flex-1" : "flex-1 pt-16"}>{children}</main>
+      <main id="contenido" tabIndex={-1} className="flex-1">{children}</main>
       {!hideChrome && <Footer />}
     </div>
   );

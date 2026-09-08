@@ -8,6 +8,7 @@ import { RouteChrome } from "@/components/route-chrome";
 import { ThemeProvider } from "@/components/theme-provider";
 import { OrganizationJsonLd, SoftwareApplicationJsonLd } from "@/components/json-ld";
 import "./globals.css";
+import "./website.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,22 +38,12 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Himalaya Salud - Tu historia clínica digital segura",
+    default: "Himalaya Salud · Tu red de confianza, en una app",
     template: "%s | Himalaya Salud",
   },
   description:
-    "Accedé a tu historia clínica digital de forma simple y segura. Himalaya Salud te permite gestionar y compartir tu información médica desde cualquier lugar.",
-  keywords: [
-    "historia clínica digital",
-    "salud digital",
-    "historia clínica electrónica",
-    "HCE",
-    "gestión de salud",
-    "app médica",
-    "Argentina",
-    "telemedicina",
-    "expediente médico digital",
-  ],
+    "Avisá a tus contactos con el Botón de Pánico de Himalaya Salud. Conocé los planes, contratá desde la web y empezá a usar la app con tu misma cuenta.",
+  keywords: ["Himalaya Salud", "botón de pánico", "contactos de emergencia", "salud digital", "Argentina"],
   authors: [{ name: "Himalaya Salud S.A.S." }],
   creator: "Himalaya Salud S.A.S.",
   publisher: "Himalaya Salud S.A.S.",
@@ -77,24 +68,24 @@ export const metadata: Metadata = {
     locale: "es_AR",
     url: siteUrl,
     siteName: "Himalaya Salud",
-    title: "Himalaya Salud - Tu historia clínica digital segura",
+    title: "Himalaya Salud · Tu red de confianza, en una app",
     description:
-      "Accedé a tu historia clínica digital de forma simple y segura. Gestiona y comparte tu información médica desde cualquier lugar.",
+      "Conocé el Botón de Pánico, elegí tu plan y empezá a usar Himalaya Salud con tu misma cuenta.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Himalaya Salud - Historia Clínica Digital",
+        alt: "Himalaya Salud · Tu salud en tus manos",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Himalaya Salud - Tu historia clínica digital segura",
+    title: "Himalaya Salud · Tu red de confianza, en una app",
     description:
-      "Accedé a tu historia clínica digital de forma simple y segura desde cualquier lugar.",
-    images: ["/og-image.png"],
+      "Avisá a tus contactos, conocé los planes y empezá a usar Himalaya Salud.",
+    images: ["/opengraph-image"],
   },
   verification: {
     // google: "tu-codigo-de-verificacion-google",
