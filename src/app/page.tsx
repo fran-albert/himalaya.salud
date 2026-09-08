@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -16,8 +17,8 @@ import {
 import { TrackedLink } from "@/components/tracked-link";
 import { StoreLinks, HelpBlock } from "@/components/site-ui";
 import { FaqList } from "@/components/faq-list";
+import { PlanCatalog, PlanCatalogLoading } from "@/components/plan-catalog";
 import { homeFaqs } from "@/lib/faq-content";
-import { subscriptionUrl } from "@/lib/site-links";
 import { FEATURES } from "@/lib/feature-flags";
 import { MinimalHome } from "@/components/minimal-home";
 
@@ -233,86 +234,53 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="planes" className="h-section">
+      <section
+        id="planes"
+        className="h-section h-plans-section"
+        aria-labelledby="plans-title"
+      >
         <div className="h-container">
           <div className="h-heading">
             <span className="h-eyebrow">Planes Himalaya</span>
-            <h2>Para vos. Para las personas de tu equipo.</h2>
+            <h2 id="plans-title">Elegí tu plan de Himalaya.</h2>
             <p>
-              Elegí cómo acceder a Himalaya. Si ya tenés una suscripción o una
-              invitación de tu empresa, continuá con ese acceso.
+              Compará las funciones incluidas. Contratá en la web y usá la misma
+              cuenta en la app.
             </p>
           </div>
-          <div className="h-plans-grid">
-            <article className="h-plan h-plan-individual">
-              <span className="h-eyebrow">Acceso individual</span>
-              <h3>Elegí tu plan</h3>
-              <p>Consultá las opciones disponibles y contratá desde la web.</p>
-              <ul className="h-check-list">
-                <li>
-                  <Check />
-                  Revisá el precio y las funciones de cada plan.
-                </li>
-                <li>
-                  <Check />
-                  Continuá con tu cuenta o creá una nueva.
-                </li>
-                <li>
-                  <Check />
-                  Completá la contratación con Mercado Pago.
-                </li>
-                <li>
-                  <Check />
-                  Usá la misma cuenta en la app.
-                </li>
-              </ul>
-              <TrackedLink
-                className="h-button"
-                href={subscriptionUrl}
-                event="subscription_portal_clicked"
-                origin="individual_plan"
-              >
-                Ver planes y precios <ArrowRight size={18} />
-              </TrackedLink>
-              <p className="h-plan-note">
-                El detalle y las condiciones se muestran antes de contratar.
+          <Suspense fallback={<PlanCatalogLoading />}>
+            <PlanCatalog />
+          </Suspense>
+          <article id="empresas" className="h-business-band h-anchor">
+            <div className="h-business-icon">
+              <Building2 size={30} aria-hidden="true" />
+            </div>
+            <div className="h-business-copy">
+              <span className="h-eyebrow">Himalaya para empresas</span>
+              <h3>Un beneficio para tu equipo.</h3>
+              <p>
+                Una propuesta según la cantidad de personas. Cada integrante
+                recibe su invitación por correo y activa su acceso a la app.
               </p>
-            </article>
-            <article id="empresas" className="h-plan h-plan-business h-anchor">
-              <span className="h-eyebrow">Acceso empresarial</span>
-              <h3>Un beneficio para tu equipo</h3>
-              <p>Acercá Himalaya a las personas de tu empresa.</p>
-              <ul className="h-check-list">
-                <li>
-                  <Check />
-                  Propuesta según la cantidad de personas.
-                </li>
-                <li>
-                  <Check />
-                  Invitación individual por correo.
-                </li>
-                <li>
-                  <Check />
-                  Cada persona activa el beneficio asignado.
-                </li>
-                <li>
-                  <Check />
-                  Acceso a la app con su propia cuenta.
-                </li>
-              </ul>
+            </div>
+            <div className="h-business-actions">
               <TrackedLink
                 className="h-button h-button-white"
                 href="/contacto?tipo=empresa"
                 event="business_contact_clicked"
                 origin="business_plan"
               >
-                Consultar propuesta <ArrowRight size={18} />
+                Consultar propuesta <ArrowRight size={18} aria-hidden="true" />
               </TrackedLink>
-              <p className="h-plan-note">
-                Contanos sobre tu empresa y te orientamos.
-              </p>
-            </article>
-          </div>
+              <Link href="/beneficio-empresarial">
+                Ya recibí una invitación
+              </Link>
+            </div>
+          </article>
+          <p className="h-plans-existing">
+            ¿Ya tenés un plan activo?{" "}
+            <Link href="/primeros-pasos">Continuá a la app</Link>
+          </p>
         </div>
       </section>
 

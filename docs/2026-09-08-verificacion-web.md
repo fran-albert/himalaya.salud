@@ -18,7 +18,7 @@ Se validan campos y tamaño, se escapa HTML y se incluyen alternativas de texto.
 
 ## Comprobaciones
 
-- Once pruebas automatizadas: validación, HTML, destinatarios, Reply-To, fallo del envío principal, aceptación parcial y respaldo de FAQ.
+- Veinte pruebas automatizadas: contacto, respaldo de FAQ y nueve pruebas del catálogo de planes (publicación, orden, monedas, períodos, importes, enlaces, validación y fallos).
 - Build de producción y tipos correctos. Lint sin errores; trece advertencias anteriores en componentes heredados.
 - Nueve páginas con respuesta 200, un título principal y canónica correspondiente. Seis redirecciones verificadas.
 - Enlaces internos, anclas, recursos, imagen para compartir, sitemap y robots comprobados.
@@ -30,8 +30,16 @@ Se validan campos y tamaño, se escapa HTML y se incluyen alternativas de texto.
 
 ## Definiciones comerciales
 
-El botón individual abre el catálogo existente; su destino se configura en `NEXT_PUBLIC_SUBSCRIPTION_URL`. Acordar plan, precio, prestaciones y enlace antes de publicar. El portal todavía mostraba planes de prueba en la revisión previa.
+La ampliación solicitada muestra tarjetas conectadas a `GET https://api.hci.himalayasalud.com.ar/api/plans/public`, sin credenciales. Cada botón abre el detalle de su plan y opción de facturación. Los accesos generales mantienen `NEXT_PUBLIC_SUBSCRIPTION_URL`.
+
+Respuesta real verificada: cuatro planes, con importes mensuales ARS de $20, $1.555, $1.500 y $3.000 en orden de `rank`. Son valores observados, no precios fijados en el código ni nuevos acuerdos comerciales. El plan de prueba está activo y publicado; su visibilidad corresponde al backoffice. Se conservan las opciones ARS aunque incluyan IDs de tiendas y se excluyen USD. Solo se anuncian períodos mensual/anual conocidos; el anual muestra el total del año.
+
+Revisión de las tarjetas a 320, 390, 768 y 1280 px, sin desbordes de texto o controles. Destino del Botón de Pánico verificado en el portal público, sin registro ni compra. Compilación con revalidación de portada cada cinco minutos. Carga en servidor, espera acotada y acceso al portal ante error o catálogo vacío.
 
 La fuente remota de FAQ configurada localmente responde, pero conserva siete días gratis y cinco activaciones. El contenido revisado local es el predeterminado. Habilitar `FAQ_SOURCE=remote` después de alinear ese contenido; si el proveedor falla, continúa disponible el respaldo local.
 
 No se hicieron envíos reales, compras, cambios en HCI ni despliegues. La recepción efectiva de correo en producción no se probó.
+
+## Hallazgo para revisar con Kozaca
+
+Al identificar el endpoint público en el JavaScript del portal HCI, se observó una cadena configurada como `x-client-secret`, junto con `x-client-id`, en el cliente de `/api/external-himalaya`. Está en el recurso público `/_expo/static/js/web/entry-3d584085b724c17d91f9e426c69b9586.js` de `app.hci.himalayasalud.com.ar`. No se copia su valor, no se utiliza y no se comprueba su alcance. Kozaca debe revisar si autentica operaciones y, en ese caso, retirarla del navegador y rotarla. La conexión nueva de planes usa exclusivamente el endpoint público, sin esa integración.

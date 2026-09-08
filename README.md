@@ -49,7 +49,11 @@ WhatsApp abre la conversación con una consulta escrita; la persona confirma el 
 
 ## Planes y preguntas frecuentes
 
-`NEXT_PUBLIC_SUBSCRIPTION_URL` define el destino comercial HTTPS dentro de `app.hci.himalayasalud.com.ar`. Sin esa variable se abre el catálogo existente. Antes de publicar, acordar el plan y su enlace y retirar del catálogo público los planes de prueba. Esta web no modifica los precios ni el cobro de Mercado Pago.
+La sección `/#planes` consulta `GET https://api.hci.himalayasalud.com.ar/api/plans/public` desde el servidor, sin credenciales. Nombres, descripciones, prestaciones, orden y precios se administran en el backoffice de HCI. Se muestran planes activos con contenido publicado y facturación en ARS mensual o anual. Las opciones USD quedan fuera, como en el portal web actual. Si hay varios períodos, cada tarjeta permite elegirlos y muestra el total del período.
+
+Los botones abren `/plan-details` en HCI con `id`, `plan` y `billingOptionId` de la API. La información se revalida cada cinco minutos con las visitas. Ante un fallo o catálogo vacío se ofrece un enlace al portal; no se muestran importes de respaldo. El catálogo actual incluye un plan de prueba publicado: su visibilidad se gestiona desde HCI.
+
+`NEXT_PUBLIC_SUBSCRIPTION_URL` conserva el destino de los accesos generales al portal; las tarjetas usan el detalle de cada plan. Esta web no modifica los precios ni el cobro de Mercado Pago.
 
 Las FAQ usan el contenido revisado de `src/lib/faq-content.ts`. La fuente remota observada todavía ofrece siete días gratis y cinco activaciones: revisar esas condiciones antes de habilitarla con `FAQ_SOURCE=remote`, `FAQ_API_URL` y, si corresponde, `FAQ_API_TOKEN`. Una respuesta inválida o un fallo del proveedor conserva la ayuda local. `/api/faqs` indica `source: local | remote`.
 

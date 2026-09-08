@@ -454,51 +454,220 @@
 .h-tool p {
   font-size: 14px;
 }
+.h-plans-section {
+  background: linear-gradient(180deg, #fff 0%, #f6faf8 100%);
+}
 .h-plans-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  gap: 20px;
 }
 .h-plan {
-  border: 1px solid #b8d4d9;
-  border-radius: 16px;
-  padding: 36px;
+  min-width: 0;
+  border: 1px solid #bfd6d4;
+  border-top: 4px solid #0c606e;
+  border-radius: 14px;
+  padding: 28px 24px 24px;
   display: flex;
   flex-direction: column;
+  background: #fff;
+  box-shadow: 0 6px 20px #07394205;
 }
-.h-plan-individual {
-  border-top: 4px solid #0c606e;
-  background: #fcfefd;
-}
-.h-plan-business {
-  background: #073942;
-  color: white;
-  border-color: #073942;
+.h-plan-heading {
+  min-height: 120px;
 }
 .h-plan h3 {
-  font-size: 32px;
-  margin: 14px 0 16px;
+  font-size: 22px;
+  line-height: 1.28;
+  letter-spacing: -0.5px;
+  margin: 0 0 12px;
+  overflow-wrap: anywhere;
 }
-.h-plan-business h3,
-.h-plan-business p,
-.h-plan-business li {
-  color: white;
+.h-plan-description {
+  font-size: 13px;
+  line-height: 1.6 !important;
+  margin: 0;
+  overflow-wrap: anywhere;
 }
-.h-plan-business .h-eyebrow,
-.h-plan-business li svg {
-  color: #a4e3c8;
+.h-plan-subtitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.h-plan-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 8px;
+  margin: 20px 0 26px;
+}
+.h-plan-price strong {
+  font-size: clamp(28px, 3.2vw, 42px);
+  color: #073942;
+  font-weight: 650;
+  line-height: 1.15;
+  letter-spacing: -1.7px;
+  overflow-wrap: anywhere;
+}
+.h-plan-price > span {
+  color: #42585d;
+  font-size: 13px;
+}
+.h-plan-price small {
+  width: 100%;
+  color: #52666b;
+  font-size: 11px;
+  margin-top: 7px;
+}
+.h-plan-features {
+  border-top: 1px solid #d6e4e4;
+  padding-top: 22px;
+  flex: 1;
+  margin-bottom: 30px;
+}
+.h-plan-features-label {
+  color: #073942;
+  font-size: 12px;
+  font-weight: 650;
 }
 .h-plan .h-check-list {
-  flex: 1;
-  margin: 24px 0 28px;
+  margin: 16px 0 0;
+  gap: 14px;
 }
-.h-plan-note {
+.h-plan .h-check-list li {
+  font-size: 13px;
+  line-height: 1.45;
+  gap: 10px;
+  overflow-wrap: anywhere;
+}
+.h-plan .h-check-list svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  color: #2d7a60;
+}
+.h-plan .h-button {
+  width: 100%;
+}
+.h-plan-billing label {
+  display: block;
   font-size: 12px;
-  margin-top: 14px;
-  text-align: center;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
-.h-plan-business .h-plan-note {
-  color: #c6dfdf;
+.h-plan-billing select {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #b8d4d9;
+  border-radius: 6px;
+  padding: 8px;
+  background: white;
+  color: #073942;
+  font: inherit;
+  font-size: 13px;
+}
+.h-plans-payment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  margin-top: 22px;
+}
+.h-plans-payment svg {
+  flex-shrink: 0;
+  color: #0c606e;
+}
+.h-business-band {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  margin-top: 40px;
+  padding: 34px 36px;
+  background: #073942;
+  border-radius: 14px;
+}
+.h-business-icon {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background: #164e55;
+  color: #a4e3c8;
+  flex-shrink: 0;
+}
+.h-business-copy {
+  flex: 1;
+}
+.h-business-copy .h-eyebrow {
+  color: #a4e3c8;
+  font-size: 10px;
+}
+.h-business-copy h3 {
+  color: white;
+  font-size: 26px;
+  margin: 10px 0;
+}
+.h-business-copy p {
+  color: #d4e5e4;
+  font-size: 13px;
+  max-width: 510px;
+}
+.h-business-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.h-business-actions > a:last-child {
+  color: #d4e5e4;
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.h-plans-existing {
+  font-size: 13px;
+  text-align: center;
+  margin-top: 24px;
+}
+.h-plans-existing a {
+  color: #0c606e;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.h-plans-fallback {
+  padding: 40px;
+  border: 1px solid #b8d4d9;
+  border-radius: 14px;
+  background: white;
+}
+.h-plans-fallback h3 {
+  font-size: 24px;
+}
+.h-plans-fallback p {
+  margin: 14px 0 24px;
+}
+.h-plan-skeleton {
+  min-height: 460px;
+  gap: 22px;
+}
+.h-plan-skeleton span {
+  background: #e5eeeb;
+  border-radius: 6px;
+  height: 35px;
+}
+.h-plan-skeleton span:nth-child(2) {
+  width: 70%;
+  height: 60px;
+}
+.h-plan-skeleton span:nth-child(3) {
+  height: 110px;
+}
+.h-plan-skeleton span:last-child {
+  margin-top: auto;
+  height: 50px;
 }
 .h-access {
   background: #eaf8f1;
@@ -1009,8 +1178,20 @@
   .h-product-grid {
     gap: 40px;
   }
+  .h-plans-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .h-plan {
     padding: 28px;
+  }
+  .h-plan-heading {
+    min-height: 110px;
+  }
+  .h-plan-price strong {
+    font-size: 42px;
+  }
+  .h-business-icon {
+    display: none;
   }
   .h-access-grid {
     gap: 30px;
@@ -1124,6 +1305,37 @@
   }
   .h-plan {
     padding: 26px;
+  }
+  .h-plan-heading {
+    min-height: 0;
+  }
+  .h-plan h3 {
+    font-size: 25px;
+  }
+  .h-plan-price strong {
+    font-size: 44px;
+  }
+  .h-plan-features {
+    margin-bottom: 26px;
+  }
+  .h-plans-payment {
+    align-items: flex-start;
+  }
+  .h-plans-payment svg {
+    margin-top: 3px;
+  }
+  .h-business-band {
+    padding: 28px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+  .h-business-actions {
+    align-items: stretch;
+    text-align: center;
+  }
+  .h-plans-fallback {
+    padding: 28px;
   }
   .h-access-grid {
     gap: 34px;
