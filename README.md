@@ -60,3 +60,7 @@ Los botones abren `/plan-details` en HCI con `id`, `plan` y `billingOptionId` de
 Las FAQ usan el contenido revisado de `src/lib/faq-content.ts`. La fuente remota observada todavía ofrece siete días gratis y cinco activaciones: revisar esas condiciones antes de habilitarla con `FAQ_SOURCE=remote`, `FAQ_API_URL` y, si corresponde, `FAQ_API_TOKEN`. Una respuesta inválida o un fallo del proveedor conserva la ayuda local. `/api/faqs` indica `source: local | remote`.
 
 Las cinco plantillas de cuenta y suscripción se integran en HCI por separado; este repositorio gestiona los correos del formulario web.
+
+## Posicionamiento público
+
+La comunicación y los metadatos se centran en el Botón de Pánico, los planes y el uso de la app. Se retiró el anuncio de historia clínica de la portada. Los documentos legales conservan su texto, son accesibles desde el pie y llevan `noindex, follow`; no se incluyen en el sitemap.

@@ -3,7 +3,7 @@ import { siteUrl } from "@/lib/site-links";
 import { FEATURES } from "@/lib/feature-flags";
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = FEATURES.minimalSite
-    ? ["", "/contacto", "/politica-de-privacidad", "/terminos-y-condiciones"]
+    ? ["", "/contacto"]
     : [
         "",
         "/primeros-pasos",
@@ -11,8 +11,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
         "/faq",
         "/contacto",
         "/enlaces",
-        "/politica-de-privacidad",
-        "/terminos-y-condiciones",
       ];
   return paths.map((path) => ({
     url: siteUrl + path,

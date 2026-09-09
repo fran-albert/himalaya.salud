@@ -219,11 +219,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-          {FEATURES.hci && (
-            <p style={{ marginTop: 24 }}>
-              Próximamente: historia clínica interoperable.
-            </p>
-          )}
           {FEATURES.instituciones && (
             <Link
               href="/contacto?tipo=institucion"
