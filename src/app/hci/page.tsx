@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 const versions = [
   {
@@ -73,12 +74,12 @@ export default function HCIPreviewPage() {
               Selector de versiones exportadas desde Claude Design. Abrí cada variante para comparar diseño, narrativa y estructura.
             </p>
           </div>
-          <a
+          <Link
             href="/"
             className="inline-flex h-12 items-center justify-center rounded-xl bg-[#07364a] px-5 text-sm font-black text-white transition hover:bg-[#0c526b]"
           >
             Volver al sitio
-          </a>
+          </Link>
         </header>
 
         <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

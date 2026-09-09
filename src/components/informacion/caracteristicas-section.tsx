@@ -158,9 +158,9 @@ export function CaracteristicasSection() {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {[
-              { image: "/images/app/Home.png", label: "Inicio" },
-              { image: "/images/app/historiaClincia.png", label: "Historia Clínica" },
-              { image: "/images/app/BotonDePanico.png", label: "Botón de Pánico" },
+              { image: "/images/app/app-inicio.png", label: "Inicio", width: 1284, height: 2778 },
+              { image: "/images/app/historiaClincia.png", label: "Historia Clínica", width: 300, height: 600 },
+              { image: "/images/app/app-boton-panico.png", label: "Botón de Pánico", width: 1284, height: 2778 },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -174,8 +174,8 @@ export function CaracteristicasSection() {
                   <Image
                     src={item.image}
                     alt={item.label}
-                    width={300}
-                    height={600}
+                    width={item.width}
+                    height={item.height}
                     className="w-full h-auto"
                   />
                   {/* Overlay on hover */}

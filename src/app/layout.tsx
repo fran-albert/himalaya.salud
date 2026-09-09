@@ -1,49 +1,52 @@
 import type React from "react";
-import type { Metadata } from "next";
-import { Work_Sans, Open_Sans } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
+import { RouteChrome } from "@/components/route-chrome";
 import { ThemeProvider } from "@/components/theme-provider";
 import { QueryProvider } from "@/lib/query-provider";
 import { AuthProvider } from "@/lib/auth";
-import { OrganizationJsonLd, SoftwareApplicationJsonLd } from "@/components/json-ld";
 import { Toaster } from "@/components/ui/sonner";
+import { OrganizationJsonLd, SoftwareApplicationJsonLd } from "@/components/json-ld";
 import "./globals.css";
+import "./website.css";
 
-const workSans = Work_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-work-sans",
+  weight: ["400", "500", "600", "700", "900"],
+  variable: "--font-inter",
   display: "swap",
 });
 
-const openSans = Open_Sans({
-  subsets: ["latin"],
-  variable: "--font-open-sans",
+const leelawadee = localFont({
+  src: "../../public/fonts/Leelawadee-UI-Bold.ttf",
+  weight: "700",
+  variable: "--font-leelawadee",
   display: "swap",
 });
 
 const siteUrl = "https://www.himalayasalud.com.ar";
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#0C606E",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
+    default: "Himalaya Salud · Tu red de confianza, en una app",
     template: "%s | Himalaya Salud",
   },
   description:
-    "Encontrá médicos, farmacias y hospitales cerca tuyo. Subí tus estudios médicos y tenelos siempre a mano. Botón de pánico con GPS para emergencias. Desde $3.000/mes.",
-  keywords: [
-    "buscar médicos cerca",
-    "farmacias cercanas",
-    "app de salud Argentina",
-    "botón de pánico",
-    "emergencias médicas",
-    "estudios médicos digitales",
-    "salud digital",
-    "app médica",
-    "Argentina",
-    "servicios de salud",
-  ],
+    "Avisá a tus contactos con el Botón de Pánico de Himalaya Salud. Conocé los planes, contratá desde la web y empezá a usar la app con tu misma cuenta.",
+  keywords: ["Himalaya Salud", "botón de pánico", "contactos de emergencia", "salud digital", "Argentina"],
   authors: [{ name: "Himalaya Salud S.A.S." }],
   creator: "Himalaya Salud S.A.S.",
   publisher: "Himalaya Salud S.A.S.",
@@ -68,24 +71,24 @@ export const metadata: Metadata = {
     locale: "es_AR",
     url: siteUrl,
     siteName: "Himalaya Salud",
-    title: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
+    title: "Himalaya Salud · Tu red de confianza, en una app",
     description:
-      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $3.000/mes.",
+      "Conocé el Botón de Pánico, elegí tu plan y empezá a usar Himalaya Salud con tu misma cuenta.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Himalaya Salud - Historia Clínica Digital",
+        alt: "Himalaya Salud · Tu salud en tus manos",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Himalaya Salud - Médicos, farmacias y emergencias en tu celular",
+    title: "Himalaya Salud · Tu red de confianza, en una app",
     description:
-      "Encontrá médicos, farmacias y hospitales cerca tuyo. Botón de pánico con GPS para emergencias. Desde $3.000/mes.",
-    images: ["/og-image.png"],
+      "Avisá a tus contactos, conocé los planes y empezá a usar Himalaya Salud.",
+    images: ["/opengraph-image"],
   },
   verification: {
     // google: "tu-codigo-de-verificacion-google",
@@ -101,7 +104,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${workSans.variable} ${openSans.variable}`} suppressHydrationWarning>
+    <html lang="es" className={`${inter.variable} ${leelawadee.variable} ${inter.className}`} suppressHydrationWarning>
       <head>
         <OrganizationJsonLd />
         <SoftwareApplicationJsonLd />
@@ -110,14 +113,12 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
+          forcedTheme="light"
           disableTransitionOnChange
         >
           <QueryProvider>
             <AuthProvider>
-              <div className="relative flex min-h-screen flex-col">
-                {children}
-              </div>
+              <RouteChrome>{children}</RouteChrome>
               <Toaster position="top-right" />
             </AuthProvider>
           </QueryProvider>

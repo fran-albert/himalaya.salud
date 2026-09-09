@@ -1,32 +1,20 @@
-import { MetadataRoute } from "next";
-
+import type { MetadataRoute } from "next";
+import { siteUrl } from "@/lib/site-links";
+import { FEATURES } from "@/lib/feature-flags";
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.himalayasalud.com.ar";
-
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/soporte`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/privacidad`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/terminos`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-  ];
+  const paths = FEATURES.minimalSite
+    ? ["", "/contacto"]
+    : [
+        "",
+        "/primeros-pasos",
+        "/beneficio-empresarial",
+        "/faq",
+        "/contacto",
+        "/enlaces",
+      ];
+  return paths.map((path) => ({
+    url: siteUrl + path,
+    changeFrequency: path ? "monthly" : "weekly",
+    priority: path ? 0.7 : 1,
+  }));
 }

@@ -156,10 +156,10 @@ export function BotonPanicoSection() {
                   className="relative rounded-[2.5rem] overflow-hidden border-8 border-gray-900"
                 >
                   <Image
-                    src="/images/app/BotonDePanico.png"
+                    src="/images/app/app-boton-panico.png"
                     alt="Botón de Pánico - Himalaya Salud"
-                    width={400}
-                    height={800}
+                    width={1284}
+                    height={2778}
                     className="w-full h-auto"
                     priority
                   />
