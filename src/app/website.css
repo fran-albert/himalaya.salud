@@ -427,14 +427,15 @@
 }
 .h-tools-heading h3 {
   font-size: 25px;
+  margin-top: 12px;
 }
 .h-tools-heading p {
   font-size: 13px;
   max-width: 350px;
 }
-.h-tools-grid {
+.h-tools-layout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1.12fr 0.88fr;
   gap: 20px;
 }
 .h-tool {
@@ -453,6 +454,210 @@
 }
 .h-tool p {
   font-size: 14px;
+}
+.h-tool-featured {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: center;
+  gap: 25px;
+  padding: 30px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffffff 0%, #edf8f1 100%);
+}
+.h-tool-featured-copy .h-eyebrow {
+  gap: 7px;
+}
+.h-tool-featured-copy h3 {
+  margin: 16px 0 12px;
+  font-size: 26px;
+}
+.h-tool-featured-copy p {
+  margin-bottom: 20px;
+}
+.h-portal-mockup {
+  min-height: 250px;
+  padding: 20px;
+  border: 1px solid #c9deda;
+  border-radius: 18px;
+  background: #f8fcfa;
+  box-shadow: 0 16px 36px #0c606e16;
+  transform: rotate(1.2deg);
+}
+.h-mockup-topline,
+.h-mockup-document,
+.h-mockup-search {
+  display: flex;
+  align-items: center;
+}
+.h-mockup-topline {
+  justify-content: space-between;
+  color: #073942;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.h-mockup-avatar {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: white;
+  background: #2d7a60;
+  font-size: 9px;
+}
+.h-mockup-search {
+  gap: 7px;
+  padding: 9px 11px;
+  border: 1px solid #d6e4e4;
+  border-radius: 8px;
+  color: #7a8b8f;
+  background: white;
+  font-size: 11px;
+  margin-bottom: 12px;
+}
+.h-mockup-document {
+  gap: 10px;
+  padding: 12px 10px;
+  border-top: 1px solid #dcebe5;
+  color: #0c606e;
+  font-size: 12px;
+}
+.h-mockup-document > span:nth-child(2) {
+  flex: 1;
+}
+.h-mockup-document strong,
+.h-mockup-document small {
+  display: block;
+}
+.h-mockup-document strong {
+  color: #073942;
+  font-size: 11px;
+}
+.h-mockup-document small {
+  color: #7a8b8f;
+  font-size: 9px;
+  margin-top: 3px;
+}
+.h-mockup-file {
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 32px;
+  border-radius: 6px;
+  color: #0c606e;
+  background: #e6f0f2;
+}
+.h-mockup-document-active {
+  border: 1px solid #b8d4d9;
+  border-radius: 9px;
+  background: white;
+}
+.h-tools-stack {
+  display: grid;
+  gap: 20px;
+}
+.h-tools-stack .h-tool {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 15px;
+  align-items: start;
+  padding: 25px;
+}
+.h-tools-stack .h-tool h3 {
+  font-size: 21px;
+  margin: 8px 0 7px;
+}
+.h-tools-stack .h-tool p {
+  margin: 0;
+}
+.h-tool-icon {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 12px;
+  color: #0c606e;
+  background: #e6f0f2;
+}
+.h-mini-chart {
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  height: 28px;
+  margin-top: 16px;
+}
+.h-mini-chart span {
+  display: block;
+  width: 11px;
+  border-radius: 3px 3px 0 0;
+  background: #70c9a6;
+}
+.h-mini-chart span:nth-child(1) { height: 10px; opacity: 0.45; }
+.h-mini-chart span:nth-child(2) { height: 16px; opacity: 0.55; }
+.h-mini-chart span:nth-child(3) { height: 13px; opacity: 0.65; }
+.h-mini-chart span:nth-child(4) { height: 21px; opacity: 0.72; }
+.h-mini-chart span:nth-child(5) { height: 17px; opacity: 0.8; }
+.h-mini-chart span:nth-child(6) { height: 25px; opacity: 0.9; }
+.h-mini-chart span:nth-child(7) { height: 22px; }
+.h-chart-trend {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  color: #2d7a60;
+}
+.h-tool-services {
+  grid-template-columns: 118px 1fr !important;
+  align-items: center !important;
+}
+.h-services-map {
+  position: relative;
+  height: 112px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #eaf4ef;
+}
+.h-map-grid,
+.h-map-road {
+  position: absolute;
+  display: block;
+}
+.h-map-grid {
+  inset: -20px;
+  opacity: 0.55;
+  background-image: linear-gradient(30deg, transparent 46%, #b8d4d9 47%, #b8d4d9 50%, transparent 51%), linear-gradient(120deg, transparent 46%, #b8d4d9 47%, #b8d4d9 50%, transparent 51%);
+  background-size: 36px 36px;
+}
+.h-map-road {
+  height: 7px;
+  border-radius: 99px;
+  background: white;
+  transform: rotate(-25deg);
+}
+.h-map-road-one { width: 145px; left: -18px; top: 37px; }
+.h-map-road-two { width: 120px; right: -22px; bottom: 30px; transform: rotate(33deg); }
+.h-map-pin {
+  position: absolute;
+  left: 55px;
+  top: 42px;
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  border: 4px solid white;
+  border-radius: 50% 50% 50% 0;
+  color: white;
+  background: #0c606e;
+  transform: rotate(-45deg);
+  box-shadow: 0 4px 9px #0c606e33;
+}
+.h-map-pin svg { transform: rotate(45deg); }
+.h-tools-note {
+  margin-top: 18px;
+  color: #52666b !important;
+  font-size: 12px !important;
 }
 .h-plans-section {
   background: linear-gradient(180deg, #fff 0%, #f6faf8 100%);
@@ -1290,7 +1495,7 @@
   .h-tools-heading p {
     margin-top: 12px;
   }
-  .h-tools-grid {
+  .h-tools-layout {
     grid-template-columns: 1fr;
     gap: 14px;
   }
@@ -1299,6 +1504,33 @@
   }
   .h-tool svg {
     margin-bottom: 12px;
+  }
+  .h-tool-featured {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px;
+  }
+  .h-tool-featured-copy h3 {
+    font-size: 24px;
+  }
+  .h-portal-mockup {
+    min-height: 0;
+    transform: none;
+  }
+  .h-tools-stack {
+    gap: 14px;
+  }
+  .h-tools-stack .h-tool {
+    padding: 22px;
+  }
+  .h-tool-services {
+    grid-template-columns: 100px 1fr !important;
+  }
+  .h-services-map {
+    height: 102px;
+  }
+  .h-map-pin {
+    left: 46px;
   }
   .h-plans-grid,
   .h-access-grid {

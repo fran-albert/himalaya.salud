@@ -9,10 +9,13 @@ import {
   Smartphone,
   ShieldCheck,
   FileText,
-  Activity,
   Building2,
   Mail,
   CreditCard,
+  Download,
+  HeartPulse,
+  Search,
+  TrendingUp,
 } from "lucide-react";
 import { TrackedLink } from "@/components/tracked-link";
 import { StoreLinks, HelpBlock } from "@/components/site-ui";
@@ -187,37 +190,79 @@ export default function Home() {
           </div>
           <div className="h-more-tools">
             <div className="h-tools-heading">
-              <h3>Tu información de salud, a mano.</h3>
+              <div>
+                <span className="h-eyebrow">Más que una alerta</span>
+                <h3>Tu salud, en un solo lugar.</h3>
+              </div>
               <p>
-                Estas herramientas están disponibles según las prestaciones de
-                tu plan.
+                Además del Botón de Pánico, Himalaya reúne herramientas para
+                guardar, seguir y encontrar tu información de salud.
               </p>
             </div>
-            <div className="h-tools-grid">
-              {[
-                {
-                  icon: FileText,
-                  title: "Portal del Paciente",
-                  text: "Guardá los estudios y documentos que cargás y consultalos cuando los necesites.",
-                },
-                {
-                  icon: Activity,
-                  title: "Mis mediciones",
-                  text: "Registrá tus mediciones y consultá cómo cambian a lo largo del tiempo.",
-                },
-                {
-                  icon: MapPin,
-                  title: "Servicios de salud",
-                  text: "Encontrá servicios por ubicación y consultá cómo llegar.",
-                },
-              ].map(({ icon: Icon, title, text }) => (
-                <article className="h-tool" key={title}>
-                  <Icon size={25} aria-hidden="true" />
-                  <h3>{title}</h3>
-                  <p>{text}</p>
+            <div className="h-tools-layout">
+              <article className="h-tool h-tool-featured">
+                <div className="h-tool-featured-copy">
+                  <span className="h-eyebrow">
+                    <FileText size={14} aria-hidden="true" /> Portal del Paciente
+                  </span>
+                  <h3>Tus estudios, disponibles cuando los necesitás.</h3>
+                  <p>
+                    Consultá informes y documentos de salud desde tu celular,
+                    sin depender de una carpeta ni de un horario.
+                  </p>
+                  <Link href="#planes" className="h-text-link">
+                    Ver qué incluye cada plan <ArrowRight size={16} />
+                  </Link>
+                </div>
+                <div className="h-portal-mockup" aria-label="Ejemplo visual del Portal del Paciente">
+                  <div className="h-mockup-topline">
+                    <span>Mis estudios</span>
+                    <span className="h-mockup-avatar">FA</span>
+                  </div>
+                  <div className="h-mockup-search">
+                    <Search size={13} aria-hidden="true" /> Buscar un estudio
+                  </div>
+                  <div className="h-mockup-document h-mockup-document-active">
+                    <span className="h-mockup-file"><FileText size={16} /></span>
+                    <span><strong>Informe de laboratorio</strong><small>Disponible para consultar</small></span>
+                    <Download size={15} aria-hidden="true" />
+                  </div>
+                  <div className="h-mockup-document">
+                    <span className="h-mockup-file"><FileText size={16} /></span>
+                    <span><strong>Estudio de imágenes</strong><small>12 de septiembre</small></span>
+                    <ArrowRight size={15} aria-hidden="true" />
+                  </div>
+                </div>
+              </article>
+              <div className="h-tools-stack">
+                <article className="h-tool h-tool-measurements">
+                  <div className="h-tool-icon"><HeartPulse size={23} aria-hidden="true" /></div>
+                  <div>
+                    <span className="h-eyebrow">Mis mediciones</span>
+                    <h3>Seguí tu evolución.</h3>
+                    <p>Registrá tus mediciones y mirá sus cambios con el tiempo.</p>
+                    <div className="h-mini-chart" aria-hidden="true">
+                      <span /><span /><span /><span /><span /><span /><span />
+                    </div>
+                  </div>
+                  <TrendingUp className="h-chart-trend" size={22} aria-hidden="true" />
                 </article>
-              ))}
+                <article className="h-tool h-tool-services">
+                  <div className="h-services-map" aria-hidden="true">
+                    <span className="h-map-grid" />
+                    <span className="h-map-road h-map-road-one" />
+                    <span className="h-map-road h-map-road-two" />
+                    <span className="h-map-pin"><MapPin size={18} /></span>
+                  </div>
+                  <div>
+                    <span className="h-eyebrow">Servicios de salud</span>
+                    <h3>Encontrá atención cerca.</h3>
+                    <p>Explorá servicios por ubicación y consultá cómo llegar.</p>
+                  </div>
+                </article>
+              </div>
             </div>
+            <p className="h-tools-note">Las funciones disponibles dependen de las prestaciones de tu plan.</p>
           </div>
           {FEATURES.instituciones && (
             <Link
