@@ -17,14 +17,14 @@ Mantener el lenguaje de la home actual: blanco, azul petróleo, verde Himalaya, 
 ## Estructura
 
 1. Encabezado: “Tu salud, en un solo lugar.”
-2. Panel principal de Portal del Paciente, con una representación visual de documentos/estudios y estados de consulta. Es una maqueta ilustrativa, no datos reales.
-3. Dos tarjetas complementarias: Mis Mediciones y Servicios de Salud, con visuales abstractos de evolución y ubicación, sin inventar métricas ni instituciones.
+2. Panel principal de Portal del Paciente, usando la captura real `public/images/app/app-portal-paciente.png`.
+3. Dos tarjetas complementarias: Mis Mediciones (`public/images/app/app-mis-mediciones.png`) y Servicios de Salud (`public/images/app/showcase-servicios.jpg`), usando capturas reales en lugar de visuales abstractos.
 4. Nota final: las funciones disponibles dependen del plan contratado.
 5. CTA contextual a los planes, sin crear rutas ficticias.
 
 ## Comportamiento
 
-La sección es estática y responsive. Los CTA llevan a `#planes` o a las guías existentes. No consulta datos clínicos ni cambia el flujo de contratación. La navegación conserva el ancla `#producto` y los nombres actuales del catálogo.
+La sección es estática y responsive. Las capturas se presentan como material de producto y no consultan datos clínicos en tiempo real ni cambian el flujo de contratación. Los CTA llevan a `#planes` o a las guías existentes. La navegación conserva el ancla `#producto` y los nombres actuales del catálogo.
 
 ## Verificación
 

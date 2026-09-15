@@ -4,7 +4,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   Check,
-  MapPin,
   Users,
   Smartphone,
   ShieldCheck,
@@ -12,9 +11,7 @@ import {
   Building2,
   Mail,
   CreditCard,
-  Download,
   HeartPulse,
-  Search,
   TrendingUp,
 } from "lucide-react";
 import { TrackedLink } from "@/components/tracked-link";
@@ -214,24 +211,14 @@ export default function Home() {
                     Ver qué incluye cada plan <ArrowRight size={16} />
                   </Link>
                 </div>
-                <div className="h-portal-mockup" aria-label="Ejemplo visual del Portal del Paciente">
-                  <div className="h-mockup-topline">
-                    <span>Mis estudios</span>
-                    <span className="h-mockup-avatar">FA</span>
-                  </div>
-                  <div className="h-mockup-search">
-                    <Search size={13} aria-hidden="true" /> Buscar un estudio
-                  </div>
-                  <div className="h-mockup-document h-mockup-document-active">
-                    <span className="h-mockup-file"><FileText size={16} /></span>
-                    <span><strong>Informe de laboratorio</strong><small>Disponible para consultar</small></span>
-                    <Download size={15} aria-hidden="true" />
-                  </div>
-                  <div className="h-mockup-document">
-                    <span className="h-mockup-file"><FileText size={16} /></span>
-                    <span><strong>Estudio de imágenes</strong><small>12 de septiembre</small></span>
-                    <ArrowRight size={15} aria-hidden="true" />
-                  </div>
+                <div className="h-tool-image h-tool-image-portal">
+                  <Image
+                    src="/images/app/app-portal-paciente.png"
+                    alt="Pantalla real del Portal del Paciente de Himalaya Salud"
+                    width={1284}
+                    height={2778}
+                    sizes="(max-width: 767px) 70vw, 260px"
+                  />
                 </div>
               </article>
               <div className="h-tools-stack">
@@ -241,18 +228,27 @@ export default function Home() {
                     <span className="h-eyebrow">Mis mediciones</span>
                     <h3>Seguí tu evolución.</h3>
                     <p>Registrá tus mediciones y mirá sus cambios con el tiempo.</p>
-                    <div className="h-mini-chart" aria-hidden="true">
-                      <span /><span /><span /><span /><span /><span /><span />
-                    </div>
                   </div>
                   <TrendingUp className="h-chart-trend" size={22} aria-hidden="true" />
+                  <div className="h-tool-image h-tool-image-measurements">
+                    <Image
+                      src="/images/app/app-mis-mediciones.png"
+                      alt="Pantalla real de Mis Mediciones de Himalaya Salud"
+                      width={1284}
+                      height={2778}
+                      sizes="120px"
+                    />
+                  </div>
                 </article>
                 <article className="h-tool h-tool-services">
-                  <div className="h-services-map" aria-hidden="true">
-                    <span className="h-map-grid" />
-                    <span className="h-map-road h-map-road-one" />
-                    <span className="h-map-road h-map-road-two" />
-                    <span className="h-map-pin"><MapPin size={18} /></span>
+                  <div className="h-tool-image h-tool-image-services">
+                    <Image
+                      src="/images/app/showcase-servicios.jpg"
+                      alt="Pantalla real de Servicios de Salud de Himalaya Salud"
+                      width={1206}
+                      height={2484}
+                      sizes="120px"
+                    />
                   </div>
                   <div>
                     <span className="h-eyebrow">Servicios de salud</span>
