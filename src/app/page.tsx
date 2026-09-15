@@ -4,15 +4,15 @@ import Link from "next/link";
 import {
   ArrowRight,
   Check,
-  MapPin,
   Users,
   Smartphone,
   ShieldCheck,
   FileText,
-  Activity,
   Building2,
   Mail,
   CreditCard,
+  HeartPulse,
+  MapPin,
 } from "lucide-react";
 import { TrackedLink } from "@/components/tracked-link";
 import { StoreLinks, HelpBlock } from "@/components/site-ui";
@@ -187,37 +187,107 @@ export default function Home() {
           </div>
           <div className="h-more-tools">
             <div className="h-tools-heading">
-              <h3>Tu información de salud, a mano.</h3>
+              <div>
+                <span className="h-eyebrow">Más que una alerta</span>
+                <h3>Tu salud, en un solo lugar.</h3>
+              </div>
               <p>
-                Estas herramientas están disponibles según las prestaciones de
-                tu plan.
+                Además del Botón de Pánico, Himalaya reúne herramientas para
+                guardar, seguir y encontrar tu información de salud.
               </p>
             </div>
-            <div className="h-tools-grid">
-              {[
-                {
-                  icon: FileText,
-                  title: "Portal del Paciente",
-                  text: "Guardá los estudios y documentos que cargás y consultalos cuando los necesites.",
-                },
-                {
-                  icon: Activity,
-                  title: "Mis mediciones",
-                  text: "Registrá tus mediciones y consultá cómo cambian a lo largo del tiempo.",
-                },
-                {
-                  icon: MapPin,
-                  title: "Servicios de salud",
-                  text: "Encontrá servicios por ubicación y consultá cómo llegar.",
-                },
-              ].map(({ icon: Icon, title, text }) => (
-                <article className="h-tool" key={title}>
-                  <Icon size={25} aria-hidden="true" />
-                  <h3>{title}</h3>
-                  <p>{text}</p>
-                </article>
-              ))}
+            <div className="h-feature-bands">
+              <article className="h-feature-band">
+                <div className="h-feature-copy">
+                  <span className="h-feature-number">01</span>
+                  <span className="h-eyebrow"><FileText size={15} aria-hidden="true" /> Portal del Paciente</span>
+                  <h3>Tus estudios, ordenados y siempre a mano.</h3>
+                  <p>
+                    Guardá documentos de salud y volvé a encontrarlos cuando
+                    los necesites, desde la misma app.
+                  </p>
+                  <ul className="h-feature-points">
+                    <li><Check aria-hidden="true" /> Cargá estudios, recetas y certificados.</li>
+                    <li><Check aria-hidden="true" /> Buscá por texto o por etiquetas.</li>
+                    <li><Check aria-hidden="true" /> Consultá cada documento desde tu celular.</li>
+                  </ul>
+                  <Link href="#planes" className="h-text-link">
+                    Ver qué incluye cada plan <ArrowRight size={16} />
+                  </Link>
+                </div>
+                <div className="h-feature-visual">
+                  <div className="h-app-screen">
+                    <Image
+                      src="/images/app/app-portal-paciente.png"
+                      alt="Pantalla real del Portal del Paciente de Himalaya Salud"
+                      width={1284}
+                      height={2778}
+                      sizes="(max-width: 767px) 78vw, 350px"
+                    />
+                  </div>
+                  <span>Pantalla real de la app</span>
+                </div>
+              </article>
+
+              <article className="h-feature-band h-feature-band-reverse">
+                <div className="h-feature-copy">
+                  <span className="h-feature-number">02</span>
+                  <span className="h-eyebrow"><HeartPulse size={15} aria-hidden="true" /> Mis Mediciones</span>
+                  <h3>Registrá tus valores y seguí su evolución.</h3>
+                  <p>
+                    Conservá tus mediciones manuales en un historial
+                    cronológico para consultarlas cuando quieras.
+                  </p>
+                  <ul className="h-feature-points">
+                    <li><Check aria-hidden="true" /> Agregá una nueva medición.</li>
+                    <li><Check aria-hidden="true" /> Revisá fecha, valor y observaciones.</li>
+                    <li><Check aria-hidden="true" /> Editá o eliminá registros propios.</li>
+                  </ul>
+                </div>
+                <div className="h-feature-visual">
+                  <div className="h-app-screen">
+                    <Image
+                      src="/images/app/app-mis-mediciones.png"
+                      alt="Pantalla real de Mis Mediciones de Himalaya Salud"
+                      width={1284}
+                      height={2778}
+                      sizes="(max-width: 767px) 78vw, 350px"
+                    />
+                  </div>
+                  <span>Pantalla real de la app</span>
+                </div>
+              </article>
+
+              <article className="h-feature-band">
+                <div className="h-feature-copy">
+                  <span className="h-feature-number">03</span>
+                  <span className="h-eyebrow"><MapPin size={15} aria-hidden="true" /> Servicios de Salud</span>
+                  <h3>Encontrá servicios cerca de donde estás.</h3>
+                  <p>
+                    Explorá el mapa, elegí el tipo de servicio y ubicá opciones
+                    en la zona que te interesa.
+                  </p>
+                  <ul className="h-feature-points">
+                    <li><Check aria-hidden="true" /> Buscá instituciones, laboratorios y farmacias.</li>
+                    <li><Check aria-hidden="true" /> Usá tu ubicación o movete por el mapa.</li>
+                    <li><Check aria-hidden="true" /> Alterná entre mapa y listado.</li>
+                  </ul>
+                </div>
+                <div className="h-feature-visual">
+                  <div className="h-app-screen">
+                    <Image
+                      src="/images/app/showcase-servicios.jpg"
+                      alt="Pantalla real de Servicios de Salud de Himalaya Salud"
+                      width={1206}
+                      height={2484}
+                      sizes="(max-width: 767px) 78vw, 350px"
+                    />
+                  </div>
+                  <span>Pantalla real de la app</span>
+                </div>
+              </article>
             </div>
+            <p className="h-tools-note">Las funciones disponibles dependen de las prestaciones de tu plan.</p>
           </div>
           {FEATURES.instituciones && (
             <Link
