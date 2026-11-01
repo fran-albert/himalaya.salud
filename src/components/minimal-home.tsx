@@ -2,14 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, FileText, Mail, ShieldCheck } from "lucide-react";
 import { BRAND } from "@/lib/brand-tokens";
+import { privacyUrl, termsUrl } from "@/lib/social-links";
 
 const contactEmail = "contacto@himalayasalud.com.ar";
 
 export function MinimalHome() {
   const links = [
     { href: "/contacto", label: "Contacto", Icon: Mail },
-    { href: "/terminos-y-condiciones", label: "Términos", Icon: FileText },
-    { href: "/politica-de-privacidad", label: "Privacidad", Icon: ShieldCheck },
+    { href: termsUrl, label: "Términos", Icon: FileText },
+    { href: privacyUrl, label: "Privacidad", Icon: ShieldCheck },
   ];
 
   return (
@@ -21,11 +22,11 @@ export function MinimalHome() {
         <Link
           href="/"
           className="flex items-center gap-3"
-          aria-label="Himalaya Salud"
+          aria-label="SOS Protegete"
         >
           <Image
-            src="/logo-himalaya-salud.svg"
-            alt="Himalaya Salud"
+            src="/branding/sos-protegete/simbolo.svg"
+            alt="SOS Protegete"
             width={56}
             height={56}
             className="w-14 h-14"
@@ -35,8 +36,7 @@ export function MinimalHome() {
             className="font-bold text-2xl tracking-tight"
             style={{ fontFamily: "var(--font-leelawadee), Inter, sans-serif" }}
           >
-            <span style={{ color: BRAND.teal700 }}>Himalaya</span>
-            <span style={{ color: BRAND.mint500 }}> Salud</span>
+            <span style={{ color: BRAND.teal700 }}>SOS Protegete</span>
           </span>
         </Link>
 
@@ -45,7 +45,7 @@ export function MinimalHome() {
             className="text-3xl md:text-4xl font-semibold tracking-tight"
             style={{ color: BRAND.teal700 }}
           >
-            Tu salud en tus manos
+            Botón de pánico para vos y tu familia
           </h1>
           <p
             className="text-base md:text-lg leading-relaxed"

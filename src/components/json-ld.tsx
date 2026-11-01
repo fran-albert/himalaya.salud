@@ -7,8 +7,9 @@ export function OrganizationJsonLd() {
     name: "Himalaya Salud S.A.S.",
     url: "https://www.himalayasalud.com.ar",
     logo: "https://www.himalayasalud.com.ar/logo-himalaya-salud.svg",
+    brand: { "@type": "Brand", name: "SOS Protegete" },
     description:
-      "Himalaya Salud ofrece soluciones de software para la gestión de salud digital, incluyendo historia clínica digital segura e interoperable.",
+      "Himalaya Salud S.A.S. desarrolla SOS Protegete, una app con botón de pánico que avisa a tus contactos con tu ubicación y guarda tu ficha de emergencia, estudios y mediciones en tu teléfono.",
     address: {
       "@type": "PostalAddress",
       addressCountry: "AR",
@@ -34,16 +35,16 @@ export function SoftwareApplicationJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Himalaya Salud",
+    name: "SOS Protegete",
     applicationCategory: "HealthApplication",
     operatingSystem: "iOS, Android",
     description:
-      "Aplicación de historia clínica digital que permite gestionar y compartir información médica de forma segura.",
+      "Botón de pánico para vos y tu familia: con un toque llama y manda WhatsApp a tus contactos con tu ubicación. Ficha de emergencia, estudios y mediciones guardados en tu teléfono.",
     offers: {
       "@type": "Offer",
       price: "0",
       priceCurrency: "ARS",
-      description: "Descarga gratuita con suscripción premium disponible",
+      description: "Descarga gratuita; el servicio se contrata por empresa",
     },
     installUrl: googlePlayUrl,
     sameAs: [appStoreUrl, googlePlayUrl],
@@ -74,7 +75,7 @@ export function WebPageJsonLd({
     url: url,
     isPartOf: {
       "@type": "WebSite",
-      name: "Himalaya Salud",
+      name: "SOS Protegete · Himalaya Salud",
       url: "https://www.himalayasalud.com.ar",
     },
   };

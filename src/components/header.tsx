@@ -22,9 +22,9 @@ type NavLink = { href: string; label: string; icon: LucideIcon };
 
 const navLinks: NavLink[] = [
   { href: "/", label: "Inicio", icon: Home },
-  { href: "/#quienes", label: "Quiénes somos", icon: Info },
-  { href: "/#producto", label: "Producto", icon: Layers },
-  { href: "/#planes", label: "Planes", icon: Sparkles },
+  { href: "/#producto", label: "La app", icon: Layers },
+  { href: "/#empresas", label: "Empresas", icon: Sparkles },
+  { href: "/faq", label: "Preguntas", icon: Info },
   { href: "/contacto", label: "Contacto", icon: Mail },
 ];
 
@@ -75,28 +75,27 @@ export function Header() {
       >
         <div className="container mx-auto px-4">
           <div className="h-16 md:h-20 flex items-center justify-between gap-4">
-            <Link href="/" className="flex items-center gap-3 group" aria-label="Himalaya Salud — Inicio">
+            <Link href="/" className="flex items-center gap-3 group" aria-label="SOS Protegete — Inicio">
               <Image
-                src="/logo-himalaya-salud.svg"
+                src="/branding/sos-protegete/simbolo.svg"
                 alt=""
-                width={36}
-                height={36}
-                className="w-9 h-9 transition-transform duration-300 group-hover:scale-105"
+                width={40}
+                height={40}
+                className="w-10 h-10 transition-transform duration-300 group-hover:scale-105"
                 priority
               />
               <div className="flex flex-col leading-tight">
                 <span
                   className="font-bold text-base md:text-lg tracking-tight"
-                  style={{ fontFamily: "var(--font-leelawadee), Inter, sans-serif" }}
+                  style={{ fontFamily: "var(--font-leelawadee), Inter, sans-serif", color: BRAND.teal700 }}
                 >
-                  <span style={{ color: BRAND.teal700 }}>Himalaya</span>
-                  <span style={{ color: BRAND.mint500 }}> Salud</span>
+                  SOS Protegete
                 </span>
                 <span
                   className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em]"
                   style={{ color: BRAND.textCaption }}
                 >
-                  Tu salud en tus manos
+                  Botón de pánico · Himalaya Salud
                 </span>
               </div>
             </Link>
@@ -229,7 +228,7 @@ export function Header() {
               className="flex items-center gap-2.5"
             >
               <Image
-                src="/logo-himalaya-salud.svg"
+                src="/branding/sos-protegete/simbolo.svg"
                 alt=""
                 width={32}
                 height={32}
@@ -238,16 +237,15 @@ export function Header() {
               <div className="flex flex-col leading-tight">
                 <span
                   className="text-[15px] font-bold tracking-tight"
-                  style={{ fontFamily: "var(--font-leelawadee), Inter, sans-serif" }}
+                  style={{ fontFamily: "var(--font-leelawadee), Inter, sans-serif", color: BRAND.teal700 }}
                 >
-                  <span style={{ color: BRAND.teal700 }}>Himalaya</span>
-                  <span style={{ color: BRAND.mint500 }}> Salud</span>
+                  SOS Protegete
                 </span>
                 <span
                   className="text-[9px] font-semibold uppercase tracking-[0.16em]"
                   style={{ color: BRAND.textCaption }}
                 >
-                  Tu salud en tus manos
+                  Botón de pánico · Himalaya Salud
                 </span>
               </div>
             </Link>

@@ -3,9 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contacto",
   description:
-    "¿Tenés dudas o necesitás ayuda? Contactá al equipo de Himalaya Salud. Estamos para ayudarte con tu historia clínica digital.",
+    "¿Tenés dudas sobre SOS Protegete o querés ofrecerlo en tu empresa? Escribile al equipo de Himalaya Salud.",
   openGraph: {
-    title: "Contacto | Himalaya Salud",
+    title: "Contacto | SOS Protegete",
     description:
       "Contactá al equipo de Himalaya Salud. Estamos para ayudarte.",
   },
