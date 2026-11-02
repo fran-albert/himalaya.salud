@@ -471,10 +471,19 @@ function HomeFull() {
             </div>
 
             <div className="relative flex items-center justify-center lg:order-1">
-              <Captura
-                src="/images/app/sos/inicio.png"
-                alt="Inicio de SOS Protegete con el botón de emergencia listo"
+              <Image
+                src="/images/app/sos/mano-pulsando-sos.jpg"
+                alt="Una mano pulsa el botón de emergencia de SOS Protegete en el celular"
+                width={820}
+                height={1050}
                 priority
+                sizes="(max-width: 640px) 300px, (max-width: 1024px) 380px, 440px"
+                className="h-auto w-[300px] sm:w-[380px] lg:w-[440px]"
+                style={{
+                  borderRadius: 24,
+                  border: `1px solid ${C.teal50}`,
+                  boxShadow: SHADOW.hero,
+                }}
               />
             </div>
           </div>
