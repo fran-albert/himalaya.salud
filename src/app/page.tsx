@@ -472,18 +472,13 @@ function HomeFull() {
 
             <div className="relative flex items-center justify-center lg:order-1">
               <Image
-                src="/images/app/sos/mano-pulsando-sos.jpg"
-                alt="Una mano pulsa el botón de emergencia de SOS Protegete en el celular"
-                width={820}
-                height={1050}
+                src="/images/app/sos/mano-app-sos.png"
+                alt="Mano sosteniendo un celular con la pantalla del botón de pánico de SOS Protegete"
+                width={568}
+                height={870}
                 priority
-                sizes="(max-width: 640px) 300px, (max-width: 1024px) 380px, 440px"
-                className="h-auto w-[300px] sm:w-[380px] lg:w-[440px]"
-                style={{
-                  borderRadius: 24,
-                  border: `1px solid ${C.teal50}`,
-                  boxShadow: SHADOW.hero,
-                }}
+                sizes="(max-width: 640px) 250px, (max-width: 1024px) 300px, 345px"
+                className="h-auto w-[250px] sm:w-[300px] lg:w-[345px]"
               />
             </div>
           </div>
