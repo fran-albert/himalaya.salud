@@ -75,9 +75,9 @@ export function Header() {
       >
         <div className="container mx-auto px-4">
           <div className="h-16 md:h-20 flex items-center justify-between gap-4">
-            <Link href="/" className="flex items-center gap-3 group" aria-label="SOS Protegete — Inicio">
+            <Link href="/" className="flex items-center gap-3 group" aria-label="Himalaya Salud — Inicio">
               <Image
-                src="/branding/sos-protegete/simbolo.svg"
+                src="/branding/logo-himalaya-salud.svg"
                 alt=""
                 width={40}
                 height={40}
@@ -89,13 +89,13 @@ export function Header() {
                   className="font-bold text-base md:text-lg tracking-tight"
                   style={{ fontFamily: "var(--font-leelawadee), Inter, sans-serif", color: BRAND.teal700 }}
                 >
-                  SOS Protegete
+                  Himalaya Salud
                 </span>
                 <span
                   className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em]"
                   style={{ color: BRAND.textCaption }}
                 >
-                  Botón de pánico · Himalaya Salud
+                  Creadores de SOS Protegete
                 </span>
               </div>
             </Link>
@@ -228,7 +228,7 @@ export function Header() {
               className="flex items-center gap-2.5"
             >
               <Image
-                src="/branding/sos-protegete/simbolo.svg"
+                src="/branding/logo-himalaya-salud.svg"
                 alt=""
                 width={32}
                 height={32}
@@ -239,13 +239,13 @@ export function Header() {
                   className="text-[15px] font-bold tracking-tight"
                   style={{ fontFamily: "var(--font-leelawadee), Inter, sans-serif", color: BRAND.teal700 }}
                 >
-                  SOS Protegete
+                  Himalaya Salud
                 </span>
                 <span
                   className="text-[9px] font-semibold uppercase tracking-[0.16em]"
                   style={{ color: BRAND.textCaption }}
                 >
-                  Botón de pánico · Himalaya Salud
+                  Creadores de SOS Protegete
                 </span>
               </div>
             </Link>

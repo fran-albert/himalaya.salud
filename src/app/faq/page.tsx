@@ -153,6 +153,13 @@ const fallbackCategories: FaqCategory[] = [
         status: "published",
       },
       {
+        id: "salud_en_tu_telefono-historia",
+        question: "¿Esto es una historia clínica?",
+        answer: "No. La ficha, los estudios y las mediciones los cargás vos: son datos autoingresados, sin la firma de un médico ni de una institución. Te sirven para tenerlos ordenados y mostrarlos cuando haga falta, pero no constituyen una historia clínica ni la reemplazan.",
+        sort_order: 15,
+        status: "published",
+      },
+      {
         id: "salud_en_tu_telefono-02",
         question: "¿Qué datos míos sí tiene Himalaya?",
         answer: "Los de tu cuenta: nombre, correo y celular, tus contactos de emergencia y el registro de cada activación del botón (fecha, hora y ubicación). Nada de salud.",
@@ -226,6 +233,13 @@ const fallbackCategories: FaqCategory[] = [
     sort_order: 50,
     status: "active",
     faqs: [
+      {
+        id: "cuenta-soporte",
+        question: "Tengo un problema con la app, ¿a quién le escribo?",
+        answer: "Escribinos por WhatsApp al +54 9 341 242-9819 o a contacto@himalayasalud.com.ar. Te responde una persona del equipo de Himalaya, no un bot.",
+        sort_order: 5,
+        status: "published",
+      },
       {
         id: "cuenta-01",
         question: "Olvidé mi contraseña, ¿qué hago?",

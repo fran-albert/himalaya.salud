@@ -10,6 +10,7 @@ import {
   Building2,
   Check,
   FileText,
+  Headset,
   HeartPulse,
   Mail,
   MessageCircle,
@@ -58,7 +59,7 @@ const funciones: Funcion[] = [
     icon: FileText,
     tab: "Mis estudios",
     title: "Tus estudios, ordenados y a mano",
-    desc: "Análisis, imágenes, estudios del corazón, recetas, informes y vacunas. Los subís desde la cámara, la galería o un PDF.",
+    desc: "Análisis, imágenes, estudios del corazón, recetas, informes y vacunas. Los subís vos desde la cámara, la galería o un PDF: son estudios autoingresados y no constituyen una historia clínica.",
     features: [
       "Buscá por nombre y filtrá por tipo, año, especialidad, médico o lugar",
       "Cada estudio puede tener varios archivos (PDF, JPG o PNG)",
@@ -387,13 +388,15 @@ function HomeFull() {
         >
           <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-[1fr_1.1fr]">
             <div className="stagger lg:order-2">
-              <p
-                className="text-3xl font-extrabold sm:text-4xl"
-                style={{ color: C.danger, letterSpacing: "-0.02em" }}
-              >
-                SOS Protegete
-              </p>
-              <div className="mt-2">
+              <Image
+                src="/branding/sos-protegete/logo-horizontal.svg"
+                alt="SOS Protegete"
+                width={1680}
+                height={700}
+                priority
+                className="h-auto w-[220px] sm:w-[260px]"
+              />
+              <div className="mt-3">
                 <Eyebrow>Botón de pánico · Himalaya Salud</Eyebrow>
               </div>
               <h1
@@ -522,6 +525,29 @@ function HomeFull() {
                 ayuda en una situación grave, sin depender de nadie más que de
                 tus propios contactos.
               </p>
+              <div
+                className="mt-6 flex items-start gap-3"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  border: `1px solid ${C.teal50}`,
+                  borderLeft: `4px solid ${C.mint700}`,
+                  borderRadius: 12,
+                  padding: "16px 18px",
+                }}
+              >
+                <Headset
+                  size={22}
+                  style={{ color: C.mint700, flexShrink: 0, marginTop: 2 }}
+                />
+                <p style={{ color: C.textBody, lineHeight: 1.55 }}>
+                  <strong style={{ color: C.teal900 }}>
+                    Soporte humano.
+                  </strong>{" "}
+                  Si tenés una duda o un problema con la app, te responde una
+                  persona del equipo de Himalaya, por WhatsApp o por mail. Sin
+                  bots ni menús automáticos.
+                </p>
+              </div>
               <div className="mt-7 flex flex-wrap gap-3">
                 {respaldo.map((r) => (
                   <span
@@ -817,6 +843,17 @@ function HomeFull() {
               en ningún servidor. Cuando activás el botón, tus contactos
               reciben el aviso y tu ubicación. Tu información médica la
               compartís vos, cuando quieras, desde la app.
+            </p>
+            <p
+              className="mx-auto mt-4 max-w-xl text-base sm:text-lg"
+              style={{ color: "rgba(255,255,255,0.82)", lineHeight: 1.6 }}
+            >
+              Lo que cargás son datos autoingresados: los escribís y los subís
+              vos.{" "}
+              <strong style={{ color: "#FFFFFF" }}>
+                No constituyen una historia clínica
+              </strong>{" "}
+              ni la reemplazan.
             </p>
             <p
               className="mx-auto mt-8 max-w-2xl text-sm"
