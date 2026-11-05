@@ -95,7 +95,7 @@ export function Header() {
                   className="text-[9px] sm:text-[10px] font-semibold uppercase tracking-[0.16em] sm:tracking-[0.18em]"
                   style={{ color: BRAND.textCaption }}
                 >
-                  Creadores de SOS Protegete
+                  Tu salud en tus manos
                 </span>
               </div>
             </Link>
@@ -245,7 +245,7 @@ export function Header() {
                   className="text-[9px] font-semibold uppercase tracking-[0.16em]"
                   style={{ color: BRAND.textCaption }}
                 >
-                  Creadores de SOS Protegete
+                  Tu salud en tus manos
                 </span>
               </div>
             </Link>

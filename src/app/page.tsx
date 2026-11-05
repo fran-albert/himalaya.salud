@@ -49,7 +49,7 @@ const funciones: Funcion[] = [
     features: [
       "Se guarda en tu teléfono. Himalaya no la ve ni la almacena",
       "La compartís como texto o PDF por WhatsApp o mail, cuando vos quieras",
-      "Sirve para una guardia, un viaje o para que tus contactos la tengan a mano",
+      "Sirve para una guardia, un viaje o cualquier tipo de emergencia de salud",
     ],
     image: "/images/app/sos/ficha.png",
     imageAlt: "Ficha de emergencia en SOS Protegete: grupo sanguíneo, alergias, enfermedades y medicación",
@@ -59,7 +59,7 @@ const funciones: Funcion[] = [
     icon: FileText,
     tab: "Mis estudios",
     title: "Tus estudios, ordenados y a mano",
-    desc: "Análisis, imágenes, estudios del corazón, recetas, informes y vacunas. Los subís vos desde la cámara, la galería o un PDF: son estudios autoingresados y no constituyen una historia clínica.",
+    desc: "Análisis, imágenes, recetas, informes y vacunas. Los subís vos desde la cámara, la galería o un PDF: son estudios autoingresados y no constituyen una historia clínica.",
     features: [
       "Buscá por nombre y filtrá por tipo, año, especialidad, médico o lugar",
       "Cada estudio puede tener varios archivos (PDF, JPG o PNG)",
@@ -94,12 +94,12 @@ const sosSteps = [
   {
     n: "2",
     title: "Llama a tus contactos principales",
-    desc: "Una llamada automática les avisa a tus 3 contactos principales que estás en una emergencia. Sale siempre del mismo número, para que lo agenden y lo reconozcan.",
+    desc: "Tus 3 contactos principales reciben una llamada y un WhatsApp. La llamada les avisa que estás en una situación crítica o grave. Sale siempre del mismo número: pediles que lo agenden para reconocer la llamada.",
   },
   {
     n: "3",
-    title: "Manda un WhatsApp a todos",
-    desc: "Tus contactos (hasta 6) reciben un WhatsApp con tu ubicación y un link para ver dónde estás y cómo llegar.",
+    title: "Avisa a tus contactos secundarios",
+    desc: "Tus 3 contactos secundarios reciben un WhatsApp que les avisa que necesitás ayuda urgente, con tu ubicación y un link para ver cómo llegar.",
   },
 ];
 
@@ -396,8 +396,21 @@ function HomeFull() {
                 priority
                 className="h-auto w-[220px] sm:w-[260px]"
               />
-              <div className="mt-3">
-                <Eyebrow>Botón de pánico · Himalaya Salud</Eyebrow>
+              <div className="mt-4">
+                <span
+                  className="inline-block"
+                  style={{
+                    ...eyebrowStyle,
+                    fontSize: 14,
+                    letterSpacing: "2.2px",
+                    color: C.danger,
+                    backgroundColor: "#FDECEC",
+                    padding: "8px 14px",
+                    borderRadius: 8,
+                  }}
+                >
+                  Botón de pánico
+                </span>
               </div>
               <h1
                 className="mt-6 text-4xl font-extrabold sm:text-5xl lg:text-6xl"
@@ -408,14 +421,14 @@ function HomeFull() {
                 }}
               >
                 Un toque, y los tuyos saben que{" "}
-                <span style={{ color: C.mint700 }}>necesitás ayuda</span>.
+                <span style={{ color: C.mint700 }}>necesitás ayuda urgente</span>.
               </h1>
               <p
                 className="mt-6 max-w-xl text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.55 }}
               >
-                Mantené apretado el botón 3 segundos. La app llama y manda
-                WhatsApp a tus contactos con tu ubicación. Tu ficha de
+                Mantené apretado el botón 3 segundos: la app llama y avisa a los
+                6 contactos que elegiste, con tu ubicación. Tu ficha de
                 emergencia, tus estudios y tus mediciones quedan guardados en
                 tu teléfono.
               </p>
@@ -475,7 +488,7 @@ function HomeFull() {
 
             <div className="relative flex items-center justify-center lg:order-1">
               <Image
-                src="/images/app/sos/mano-app-sos.png"
+                src="/images/app/sos/mano-app-sos-protegete.png"
                 alt="Mano sosteniendo un celular con la pantalla del botón de pánico de SOS Protegete"
                 width={568}
                 height={870}
@@ -700,7 +713,7 @@ function HomeFull() {
 
             <div className="relative flex items-center justify-center lg:order-1">
               <Captura
-                src="/images/app/sos/sos.png"
+                src="/images/app/sos/boton-sos-protegete.png"
                 alt="Pantalla del botón de pánico de SOS Protegete, con los contactos que van a recibir el aviso"
                 className="!w-[240px] sm:!w-[280px] lg:!w-[320px]"
               />
@@ -744,6 +757,7 @@ function HomeFull() {
               <ul className="mt-6 grid gap-3">
                 {[
                   "Los 3 principales reciben llamada y WhatsApp; los demás, WhatsApp",
+                  "A cada principal le escribís el mensaje que va a escuchar en la llamada, por ejemplo «Necesito ayuda urgente». Hasta 250 caracteres, y lo podés escuchar antes de guardarlo",
                   "Le mandás el número de SOS Protegete para que lo agenden y reconozcan la llamada",
                   "Podés cambiarlos cuando quieras desde la app",
                 ].map((f) => (
@@ -1053,7 +1067,7 @@ function HomeFull() {
               </div>
               <div className="relative hidden items-center justify-center lg:flex">
                 <Captura
-                  src="/images/app/sos/sos.png"
+                  src="/images/app/sos/boton-sos-protegete.png"
                   alt="SOS Protegete avisando a los contactos durante una emergencia"
                   className="!w-[260px]"
                 />
