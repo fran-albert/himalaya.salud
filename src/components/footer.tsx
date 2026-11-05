@@ -6,25 +6,33 @@ import {
   MapPin,
   MessageCircle,
 } from "lucide-react";
-import { socialLinks, whatsappUrl } from "@/lib/social-links";
+import {
+  deleteAccountUrl,
+  privacyUrl,
+  socialLinks,
+  termsUrl,
+  whatsappUrl,
+} from "@/lib/social-links";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     producto: [
-      { label: "Plan Botón de Pánico", href: "/#planes" },
-      { label: "Plan Empresas", href: "/contacto?tipo=empresa" },
-      { label: "Botón de Pánico", href: "/#emergencia" },
-      { label: "FAQ", href: "/faq" },
+      { label: "Botón de pánico", href: "/#emergencia" },
+      { label: "Ficha de emergencia", href: "/#ficha" },
+      { label: "Descargar la app", href: "/#descargar" },
+      { label: "Preguntas frecuentes", href: "/faq" },
     ],
     empresa: [
-      { label: "Inicio", href: "/" },
+      { label: "Para empresas", href: "/#empresas" },
+      { label: "Himalaya Salud", href: "/#quienes" },
       { label: "Contacto", href: "/contacto" },
     ],
     legal: [
-      { label: "Privacidad", href: "/politica-de-privacidad" },
-      { label: "Términos", href: "/terminos-y-condiciones" },
+      { label: "Privacidad", href: privacyUrl },
+      { label: "Términos", href: termsUrl },
+      { label: "Eliminar mi cuenta", href: deleteAccountUrl },
     ],
   };
 
@@ -34,24 +42,24 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-12 gap-8 lg:gap-10">
           {/* Brand column */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-5">
+          <div className="col-span-2 md:col-span-4 lg:col-span-4">
             <Link href="/" className="inline-flex items-center gap-3 group mb-4">
               <div className="relative">
                 <Image
-                  src="/logo-himalaya-salud.svg"
-                  alt="Himalaya Salud"
+                  src="/branding/sos-protegete/simbolo.svg"
+                  alt="SOS Protegete"
                   width={36}
                   height={36}
                   className="relative w-9 h-9"
                 />
               </div>
               <span className="font-bold text-lg text-foreground">
-                Himalaya Salud
+                SOS Protegete
               </span>
             </Link>
 
             <p className="text-sm text-muted-foreground mb-6 max-w-sm leading-relaxed">
-              Tu salud en tus manos. Con un toque, tu celular pide ayuda por vos y avisa a tus contactos de confianza. Para que vos y tu familia estén preparados ante una emergencia.
+              Botón de pánico para vos y tu familia. Con un toque, la app llama y manda WhatsApp a tus contactos con tu ubicación. Un producto de Himalaya Salud S.A.S.
             </p>
 
             <div className="grid gap-3 text-sm">
@@ -121,7 +129,7 @@ export function Footer() {
           </div>
 
           {/* Legal */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-2">
             <h4 className="font-semibold text-sm mb-4">Legal</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
@@ -146,7 +154,7 @@ export function Footer() {
               </div>
               <h4 className="font-semibold text-sm mb-2">Atención y soporte</h4>
               <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Consultas sobre el Plan Botón de Pánico, planes para empresas o ayuda para usuarios.
+                Ayuda con la app, dudas sobre el botón o propuestas para tu empresa. Respondemos por WhatsApp o correo.
               </p>
               <Link
                 href="/contacto"
@@ -172,7 +180,7 @@ export function Footer() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Enviar WhatsApp a Himalaya Salud"
+        aria-label="Escribir por WhatsApp a SOS Protegete"
         className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg shadow-slate-950/20 transition-transform hover:scale-105"
       >
         <MessageCircle className="h-7 w-7" />

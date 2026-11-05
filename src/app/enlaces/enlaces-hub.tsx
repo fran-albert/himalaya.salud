@@ -38,16 +38,16 @@ export function EnlacesHub() {
           className="mb-10 flex flex-col items-center text-center"
         >
           <Image
-            src="/logo-himalaya-salud.svg"
-            alt="Himalaya Salud"
+            src="/branding/sos-protegete/simbolo.svg"
+            alt="SOS Protegete"
             width={64}
             height={64}
             priority
             className="mb-4 h-16 w-16"
           />
-          <h1 className="text-2xl font-bold text-foreground">Himalaya Salud</h1>
+          <h1 className="text-2xl font-bold text-foreground">SOS Protegete</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Software de salud para clínicas y empresas
+            Botón de pánico para vos y tu familia · Himalaya Salud
           </p>
         </motion.header>
 

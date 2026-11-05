@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 
 /**
- * Fuente única de verdad de los canales de contacto y redes de Himalaya Salud.
+ * Fuente única de verdad de los canales de contacto y redes de SOS Protegete / Himalaya Salud.
  *
  * Se consume desde:
  * - `src/app/enlaces/page.tsx` (hub tipo link-in-bio) → `contactChannels`
@@ -28,11 +28,11 @@ export const whatsappUrl =
 
 export const appStoreUrl =
   process.env.NEXT_PUBLIC_APP_STORE_URL ||
-  "https://apps.apple.com/ar/app/himalaya-salud/id6756281486";
+  "https://apps.apple.com/ar/app/sos-protegete/id6817843351";
 
 export const googlePlayUrl =
   process.env.NEXT_PUBLIC_GOOGLE_PLAY_URL ||
-  "https://play.google.com/store/apps/details?id=com.hciimalaya";
+  "https://play.google.com/store/apps/details?id=com.himalayasalud.paciente";
 
 export const linkedinUrl =
   process.env.NEXT_PUBLIC_LINKEDIN_URL ||
@@ -47,6 +47,13 @@ export const facebookUrl =
   "https://www.facebook.com/share/17zJrC8UZC/";
 
 export const contactEmail = "contacto@himalayasalud.com.ar";
+
+/** Páginas públicas que sirve la plataforma de SOS Protegete (app.himalayasalud.com.ar). */
+export const appSiteUrl =
+  process.env.NEXT_PUBLIC_APP_SITE_URL || "https://app.himalayasalud.com.ar";
+export const privacyUrl = `${appSiteUrl}/legales/privacidad`;
+export const termsUrl = `${appSiteUrl}/legales/terminos`;
+export const deleteAccountUrl = `${appSiteUrl}/sos-protegete/eliminar-cuenta`;
 
 export type ContactChannel = {
   key: string;

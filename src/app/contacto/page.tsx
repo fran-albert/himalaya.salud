@@ -37,7 +37,7 @@ export default function ContactPage() {
       setFormData((p) => ({
         ...p,
         type: "empresa",
-        subject: p.subject || "Consulta — Plan empresas",
+        subject: p.subject || "SOS Protegete para mi empresa",
       }));
     } else if (tipo === "institucion" && FEATURES.instituciones) {
       setFormData((p) => ({
@@ -129,7 +129,7 @@ export default function ContactPage() {
                   className="text-base md:text-lg leading-relaxed"
                   style={{ color: BRAND.textBody }}
                 >
-                  ¿Tenés consultas sobre el Plan Botón de Pánico{FEATURES.instituciones ? " o querés implementar Himalaya en tu institución" : ""}? Escribinos y un asesor te contactará a la brevedad.
+                  ¿Tenés dudas sobre SOS Protegete o querés ofrecerlo a tu equipo{FEATURES.instituciones ? " o implementarlo en tu institución" : ""}? Escribinos y te respondemos.
                 </p>
               </div>
 
@@ -376,7 +376,7 @@ export default function ContactPage() {
                         <input
                           id="subject"
                           name="subject"
-                          placeholder="Ej: Consulta sobre el Plan Botón de Pánico"
+                          placeholder="Ej: SOS Protegete para mi empresa"
                           value={formData.subject}
                           onChange={handleChange}
                           required

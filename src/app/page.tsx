@@ -6,33 +6,27 @@ import Link from "next/link";
 import { track } from "@vercel/analytics";
 import {
   Activity,
-  Ambulance,
   ArrowRight,
-  Bone,
   Building2,
   Check,
-  CreditCard,
   FileText,
-  FlaskConical,
+  Headset,
   HeartPulse,
   Mail,
-  MapPin,
   MessageCircle,
-  Pill,
   ShieldAlert,
   ShieldCheck,
-  Smile,
-  Sparkles,
+  Smartphone,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { BRAND, SHADOW } from "@/lib/brand-tokens";
 import { FEATURES } from "@/lib/feature-flags";
-import { appStoreUrl, googlePlayUrl } from "@/lib/social-links";
+import { appStoreUrl, googlePlayUrl, whatsappUrl } from "@/lib/social-links";
 import { MinimalHome } from "@/components/minimal-home";
 
 const C = BRAND;
 
-type ProductoTab = {
+type Funcion = {
   id: string;
   icon: LucideIcon;
   tab: string;
@@ -41,127 +35,82 @@ type ProductoTab = {
   features: string[];
   image: string;
   imageAlt: string;
-  imageWidth: number;
-  imageHeight: number;
 };
 
-const productosTabs: ProductoTab[] = [
+const SHOT = { width: 660, height: 1434 };
+
+const funciones: Funcion[] = [
   {
-    id: "panico",
-    icon: ShieldAlert,
-    tab: "Botón de pánico",
-    title: "Pedí ayuda con un solo toque",
-    desc: "Una situación crítica no avisa. Mantené presionado 3 segundos y tu celular actúa por vos.",
+    id: "ficha",
+    icon: HeartPulse,
+    tab: "Ficha de emergencia",
+    title: "Lo que un médico necesita saber de vos, en una pantalla",
+    desc: "Grupo sanguíneo, alergias, enfermedades, medicación, implantes, obra social y médico de cabecera. La cargás una vez y la editás cuando cambia algo.",
     features: [
-      "Avisa a tus 3 contactos de confianza con tu ubicación GPS exacta",
-      "Compartí tu info de tu Portal del Paciente y Mis Mediciones por WhatsApp al instante",
-      "Funciona aunque tengas la app cerrada",
-      "Pensado para vos y para toda tu familia",
+      "Se guarda en tu teléfono. Himalaya no la ve ni la almacena",
+      "La compartís como texto o PDF por WhatsApp o mail, cuando vos quieras",
+      "Sirve para una guardia, un viaje o cualquier tipo de emergencia de salud",
     ],
-    image: "/images/app/app-boton-panico.png",
-    imageAlt: "Pantalla del botón de pánico de Himalaya Salud",
-    imageWidth: 1284,
-    imageHeight: 2778,
+    image: "/images/app/sos/ficha.png",
+    imageAlt: "Ficha de emergencia en SOS Protegete: grupo sanguíneo, alergias, enfermedades y medicación",
   },
   {
-    id: "portal",
+    id: "estudios",
     icon: FileText,
-    tab: "Portal del paciente",
-    title: "Tus estudios autoingresados, siempre con vos",
-    desc: "Subí tus estudios y análisis una vez y tenelos a mano para cualquier consulta.",
+    tab: "Mis estudios",
+    title: "Tus estudios, ordenados y a mano",
+    desc: "Análisis, imágenes, recetas, informes y vacunas. Los subís vos desde la cámara, la galería o un PDF: son estudios autoingresados y no constituyen una historia clínica.",
     features: [
-      "Cargá los estudios y análisis que vos quieras, de las instituciones que quieras",
-      "Etiquetalos por institución, especialidad o como más te sirva",
-      "Exportalos cuando los necesites",
-      "Al pulsar el Botón de Pánico, vos decidís si los compartís con tus contactos",
+      "Buscá por nombre y filtrá por tipo, año, especialidad, médico o lugar",
+      "Cada estudio puede tener varios archivos (PDF, JPG o PNG)",
+      "Compartí cualquier archivo por WhatsApp o mail con un toque",
+      "Quedan en tu teléfono, no en nuestros servidores",
     ],
-    image: "/images/app/app-portal-paciente.png",
-    imageAlt: "Portal del paciente de Himalaya Salud",
-    imageWidth: 1284,
-    imageHeight: 2778,
+    image: "/images/app/sos/estudios.png",
+    imageAlt: "Detalle de un estudio en SOS Protegete, con los botones Ver y Compartir",
   },
   {
     id: "mediciones",
     icon: Activity,
     tab: "Mis mediciones",
-    title: "Seguí tu salud en el tiempo",
-    desc: "Presión, glucemia, peso y más, con un historial claro que entendés de un vistazo.",
+    title: "Anotá tus mediciones y mirá cómo van",
+    desc: "Presión, glucemia, peso, sueño, frecuencia cardíaca, saturación de oxígeno, temperatura y más.",
     features: [
-      "Ingresá los datos que vos quieras y cargalos día a día",
-      "Visualizalos y filtralos como más te sirva",
-      "Exportá tus mediciones cuando las necesites",
-      "Al pulsar el Botón de Pánico, vos decidís si los compartís con tus contactos",
+      "Historial y gráfico por cada tipo de medición",
+      "Útil para llevarle al médico lo que te pidió controlar",
+      "También se guardan sólo en tu teléfono",
     ],
-    image: "/images/app/app-mis-mediciones.png",
-    imageAlt: "Dashboard de mediciones de Himalaya Salud",
-    imageWidth: 1284,
-    imageHeight: 2778,
+    image: "/images/app/sos/mediciones.png",
+    imageAlt: "Mis Mediciones en SOS Protegete: presión arterial, glucemia, peso y más",
   },
-  {
-    id: "servicios",
-    icon: MapPin,
-    tab: "Servicios de salud",
-    title: "Salud cerca tuyo, en todo el país",
-    desc: "Encontrá lo que necesitás, geolocalizado y con la ruta directa en Google Maps.",
-    features: [
-      "Buscá por especialidad o necesidad",
-      "Filtrá por obra social y cercanía",
-      "Abrí la ruta directo en Google Maps",
-    ],
-    image: "/images/app/showcase-servicios.jpg",
-    imageAlt: "Mapa de servicios de salud de Himalaya Salud",
-    imageWidth: 1206,
-    imageHeight: 2470,
-  },
-];
-
-const serviciosCategorias: { icon: LucideIcon; label: string }[] = [
-  { icon: Building2, label: "Instituciones médicas" },
-  { icon: Bone, label: "Kinesiólogos" },
-  { icon: Smile, label: "Odontólogos" },
-  { icon: FlaskConical, label: "Laboratorios" },
-  { icon: Pill, label: "Farmacias" },
-  { icon: Ambulance, label: "Ambulancias" },
 ];
 
 const sosSteps = [
   {
     n: "1",
-    title: "Te geolocaliza",
-    desc: "Tu ubicación GPS al instante.",
+    title: "Toma tu ubicación",
+    desc: "Al activarse, la app toma tu posición GPS en ese momento.",
   },
   {
     n: "2",
-    title: "Avisa a tus contactos principales",
-    desc: "Con 3 llamados y WhatsApp a las personas de confianza que vos elegís. El llamado les avisa que estás en una situación crítica grave.",
+    title: "Llama a tus contactos principales",
+    desc: "Tus 3 contactos principales reciben una llamada y un WhatsApp. La llamada les avisa que estás en una situación crítica o grave. Sale siempre del mismo número: pediles que lo agenden para reconocer la llamada.",
   },
   {
     n: "3",
-    title: "Comparte con tus contactos secundarios",
-    desc: "Por WhatsApp les avisa y comparte tus datos autoingresados del Portal del Paciente y mediciones.",
+    title: "Avisa a tus contactos secundarios",
+    desc: "Tus 3 contactos secundarios reciben un WhatsApp que les avisa que necesitás ayuda urgente, con tu ubicación y un link para ver cómo llegar.",
   },
 ];
 
-const infoMedicaChips = ["Portal Paciente", "Mis Mediciones"];
-
-const planIncluye = [
-  "Botón de Pánico — 4 activaciones por mes",
-  "Portal del paciente sin límites de almacenamiento",
-  "Servicios de salud geolocalizados",
-  "Mis mediciones con historial completo",
-  "Soporte humano, equipo argentino",
+const empresaPasos = [
+  "Nos pasás la nómina: nombre y celular de cada persona",
+  "Cada una recibe un WhatsApp con su invitación y activa la app en dos minutos",
+  "Elige sus propios contactos de emergencia; la empresa no ve sus datos de salud",
+  "Un único cobro mensual por cantidad de personas",
 ];
 
-const planEmpresaIncluye = [
-  "Todo lo del Plan Botón de Pánico, para cada miembro del equipo",
-  "Alta sin fricción: nos pasás la lista y cada persona recibe su link de registro",
-  "Un único cobro mensual por la cantidad de personas",
-  "Las alertas van a los contactos que tu empresa define",
-];
-
-const respaldo = [
-  "Cumple las Leyes 25.326 y 26.529",
-];
+const respaldo = ["Cumple las Leyes 25.326 y 26.529"];
 
 const eyebrowStyle: React.CSSProperties = {
   display: "inline-flex",
@@ -194,32 +143,57 @@ function Eyebrow({
         gap: isLg ? 12 : 10,
       }}
     >
-      <span
-        style={{
-          width: isLg ? 22 : 18,
-          height: isLg ? 3 : 2,
-          borderRadius: 2,
-          backgroundColor: color ?? C.mint500,
-        }}
-      />
       {children}
     </span>
   );
 }
 
+function Captura({
+  src,
+  alt,
+  className,
+  priority,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  priority?: boolean;
+}) {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      width={SHOT.width}
+      height={SHOT.height}
+      priority={priority}
+      sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 300px"
+      className={`h-auto w-[220px] sm:w-[260px] lg:w-[300px] ${className ?? ""}`}
+      style={{
+        position: "relative",
+        zIndex: 1,
+        borderRadius: 28,
+        border: `1px solid ${C.teal50}`,
+        boxShadow: SHADOW.hero,
+      }}
+    />
+  );
+}
+
 function FeatureSection({
-  producto,
+  funcion,
   reverse,
   background,
 }: {
-  producto: ProductoTab;
+  funcion: Funcion;
   reverse?: boolean;
   background: string;
 }) {
-  const Icon = producto.icon;
-  const esServicios = producto.id === "servicios";
   return (
-    <section className="py-16 md:py-24" style={{ backgroundColor: background }}>
+    <section
+      id={funcion.id}
+      className="py-16 md:py-24"
+      style={{ backgroundColor: background }}
+    >
       <div className="container mx-auto px-4">
         <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-2">
           <div
@@ -227,67 +201,31 @@ function FeatureSection({
               reverse ? "lg:order-2" : ""
             }`}
           >
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                width: 360,
-                height: 360,
-                borderRadius: "50%",
-                background: `radial-gradient(circle, ${C.mint50} 0%, transparent 70%)`,
-              }}
-            />
-            <Image
-              src={producto.image}
-              alt={producto.imageAlt}
-              width={producto.imageWidth}
-              height={producto.imageHeight}
-              sizes="(max-width: 640px) 220px, (max-width: 1024px) 260px, 300px"
-              className="float-y h-auto w-[220px] sm:w-[260px] lg:w-[300px]"
-              style={{
-                position: "relative",
-                zIndex: 1,
-                borderRadius: 24,
-                border: `1px solid ${C.teal50}`,
-                boxShadow: SHADOW.hero,
-              }}
-            />
+            <Captura src={funcion.image} alt={funcion.imageAlt} />
           </div>
 
           <div className={`stagger ${reverse ? "lg:order-1" : ""}`}>
             <div className="mb-4">
-              <Eyebrow>{producto.tab}</Eyebrow>
+              <Eyebrow>{funcion.tab}</Eyebrow>
             </div>
-            <span
-              className="inline-flex items-center justify-center"
-              style={{
-                width: 52,
-                height: 52,
-                borderRadius: 16,
-                backgroundColor: C.mint50,
-                color: C.teal700,
-              }}
-            >
-              <Icon size={26} />
-            </span>
             <h2
-              className="mt-5 text-3xl font-extrabold sm:text-4xl"
+              className="mt-1 text-3xl font-extrabold sm:text-4xl"
               style={{
                 color: C.teal900,
                 letterSpacing: "-0.025em",
                 lineHeight: 1.1,
               }}
             >
-              {producto.title}
+              {funcion.title}
             </h2>
             <p
               className="mt-4 max-w-xl text-lg"
               style={{ color: C.textCaption, lineHeight: 1.55 }}
             >
-              {producto.desc}
+              {funcion.desc}
             </p>
             <ul className="mt-6 grid gap-3">
-              {producto.features.map((f) => (
+              {funcion.features.map((f) => (
                 <li key={f} className="flex items-start gap-3">
                   <span
                     className="flex flex-shrink-0 items-center justify-center"
@@ -311,33 +249,71 @@ function FeatureSection({
                 </li>
               ))}
             </ul>
-
-            {esServicios && (
-              <div className="mt-7 flex flex-wrap gap-2">
-                {serviciosCategorias.map((cat) => {
-                  const CatIcon = cat.icon;
-                  return (
-                    <span
-                      key={cat.label}
-                      className="inline-flex items-center gap-1.5 text-sm font-semibold"
-                      style={{
-                        backgroundColor: C.mint50,
-                        color: C.teal900,
-                        padding: "7px 14px",
-                        borderRadius: 999,
-                      }}
-                    >
-                      <CatIcon size={14} style={{ color: C.teal700 }} />
-                      {cat.label}
-                    </span>
-                  );
-                })}
-              </div>
-            )}
           </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function StoreButtons({ where }: { where: string }) {
+  return (
+    <div className="flex flex-wrap gap-3">
+      <a
+        href={appStoreUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => track(`${where}_descargar_ios`)}
+        className="inline-flex items-center gap-3 transition-transform lift"
+        style={{
+          backgroundColor: "#FFFFFF",
+          color: C.teal900,
+          border: `1px solid ${C.teal50}`,
+          borderRadius: 12,
+          padding: "12px 22px",
+        }}
+      >
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor" aria-hidden>
+          <path d="M17.6 13.7c0-3.3 2.7-4.9 2.8-5-1.5-2.2-3.9-2.5-4.7-2.5-2-.2-3.9 1.2-4.9 1.2-1 0-2.6-1.2-4.3-1.1-2.2 0-4.2 1.3-5.3 3.3-2.3 4-.6 9.8 1.6 13 1.1 1.6 2.4 3.3 4.1 3.3 1.6-.1 2.3-1 4.3-1s2.5 1 4.3 1c1.8 0 2.9-1.6 4-3.2 1.3-1.8 1.8-3.6 1.8-3.7-.1 0-3.6-1.4-3.6-5.3zM14.4 4.2c.9-1 1.5-2.5 1.3-3.9-1.3.1-2.8.8-3.7 1.9-.8.9-1.5 2.4-1.3 3.8 1.4.1 2.8-.7 3.7-1.8z" />
+        </svg>
+        <span className="text-left">
+          <span
+            className="block text-[10px] font-semibold uppercase"
+            style={{ letterSpacing: "0.5px", color: C.textCaption }}
+          >
+            Descargar en
+          </span>
+          <span className="block text-base font-bold">App Store</span>
+        </span>
+      </a>
+      <a
+        href={googlePlayUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => track(`${where}_descargar_android`)}
+        className="inline-flex items-center gap-3 transition-transform lift"
+        style={{
+          backgroundColor: "#FFFFFF",
+          color: C.teal900,
+          border: `1px solid ${C.teal50}`,
+          borderRadius: 12,
+          padding: "12px 22px",
+        }}
+      >
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor" aria-hidden>
+          <path d="M2.1 1.1C1.7 1.5 1.5 2.1 1.5 2.9v20.2c0 .8.2 1.4.6 1.8l11.5-11.4L2.1 1.1zm12.7 11.4 3.4-3.4-12-7L2 5.7l12.8 6.8zM4.4 25.4c.4 0 .8-.1 1.2-.4l13.7-7.8-3.5-3.5-11.4 11.7zm15.1-12.5-2.7-1.6-3.7 3.7 3.7 3.7 2.7-1.5c1.6-.9 1.6-2.4 0-3.3z" />
+        </svg>
+        <span className="text-left">
+          <span
+            className="block text-[10px] font-semibold uppercase"
+            style={{ letterSpacing: "0.5px", color: C.textCaption }}
+          >
+            Disponible en
+          </span>
+          <span className="block text-base font-bold">Google Play</span>
+        </span>
+      </a>
+    </div>
   );
 }
 
@@ -407,32 +383,34 @@ function HomeFull() {
         style={{ position: "relative", overflow: "hidden" }}
       >
         <div
-          aria-hidden
-          className="blob-rotate"
-          style={{
-            position: "absolute",
-            left: "-18%",
-            top: "-10%",
-            width: "60%",
-            height: "80%",
-            background: `radial-gradient(ellipse at center, ${C.mint500}2E 0%, transparent 60%)`,
-            pointerEvents: "none",
-          }}
-        />
-        <div
           className="container mx-auto px-4"
           style={{ position: "relative", zIndex: 1 }}
         >
           <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-[1fr_1.1fr]">
             <div className="stagger lg:order-2">
-              <p
-                className="text-3xl font-extrabold sm:text-4xl"
-                style={{ color: C.danger, letterSpacing: "-0.02em" }}
-              >
-                Botón de Pánico
-              </p>
-              <div className="mt-2">
-                <Eyebrow>Tu salud en tus manos · Prevención digital</Eyebrow>
+              <Image
+                src="/branding/sos-protegete/logo-horizontal.svg"
+                alt="SOS Protegete"
+                width={1680}
+                height={700}
+                priority
+                className="h-auto w-[220px] sm:w-[260px]"
+              />
+              <div className="mt-4">
+                <span
+                  className="inline-block"
+                  style={{
+                    ...eyebrowStyle,
+                    fontSize: 14,
+                    letterSpacing: "2.2px",
+                    color: C.danger,
+                    backgroundColor: "#FDECEC",
+                    padding: "8px 14px",
+                    borderRadius: 8,
+                  }}
+                >
+                  Botón de pánico
+                </span>
               </div>
               <h1
                 className="mt-6 text-4xl font-extrabold sm:text-5xl lg:text-6xl"
@@ -442,22 +420,36 @@ function HomeFull() {
                   lineHeight: 1.02,
                 }}
               >
-                Prevención que viaja{" "}
-                <span style={{ color: C.mint700 }}>siempre con vos</span>.
+                Un toque, y los tuyos saben que{" "}
+                <span style={{ color: C.mint700 }}>necesitás ayuda urgente</span>.
               </h1>
               <p
                 className="mt-6 max-w-xl text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.55 }}
               >
-                Un botón de pánico que avisa a 6 contactos indicados por vos, tus
-                estudios auto-ingresados del Portal del Paciente y Mis Mediciones
-                ordenados, e instituciones médicas de cercanía. Todo en una sola
-                app, pensada para vos y tu familia.
+                Mantené apretado el botón 3 segundos: la app llama y avisa a los
+                6 contactos que elegiste, con tu ubicación. Tu ficha de
+                emergencia, tus estudios y tus mediciones quedan guardados en
+                tu teléfono.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Link
-                  href="#producto"
-                  className="inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all sm:w-auto sm:justify-start"
+                  href="#descargar"
+                  onClick={() => track("home_hero_descargar")}
+                  className="inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all sm:w-auto"
+                  style={{
+                    backgroundColor: C.teal700,
+                    color: "#FFFFFF",
+                    padding: "14px 22px",
+                    borderRadius: 8,
+                  }}
+                >
+                  <Smartphone size={16} />
+                  Descargar la app
+                </Link>
+                <Link
+                  href="#empresas"
+                  className="inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all sm:w-auto"
                   style={{
                     backgroundColor: "transparent",
                     color: C.teal700,
@@ -466,7 +458,7 @@ function HomeFull() {
                     border: `1.5px solid ${C.teal50}`,
                   }}
                 >
-                  Ver producto
+                  Para empresas
                 </Link>
               </div>
               <div
@@ -486,122 +478,24 @@ function HomeFull() {
                   </strong>
                   <div className="text-xs" style={{ color: C.textCaption }}>
                     <div style={{ fontWeight: 600, color: C.textBody }}>
-                      avisa a tus 6 contactos
+                      avisa hasta a 6 contactos
                     </div>
-                    <div>indicados por vos</div>
+                    <div>3 con llamada y WhatsApp, 3 por WhatsApp</div>
                   </div>
                 </div>
-                {FEATURES.hci && (
-                  <>
-                    <div
-                      style={{
-                        width: 1,
-                        height: 36,
-                        backgroundColor: C.teal50,
-                      }}
-                    />
-                    <div className="flex items-center gap-3">
-                      <strong
-                        style={{
-                          fontSize: 30,
-                          fontWeight: 800,
-                          color: C.teal700,
-                          lineHeight: 1,
-                        }}
-                      >
-                        HCI
-                      </strong>
-                      <div
-                        className="text-xs"
-                        style={{ color: C.textCaption }}
-                      >
-                        <div style={{ fontWeight: 600, color: C.textBody }}>
-                          muy pronto
-                        </div>
-                        <div>historia clínica interoperable</div>
-                      </div>
-                    </div>
-                  </>
-                )}
               </div>
             </div>
 
             <div className="relative flex items-center justify-center lg:order-1">
               <Image
-                src="/images/app/mano-inicio-clara.png"
-                alt="Mano sosteniendo la app Himalaya Salud en la pantalla de inicio"
+                src="/images/app/sos/mano-app-sos-protegete.png"
+                alt="Mano sosteniendo un celular con la pantalla del botón de pánico de SOS Protegete"
                 width={568}
                 height={870}
                 priority
                 sizes="(max-width: 640px) 250px, (max-width: 1024px) 300px, 345px"
-                className="float-y h-auto w-[250px] sm:w-[300px] lg:w-[345px]"
+                className="h-auto w-[250px] sm:w-[300px] lg:w-[345px]"
               />
-              <div
-                className="absolute right-0 top-16 flex items-center gap-3"
-                style={{
-                  backgroundColor: "#FFFFFF",
-                  border: `1px solid ${C.teal50}`,
-                  borderRadius: 14,
-                  padding: "12px 16px",
-                  boxShadow: SHADOW.cardHover,
-                  animation: "lsFloat 4.2s ease-in-out infinite",
-                  animationDelay: "0.8s",
-                }}
-              >
-                <span
-                  style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    backgroundColor: C.danger,
-                    boxShadow: `0 0 0 0 ${C.danger}80`,
-                    animation: "lsPulse 1.6s infinite",
-                  }}
-                />
-                <div>
-                  <div
-                    style={{
-                      fontSize: 10,
-                      fontWeight: 700,
-                      letterSpacing: "1.4px",
-                      color: C.danger,
-                    }}
-                  >
-                    3 SEG
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 13,
-                      fontWeight: 600,
-                      color: C.teal900,
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    Avisá a tus contactos
-                    <br />
-                    con un toque
-                  </div>
-                </div>
-              </div>
-              <div
-                className="absolute flex items-center gap-2"
-                style={{
-                  left: -14,
-                  top: "42%",
-                  backgroundColor: "#FFFFFF",
-                  border: `1px solid ${C.teal50}`,
-                  borderRadius: 999,
-                  padding: "8px 14px",
-                  boxShadow: SHADOW.card,
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: C.teal900,
-                  animation: "lsFloat 5s ease-in-out infinite",
-                }}
-              >
-                <FileText size={14} style={{ color: C.teal700 }} />
-                Estudios siempre con vos
-              </div>
             </div>
           </div>
         </div>
@@ -629,8 +523,8 @@ function HomeFull() {
                   lineHeight: 1.1,
                 }}
               >
-                Una innovación en{" "}
-                <span style={{ color: C.mint700 }}>prevención digital</span>.
+                Himalaya Salud, la empresa detrás de{" "}
+                <span style={{ color: C.mint700 }}>SOS Protegete</span>.
               </h2>
             </div>
             <div>
@@ -638,13 +532,35 @@ function HomeFull() {
                 className="text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.6 }}
               >
-                Somos una empresa de software especializada en salud y
-                prevención en situaciones críticas. Desarrollamos, implementamos
-                y damos soporte a un sistema integral que opera desde tu celular,
-                enfocado en la{" "}
-                <strong style={{ color: C.textBody }}>prevención</strong> ante
-                situaciones críticas para vos y tu familia.
+                Somos una empresa argentina de software especializada en
+                salud. Desarrollamos, publicamos y damos soporte a SOS
+                Protegete: una app para que vos y tu familia tengan cómo pedir
+                ayuda en una situación grave, sin depender de nadie más que de
+                tus propios contactos.
               </p>
+              <div
+                className="mt-6 flex items-start gap-3"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  border: `1px solid ${C.teal50}`,
+                  borderLeft: `4px solid ${C.mint700}`,
+                  borderRadius: 12,
+                  padding: "16px 18px",
+                }}
+              >
+                <Headset
+                  size={22}
+                  style={{ color: C.mint700, flexShrink: 0, marginTop: 2 }}
+                />
+                <p style={{ color: C.textBody, lineHeight: 1.55 }}>
+                  <strong style={{ color: C.teal900 }}>
+                    Soporte humano.
+                  </strong>{" "}
+                  Si tenés una duda o un problema con la app, te responde una
+                  persona del equipo de Himalaya, por WhatsApp o por mail. Sin
+                  bots ni menús automáticos.
+                </p>
+              </div>
               <div className="mt-7 flex flex-wrap gap-3">
                 {respaldo.map((r) => (
                   <span
@@ -668,11 +584,11 @@ function HomeFull() {
         </div>
       </section>
 
-      {/* ——— 3. Producto ——— */}
+      {/* ——— 3. La app ——— */}
       <section id="producto" className="pt-16 md:pt-24">
         <div className="container mx-auto px-4">
           <div className="stagger max-w-2xl">
-            <Eyebrow size="lg">Producto</Eyebrow>
+            <Eyebrow size="lg">La app</Eyebrow>
             <h2
               className="mt-4 text-3xl font-extrabold sm:text-4xl"
               style={{
@@ -681,18 +597,15 @@ function HomeFull() {
                 lineHeight: 1.1,
               }}
             >
-              Una app, todo lo que necesitás{" "}
-              <span style={{ color: C.mint700 }}>
-                cuando cada segundo cuenta
-              </span>
-              .
+              Lo que hace SOS Protegete.
             </h2>
             <p
               className="mt-4 text-lg"
               style={{ color: C.textCaption, lineHeight: 1.55 }}
             >
-              Pensada para que vos y tu familia dispongan de una herramienta
-              sencilla y eficaz en una situación crítica.
+              Cuatro cosas, sin vueltas: avisa a tus contactos, guarda tu ficha
+              de emergencia, guarda tus estudios y anota tus mediciones. Todo lo
+              de salud queda en tu teléfono.
             </p>
           </div>
         </div>
@@ -713,14 +626,15 @@ function HomeFull() {
                 className="text-3xl font-extrabold sm:text-4xl"
                 style={{ color: C.danger, letterSpacing: "-0.02em" }}
               >
-                Botón de Pánico
+                Botón de pánico
               </p>
               <p
                 className="mt-4 max-w-xl text-lg"
                 style={{ color: C.textCaption, lineHeight: 1.55 }}
               >
-                Pedí ayuda con un solo toque. Mantené presionado{" "}
-                <strong style={{ color: C.textBody }}>3 segundos</strong>.
+                Mantené presionado{" "}
+                <strong style={{ color: C.textBody }}>3 segundos</strong>, para
+                que no se dispare sin querer. Después, la app hace el resto.
               </p>
               <p
                 className="mt-8 text-xs font-bold uppercase"
@@ -780,377 +694,114 @@ function HomeFull() {
                   </li>
                 ))}
               </ol>
-              <p
-                className="mt-8 text-lg font-semibold"
-                style={{ color: C.teal900, lineHeight: 1.45 }}
+              <div
+                className="mt-8 grid gap-3 text-sm"
+                style={{ color: C.textBody, lineHeight: 1.5 }}
               >
-                No podés evitar una situación grave. Sí podés estar
-                preparado —{" "}
-                <span style={{ color: C.mint700 }}>vos y tu familia</span>.
-              </p>
+                <p>
+                  <strong style={{ color: C.teal900 }}>¿Fue sin querer?</strong>{" "}
+                  Desde la app avisás que estás bien y tus contactos reciben un
+                  mensaje de falsa alarma.
+                </p>
+                <p style={{ color: C.textCaption }}>
+                  Ante una urgencia médica llamá al{" "}
+                  <strong style={{ color: C.textBody }}>911</strong>. El botón
+                  avisa a tu familia; no reemplaza a la ambulancia.
+                </p>
+              </div>
             </div>
 
             <div className="relative flex items-center justify-center lg:order-1">
-              <div
-                aria-hidden
-                className="pulse-blob"
-                style={{
-                  position: "absolute",
-                  width: 440,
-                  height: 440,
-                  borderRadius: "50%",
-                  background: `radial-gradient(circle, ${C.danger}26 0%, ${C.danger}08 60%, transparent 80%)`,
-                }}
-              />
-              <Image
-                src="/images/app/app-boton-panico.png"
-                alt="Pantalla del botón de pánico de Himalaya Salud"
-                width={1284}
-                height={2778}
-                sizes="(max-width: 640px) 240px, (max-width: 1024px) 280px, 320px"
-                className="float-y h-auto w-[240px] sm:w-[280px] lg:w-[320px]"
-                style={{
-                  position: "relative",
-                  zIndex: 1,
-                  borderRadius: 28,
-                  border: `1px solid ${C.teal50}`,
-                  boxShadow: SHADOW.hero,
-                }}
+              <Captura
+                src="/images/app/sos/boton-sos-protegete.png"
+                alt="Pantalla del botón de pánico de SOS Protegete, con los contactos que van a recibir el aviso"
+                className="!w-[240px] sm:!w-[280px] lg:!w-[320px]"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ——— 4b. Portal · Mediciones · Servicios ——— */}
-      {productosTabs.slice(1).map((p, i) => (
-        <FeatureSection
-          key={p.id}
-          producto={p}
-          reverse={i % 2 === 0}
-          background={i % 2 === 0 ? "#FFFFFF" : C.bg}
-        />
-      ))}
-
-      {/* ——— 5. Planes ——— */}
-      <section
-        id="planes"
-        className="py-16 md:py-24"
-        style={{ backgroundColor: C.bgSecondary }}
-      >
+      {/* ——— 4b. Contactos ——— */}
+      <section id="contactos" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
-          <div className="stagger mb-12 text-center">
-            <Eyebrow>Planes</Eyebrow>
-            <h2
-              className="mt-4 text-3xl font-extrabold sm:text-4xl"
-              style={{
-                color: C.teal900,
-                letterSpacing: "-0.025em",
-                lineHeight: 1.1,
-              }}
-            >
-              Un plan para vos. Otro para tu equipo.
-            </h2>
-          </div>
-
-          <div className="stagger mx-auto grid max-w-4xl items-stretch gap-6 lg:grid-cols-2">
-          <div
-            className="flex flex-col p-7 md:p-10 lift"
-            style={{
-              backgroundColor: "#FFFFFF",
-              border: `1px solid ${C.teal50}`,
-              borderRadius: 24,
-              boxShadow: SHADOW.cardHover,
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <span
-                className="inline-flex items-center gap-2 text-sm font-semibold"
-                style={{ color: C.teal700 }}
-              >
-                <ShieldAlert size={16} />
-                Plan Botón de Pánico
-              </span>
-              <span
-                style={{
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: "1.2px",
-                  textTransform: "uppercase",
-                  backgroundColor: C.mint50,
-                  color: C.mint900,
-                  padding: "5px 10px",
-                  borderRadius: 999,
-                }}
-              >
-                Disponible
-              </span>
+          <div className="grid items-center gap-10 md:gap-12 lg:grid-cols-2">
+            <div className="relative flex items-center justify-center">
+              <Captura
+                src="/images/app/sos/contactos.png"
+                alt="Contactos SOS en SOS Protegete: cada contacto acepta la invitación antes de recibir avisos"
+              />
             </div>
-
-            <ul
-              className="mt-7 grid gap-3"
-              style={{ borderTop: `1px solid ${C.teal50}`, paddingTop: 24 }}
-            >
-              {planIncluye.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-center gap-3 text-sm"
-                  style={{ color: C.textBody }}
-                >
-                  <Check size={16} style={{ color: C.mint700 }} />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <Link
-              href="#descargar"
-              onClick={() => track("home_cta_plan_emergencia")}
-              className="mt-8 inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all"
-              style={{
-                backgroundColor: C.teal700,
-                color: "#FFFFFF",
-                padding: "14px 22px",
-                borderRadius: 8,
-              }}
-            >
-              Empezar
-              <ArrowRight size={16} />
-            </Link>
-
-            <div
-              className="mt-5 flex items-center justify-center gap-2 pt-5"
-              style={{ borderTop: `1px solid ${C.teal50}` }}
-            >
-              <CreditCard size={15} style={{ color: C.textCaption }} />
-              <span className="text-xs" style={{ color: C.textCaption }}>
-                Pagás de forma segura con{" "}
-                <strong style={{ color: "#009EE3" }}>Mercado&nbsp;Pago</strong>
-              </span>
-            </div>
-          </div>
-
-          <div
-            className="flex flex-col p-7 md:p-10 lift"
-            style={{
-              backgroundColor: C.teal900,
-              borderRadius: 24,
-              boxShadow: SHADOW.cardHover,
-              color: "#FFFFFF",
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <span
-                className="inline-flex items-center gap-2 text-sm font-semibold"
-                style={{ color: C.verdeClaro }}
-              >
-                <Building2 size={16} />
-                Plan Empresas
-              </span>
-              <span
-                style={{
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: "1.2px",
-                  textTransform: "uppercase",
-                  backgroundColor: "rgba(255,255,255,0.1)",
-                  color: C.verdeClaro,
-                  padding: "5px 10px",
-                  borderRadius: 999,
-                }}
-              >
-                A medida
-              </span>
-            </div>
-
-            <p
-              className="mt-6 text-lg font-semibold"
-              style={{ color: "#FFFFFF", lineHeight: 1.45 }}
-            >
-              El Botón de Pánico para cada persona de tu equipo, con un solo
-              cobro mensual.
-            </p>
-
-            <ul
-              className="mt-6 grid gap-3"
-              style={{
-                borderTop: "1px solid rgba(255,255,255,0.14)",
-                paddingTop: 24,
-              }}
-            >
-              {planEmpresaIncluye.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 text-sm"
-                  style={{ color: "rgba(255,255,255,0.85)" }}
-                >
-                  <Check
-                    size={16}
-                    style={{ color: C.verdeClaro, flexShrink: 0, marginTop: 2 }}
-                  />
-                  {item}
-                </li>
-              ))}
-            </ul>
-
-            <p
-              className="mt-6 text-sm"
-              style={{ color: "rgba(255,255,255,0.6)", lineHeight: 1.55 }}
-            >
-              Pensado para equipos que trabajan en la calle, personal de campo y
-              empresas que cuidan a su gente.
-            </p>
-
-            <Link
-              href="/contacto?tipo=empresa"
-              onClick={() => track("home_cta_plan_empresas_planes")}
-              className="mt-8 inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all"
-              style={{
-                backgroundColor: "#FFFFFF",
-                color: C.teal900,
-                padding: "14px 22px",
-                borderRadius: 8,
-              }}
-            >
-              Consultar propuesta
-              <ArrowRight size={16} />
-            </Link>
-          </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ——— 6. Próximo lanzamiento — HCI (gated por feature flag) ——— */}
-      {FEATURES.hci && (
-        <section
-          id="hci"
-          className="py-16 md:py-24"
-          style={{
-            backgroundColor: C.teal900,
-            color: "#FFFFFF",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              right: "-10%",
-              top: "-20%",
-              width: "50%",
-              height: "80%",
-              background: `radial-gradient(ellipse at center, ${C.mint500}26 0%, transparent 60%)`,
-            }}
-          />
-          <div
-            className="container mx-auto px-4"
-            style={{ position: "relative", zIndex: 1 }}
-          >
-            <div className="mx-auto max-w-3xl text-center">
-              <span
-                className="inline-flex items-center gap-2"
-                style={{
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: "1.4px",
-                  textTransform: "uppercase",
-                  backgroundColor: "rgba(255,255,255,0.1)",
-                  color: C.verdeClaro,
-                  padding: "6px 12px",
-                  borderRadius: 999,
-                }}
-              >
-                <Sparkles size={13} />
-                Próximo lanzamiento · Muy pronto
-              </span>
+            <div className="stagger">
+              <div className="mb-4">
+                <Eyebrow>Tus contactos</Eyebrow>
+              </div>
               <h2
-                className="mt-6 text-3xl font-extrabold sm:text-4xl"
-                style={{
-                  color: "#FFFFFF",
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.1,
-                }}
-              >
-                Historia Clínica{" "}
-                <span style={{ color: C.verdeClaro }}>Interoperable</span>.
-              </h2>
-              <p
-                className="mx-auto mt-5 max-w-xl text-lg"
-                style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
-              >
-                Tu historia clínica completa, accesible y portable entre
-                instituciones de salud. Una sola información médica que llevás
-                con vos, siempre con tu permiso explícito.
-              </p>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ——— 7. Instituciones (gated por feature flag) ——— */}
-      {FEATURES.instituciones && (
-        <section id="instituciones" className="py-16 md:py-24">
-          <div className="container mx-auto px-4">
-            <div
-              className="mx-auto max-w-3xl px-6 py-10 text-center md:px-10 md:py-14"
-              style={{
-                backgroundColor: C.bgSecondary,
-                border: `1px solid ${C.teal50}`,
-                borderRadius: 24,
-              }}
-            >
-              <span
-                className="mx-auto flex items-center justify-center"
-                style={{
-                  width: 56,
-                  height: 56,
-                  borderRadius: 16,
-                  backgroundColor: C.mint50,
-                  color: C.teal700,
-                }}
-              >
-                <Building2 size={26} />
-              </span>
-              <h2
-                className="mt-6 text-3xl font-extrabold"
+                className="mt-1 text-3xl font-extrabold sm:text-4xl"
                 style={{
                   color: C.teal900,
                   letterSpacing: "-0.025em",
                   lineHeight: 1.1,
                 }}
               >
-                Sumando instituciones a la red.
+                Vos elegís quién recibe el aviso
               </h2>
               <p
-                className="mx-auto mt-4 max-w-xl text-lg"
-                style={{ color: C.textCaption, lineHeight: 1.6 }}
+                className="mt-4 max-w-xl text-lg"
+                style={{ color: C.textCaption, lineHeight: 1.55 }}
               >
-                Estamos integrando instituciones de salud para que la
-                información clínica viaje con cada paciente. ¿Tu institución
-                quiere ser parte?
+                Cargás hasta 6 contactos: familia, pareja, un vecino, quien
+                quieras. Cada uno recibe una invitación por WhatsApp y la
+                acepta. Recién entonces empieza a recibir tus avisos.
               </p>
-              <Link
-                href="/contacto?tipo=institucion"
-                onClick={() => track("home_cta_institucional")}
-                className="mt-7 inline-flex items-center gap-2 text-sm font-semibold transition-all"
-                style={{
-                  backgroundColor: C.teal700,
-                  color: "#FFFFFF",
-                  padding: "13px 22px",
-                  borderRadius: 8,
-                }}
-              >
-                Quiero adherir mi institución
-                <ArrowRight size={16} />
-              </Link>
+              <ul className="mt-6 grid gap-3">
+                {[
+                  "Los 3 principales reciben llamada y WhatsApp; los demás, WhatsApp",
+                  "A cada principal le escribís el mensaje que va a escuchar en la llamada, por ejemplo «Necesito ayuda urgente». Hasta 250 caracteres, y lo podés escuchar antes de guardarlo",
+                  "Le mandás el número de SOS Protegete para que lo agenden y reconozcan la llamada",
+                  "Podés cambiarlos cuando quieras desde la app",
+                ].map((f) => (
+                  <li key={f} className="flex items-start gap-3">
+                    <span
+                      className="flex flex-shrink-0 items-center justify-center"
+                      style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: "50%",
+                        backgroundColor: C.mint50,
+                        color: C.mint700,
+                        marginTop: 1,
+                      }}
+                    >
+                      <Check size={14} strokeWidth={3} />
+                    </span>
+                    <span
+                      className="text-base"
+                      style={{ color: C.textBody, lineHeight: 1.5 }}
+                    >
+                      {f}
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* ——— 6b. Tu info médica ——— */}
+      {/* ——— 5. Ficha · Estudios · Mediciones ——— */}
+      {funciones.map((f, i) => (
+        <FeatureSection
+          key={f.id}
+          funcion={f}
+          reverse={i % 2 === 0}
+          background={i % 2 === 0 ? C.bgSecondary : C.bg}
+        />
+      ))}
+
+      {/* ——— 6. Tus datos de salud ——— */}
       <section
+        id="privacidad"
         className="py-16 md:py-24"
         style={{
           backgroundColor: C.teal900,
@@ -1185,7 +836,7 @@ function HomeFull() {
                 color: C.verdeClaro,
               }}
             >
-              <HeartPulse size={26} />
+              <ShieldCheck size={26} />
             </span>
             <h2
               className="mx-auto mt-6 max-w-2xl text-3xl font-extrabold sm:text-4xl"
@@ -1195,63 +846,181 @@ function HomeFull() {
                 lineHeight: 1.1,
               }}
             >
-              Tu info de tus datos autoingresados del Portal del Paciente y Mis
-              Mediciones, lista para cuando{" "}
-              <span style={{ color: C.verdeClaro }}>no podés hablar</span>.
+              Tus datos de salud se quedan{" "}
+              <span style={{ color: C.verdeClaro }}>en tu teléfono</span>.
             </h2>
             <p
-              className="mx-auto mt-4 max-w-xl text-base"
-              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
+              className="mx-auto mt-5 max-w-xl text-base sm:text-lg"
+              style={{ color: "rgba(255,255,255,0.82)", lineHeight: 1.6 }}
             >
-              Cargás lo que quieras, una sola vez. En una situación crítica se
-              comparte automáticamente con quien te asiste.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-2.5">
-              {infoMedicaChips.map((chip) => (
-                <span
-                  key={chip}
-                  className="inline-flex items-center gap-2 text-sm font-semibold"
-                  style={{
-                    backgroundColor: "rgba(255,255,255,0.08)",
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    borderRadius: 999,
-                    padding: "9px 16px",
-                    color: "#FFFFFF",
-                  }}
-                >
-                  <Check
-                    size={14}
-                    strokeWidth={3}
-                    style={{ color: C.verdeClaro }}
-                  />
-                  {chip}
-                </span>
-              ))}
-            </div>
-            <p
-              className="mx-auto mt-10 max-w-xl text-2xl font-bold italic"
-              style={{ color: "#FFFFFF", lineHeight: 1.35 }}
-            >
-              “En una situación crítica, el celular habla por vos.”
+              SOS Protegete no guarda tu ficha, tus estudios ni tus mediciones
+              en ningún servidor. Cuando activás el botón, tus contactos
+              reciben el aviso y tu ubicación. Tu información médica la
+              compartís vos, cuando quieras, desde la app.
             </p>
             <p
-              className="mx-auto mt-8 max-w-2xl text-sm sm:text-base"
-              style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
+              className="mx-auto mt-4 max-w-xl text-base sm:text-lg"
+              style={{ color: "rgba(255,255,255,0.82)", lineHeight: 1.6 }}
+            >
+              Lo que cargás son datos autoingresados: los escribís y los subís
+              vos.{" "}
+              <strong style={{ color: "#FFFFFF" }}>
+                No constituyen una historia clínica
+              </strong>{" "}
+              ni la reemplazan.
+            </p>
+            <p
+              className="mx-auto mt-8 max-w-2xl text-sm"
+              style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.6 }}
             >
               Himalaya Salud no es una ART, una obra social ni un servicio de
-              emergencias médicas. Es una herramienta para tener tu información a
-              mano y avisar a tus contactos: no reemplaza al 911, 107/SAME ni a la
-              atención médica profesional.
+              emergencias médicas. SOS Protegete avisa a tus contactos: no
+              reemplaza al 911, al 107/SAME ni a la atención médica.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ——— 7b. Descargar la app ——— */}
+      {/* ——— 7. Empresas ——— */}
+      <section
+        id="empresas"
+        className="py-16 md:py-24"
+        style={{ backgroundColor: C.bgSecondary }}
+      >
+        <div className="container mx-auto px-4">
+          <div className="stagger mb-12 max-w-2xl">
+            <Eyebrow>Para empresas</Eyebrow>
+            <h2
+              className="mt-4 text-3xl font-extrabold sm:text-4xl"
+              style={{
+                color: C.teal900,
+                letterSpacing: "-0.025em",
+                lineHeight: 1.1,
+              }}
+            >
+              SOS Protegete como beneficio para tu gente.
+            </h2>
+            <p
+              className="mt-4 text-lg"
+              style={{ color: C.textCaption, lineHeight: 1.55 }}
+            >
+              Pensado para equipos que trabajan en la calle, personal de campo
+              y empresas que quieren cuidar a su gente también fuera del
+              horario de trabajo.
+            </p>
+          </div>
+
+          <div className="stagger grid items-stretch gap-6 lg:grid-cols-2">
+            <div
+              className="flex flex-col p-7 md:p-10 lift"
+              style={{
+                backgroundColor: C.teal900,
+                borderRadius: 24,
+                boxShadow: SHADOW.cardHover,
+                color: "#FFFFFF",
+              }}
+            >
+              <span
+                className="inline-flex items-center gap-2 text-sm font-semibold"
+                style={{ color: C.verdeClaro }}
+              >
+                <Building2 size={16} />
+                Cómo funciona
+              </span>
+              <ul
+                className="mt-6 grid gap-3"
+                style={{
+                  borderTop: "1px solid rgba(255,255,255,0.14)",
+                  paddingTop: 24,
+                }}
+              >
+                {empresaPasos.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-sm"
+                    style={{ color: "rgba(255,255,255,0.88)", lineHeight: 1.5 }}
+                  >
+                    <Check
+                      size={16}
+                      style={{ color: C.verdeClaro, flexShrink: 0, marginTop: 2 }}
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/contacto?tipo=empresa"
+                onClick={() => track("home_cta_empresas")}
+                className="mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold transition-all"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  color: C.teal900,
+                  padding: "14px 22px",
+                  borderRadius: 8,
+                }}
+              >
+                Pedir una propuesta
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+
+            <div
+              className="flex flex-col p-7 md:p-10"
+              style={{
+                backgroundColor: "#FFFFFF",
+                border: `1px solid ${C.teal50}`,
+                borderRadius: 24,
+                boxShadow: SHADOW.card,
+              }}
+            >
+              <span
+                className="inline-flex items-center gap-2 text-sm font-semibold"
+                style={{ color: C.teal700 }}
+              >
+                <ShieldAlert size={16} />
+                ¿Tu empresa ya te lo dio?
+              </span>
+              <p
+                className="mt-6 text-lg font-semibold"
+                style={{ color: C.teal900, lineHeight: 1.45 }}
+              >
+                Buscá el WhatsApp de SOS Protegete con tu invitación y tocá
+                «Activar mi beneficio».
+              </p>
+              <p
+                className="mt-4 text-base"
+                style={{ color: C.textCaption, lineHeight: 1.6 }}
+              >
+                El link te lleva a descargar la app y entrar con tu número. En
+                dos minutos cargás tus contactos y ya estás protegido. Si no te
+                llegó el mensaje, preguntá en tu empresa o escribinos.
+              </p>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track("home_empresas_whatsapp_ayuda")}
+                className="mt-8 inline-flex w-fit items-center gap-2 text-sm font-semibold transition-all"
+                style={{
+                  color: C.teal700,
+                  padding: "14px 22px",
+                  borderRadius: 8,
+                  border: `1.5px solid ${C.teal50}`,
+                }}
+              >
+                <MessageCircle size={16} />
+                Escribinos por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ——— 8. Descargar la app ——— */}
       <section id="descargar" className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div
-            className="relative overflow-hidden px-6 py-12 text-center md:px-10 md:py-16"
+            className="relative overflow-hidden px-6 py-12 md:px-10 md:py-16"
             style={{
               backgroundColor: C.teal900,
               borderRadius: 28,
@@ -1269,87 +1038,46 @@ function HomeFull() {
                 background: `radial-gradient(ellipse at center, ${C.mint500}26 0%, transparent 60%)`,
               }}
             />
-            <div className="stagger" style={{ position: "relative", zIndex: 1 }}>
-              <Eyebrow color={C.verdeClaro}>Descargá la app</Eyebrow>
-              <h2
-                className="mx-auto mt-5 max-w-2xl text-3xl font-extrabold sm:text-4xl"
-                style={{
-                  color: "#FFFFFF",
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.1,
-                }}
-              >
-                Llevá tu salud, y la de los tuyos,{" "}
-                <span style={{ color: C.verdeClaro }}>siempre con vos</span>.
-              </h2>
-              <p
-                className="mx-auto mt-4 max-w-lg text-base"
-                style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
-              >
-                Disponible para iOS y Android.
-              </p>
-              <div className="mt-8 flex flex-wrap justify-center gap-3">
-                <a
-                  href={appStoreUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => track("home_cta_descargar_ios")}
-                  className="inline-flex items-center gap-3 transition-transform lift"
+            <div
+              className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr]"
+              style={{ position: "relative", zIndex: 1 }}
+            >
+              <div className="stagger">
+                <Eyebrow color={C.verdeClaro}>Descargá la app</Eyebrow>
+                <h2
+                  className="mt-5 max-w-2xl text-3xl font-extrabold sm:text-4xl"
                   style={{
-                    backgroundColor: "#FFFFFF",
-                    color: C.teal900,
-                    borderRadius: 12,
-                    padding: "12px 22px",
+                    color: "#FFFFFF",
+                    letterSpacing: "-0.025em",
+                    lineHeight: 1.1,
                   }}
                 >
-                  <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor" aria-hidden>
-                    <path d="M17.6 13.7c0-3.3 2.7-4.9 2.8-5-1.5-2.2-3.9-2.5-4.7-2.5-2-.2-3.9 1.2-4.9 1.2-1 0-2.6-1.2-4.3-1.1-2.2 0-4.2 1.3-5.3 3.3-2.3 4-.6 9.8 1.6 13 1.1 1.6 2.4 3.3 4.1 3.3 1.6-.1 2.3-1 4.3-1s2.5 1 4.3 1c1.8 0 2.9-1.6 4-3.2 1.3-1.8 1.8-3.6 1.8-3.7-.1 0-3.6-1.4-3.6-5.3zM14.4 4.2c.9-1 1.5-2.5 1.3-3.9-1.3.1-2.8.8-3.7 1.9-.8.9-1.5 2.4-1.3 3.8 1.4.1 2.8-.7 3.7-1.8z" />
-                  </svg>
-                  <span className="text-left">
-                    <span
-                      className="block text-[10px] font-semibold uppercase"
-                      style={{ letterSpacing: "0.5px", color: C.textCaption }}
-                    >
-                      Descargar en
-                    </span>
-                    <span className="block text-base font-bold">App Store</span>
-                  </span>
-                </a>
-                <a
-                  href={googlePlayUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => track("home_cta_descargar_android")}
-                  className="inline-flex items-center gap-3 transition-transform lift"
-                  style={{
-                    backgroundColor: "#FFFFFF",
-                    color: C.teal900,
-                    borderRadius: 12,
-                    padding: "12px 22px",
-                  }}
+                  SOS Protegete, para iPhone y Android.
+                </h2>
+                <p
+                  className="mt-4 max-w-lg text-base"
+                  style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
                 >
-                  <svg width="22" height="26" viewBox="0 0 22 26" fill="currentColor" aria-hidden>
-                    <path d="M2.1 1.1C1.7 1.5 1.5 2.1 1.5 2.9v20.2c0 .8.2 1.4.6 1.8l11.5-11.4L2.1 1.1zm12.7 11.4 3.4-3.4-12-7L2 5.7l12.8 6.8zM4.4 25.4c.4 0 .8-.1 1.2-.4l13.7-7.8-3.5-3.5-11.4 11.7zm15.1-12.5-2.7-1.6-3.7 3.7 3.7 3.7 2.7-1.5c1.6-.9 1.6-2.4 0-3.3z" />
-                  </svg>
-                  <span className="text-left">
-                    <span
-                      className="block text-[10px] font-semibold uppercase"
-                      style={{ letterSpacing: "0.5px", color: C.textCaption }}
-                    >
-                      Disponible en
-                    </span>
-                    <span className="block text-base font-bold">
-                      Google Play
-                    </span>
-                  </span>
-                </a>
+                  Si tu empresa te invitó, entrá desde el link del WhatsApp: la
+                  app ya sabe quién sos y te deja activar el beneficio.
+                </p>
+                <div className="mt-8">
+                  <StoreButtons where="home_cta" />
+                </div>
+              </div>
+              <div className="relative hidden items-center justify-center lg:flex">
+                <Captura
+                  src="/images/app/sos/boton-sos-protegete.png"
+                  alt="SOS Protegete avisando a los contactos durante una emergencia"
+                  className="!w-[260px]"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ——— 8. Contacto ——— */}
+      {/* ——— 9. Contacto ——— */}
       <section
         id="contacto"
         className="py-16 md:py-24"
@@ -1370,8 +1098,7 @@ function HomeFull() {
                   lineHeight: 1.1,
                 }}
               >
-                Estamos para{" "}
-                <span style={{ color: C.mint700 }}>ayudarte</span>.
+                ¿Dudas? <span style={{ color: C.mint700 }}>Escribinos</span>.
               </h2>
               <div className="mt-7 grid gap-3">
                 <a
@@ -1413,7 +1140,7 @@ function HomeFull() {
                   </span>
                 </a>
                 <a
-                  href="https://wa.me/5493412429819?text=Hola.%20Quer%C3%ADa%20hacer%20una%20consulta."
+                  href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => track("home_contacto_whatsapp")}
@@ -1457,7 +1184,7 @@ function HomeFull() {
                       className="block text-sm"
                       style={{ color: C.textCaption }}
                     >
-                      Escribinos y te ayudamos al instante
+                      Escribinos y te respondemos
                     </span>
                   </span>
                 </a>
@@ -1510,24 +1237,24 @@ function HomeFull() {
                 color: "#FFFFFF",
               }}
             >
-              <Eyebrow color={C.verdeClaro}>Plan empresas</Eyebrow>
+              <Eyebrow color={C.verdeClaro}>Para empresas</Eyebrow>
               <h3
                 className="mt-4 text-2xl font-extrabold"
                 style={{ color: "#FFFFFF", letterSpacing: "-0.02em" }}
               >
-                El Plan Botón de Pánico para tu equipo.
+                SOS Protegete para tu equipo.
               </h3>
               <p
                 className="mt-4 text-base"
                 style={{ color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}
               >
-                Ofrecé el Plan Botón de Pánico a tus empleados con un único cobro
-                por cantidad. Contanos cuántas personas son y armamos una
-                propuesta a medida.
+                Contanos cuántas personas son y te mandamos una propuesta. Un
+                único cobro mensual por cantidad de personas, sin contratos
+                largos.
               </p>
               <Link
                 href="/contacto?tipo=empresa"
-                onClick={() => track("home_cta_plan_empresas")}
+                onClick={() => track("home_cta_empresas_contacto")}
                 className="mt-7 inline-flex w-fit items-center gap-2 text-sm font-semibold transition-all"
                 style={{
                   backgroundColor: "#FFFFFF",
@@ -1536,7 +1263,7 @@ function HomeFull() {
                   borderRadius: 8,
                 }}
               >
-                Consultar plan empresas
+                Pedir una propuesta
                 <ArrowRight size={16} />
               </Link>
             </div>
@@ -1581,49 +1308,6 @@ function HomeFull() {
             opacity: 1;
             transform: none;
             transition: none;
-          }
-        }
-        @keyframes svcIn {
-          from { opacity: 0; transform: translateY(16px) scale(0.96); }
-          to { opacity: 1; transform: none; }
-        }
-        @keyframes tabPanelIn {
-          from { opacity: 0; transform: translateY(14px); }
-          to { opacity: 1; transform: none; }
-        }
-        @keyframes tabImgIn {
-          from { opacity: 0; transform: translateX(-22px) scale(0.97); }
-          to { opacity: 1; transform: none; }
-        }
-        @keyframes tabFeatIn {
-          from { opacity: 0; transform: translateX(14px); }
-          to { opacity: 1; transform: none; }
-        }
-        .tab-panel {
-          animation: tabPanelIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-        .tab-img {
-          animation: tabImgIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-        .tab-feat {
-          animation: tabFeatIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .tab-panel, .tab-img, .tab-feat {
-            animation: none;
-          }
-        }
-        .js-anim section.reveal .svc-chip {
-          opacity: 0;
-        }
-        .js-anim section.reveal.reveal-visible .svc-chip {
-          animation: svcIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .js-anim section.reveal .svc-chip,
-          .js-anim section.reveal.reveal-visible .svc-chip {
-            opacity: 1;
-            animation: none;
           }
         }
 
@@ -1695,12 +1379,6 @@ function HomeFull() {
           .blob-rotate { animation: none; }
         }
 
-        /* — Tilt 3D sutil al hover en cards .lift — */
-        @media (hover: hover) and (pointer: fine) {
-          .lift:hover {
-            transform: perspective(900px) translateY(-6px) rotateX(2deg);
-          }
-        }
       `}</style>
     </div>
   );

@@ -37,21 +37,20 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Himalaya Salud - Tu historia clínica digital segura",
-    template: "%s | Himalaya Salud",
+    default: "SOS Protegete — Botón de pánico para vos y tu familia | Himalaya Salud",
+    template: "%s | SOS Protegete",
   },
   description:
-    "Accedé a tu historia clínica digital de forma simple y segura. Himalaya Salud te permite gestionar y compartir tu información médica desde cualquier lugar.",
+    "Con un toque, SOS Protegete llama y manda WhatsApp a tus contactos con tu ubicación. Tu ficha de emergencia, tus estudios y tus mediciones quedan guardados en tu teléfono. Una app de Himalaya Salud.",
   keywords: [
-    "historia clínica digital",
-    "salud digital",
-    "historia clínica electrónica",
-    "HCE",
-    "gestión de salud",
-    "app médica",
+    "botón de pánico",
+    "SOS Protegete",
+    "app de emergencia",
+    "aviso a contactos de emergencia",
+    "ficha de emergencia",
+    "Himalaya Salud",
+    "beneficio para empleados",
     "Argentina",
-    "telemedicina",
-    "expediente médico digital",
   ],
   authors: [{ name: "Himalaya Salud S.A.S." }],
   creator: "Himalaya Salud S.A.S.",
@@ -68,36 +67,36 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/logo-himalaya-salud.svg",
-    shortcut: "/logo-himalaya-salud.svg",
-    apple: "/logo-himalaya-salud.svg",
+    icon: [
+      { url: "/branding/sos-protegete/favicon.ico" },
+      { url: "/branding/sos-protegete/favicon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/branding/sos-protegete/favicon.ico",
+    apple: "/branding/sos-protegete/apple-touch-icon.png",
   },
   openGraph: {
     type: "website",
     locale: "es_AR",
     url: siteUrl,
-    siteName: "Himalaya Salud",
-    title: "Himalaya Salud - Tu historia clínica digital segura",
+    siteName: "SOS Protegete",
+    title: "SOS Protegete — Botón de pánico para vos y tu familia",
     description:
-      "Accedé a tu historia clínica digital de forma simple y segura. Gestiona y comparte tu información médica desde cualquier lugar.",
+      "Con un toque, llama y manda WhatsApp a tus contactos con tu ubicación. Tu ficha de emergencia, estudios y mediciones, guardados en tu teléfono.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/branding/sos-protegete/og-1200x630.jpg",
         width: 1200,
         height: 630,
-        alt: "Himalaya Salud - Historia Clínica Digital",
+        alt: "SOS Protegete",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Himalaya Salud - Tu historia clínica digital segura",
+    title: "SOS Protegete — Botón de pánico para vos y tu familia",
     description:
-      "Accedé a tu historia clínica digital de forma simple y segura desde cualquier lugar.",
-    images: ["/og-image.png"],
-  },
-  verification: {
-    // google: "tu-codigo-de-verificacion-google",
+      "Con un toque, llama y manda WhatsApp a tus contactos con tu ubicación.",
+    images: ["/branding/sos-protegete/og-1200x630.jpg"],
   },
   alternates: {
     canonical: siteUrl,
