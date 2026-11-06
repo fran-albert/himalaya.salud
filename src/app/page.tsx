@@ -904,9 +904,8 @@ function HomeFull() {
               className="mt-4 text-lg"
               style={{ color: C.textCaption, lineHeight: 1.55 }}
             >
-              Pensado para equipos que trabajan en la calle, personal de campo
-              y empresas que quieren cuidar a su gente también fuera del
-              horario de trabajo.
+              Pensado para empresas que quieren cuidar a su gente en
+              situaciones de emergencia.
             </p>
           </div>
 
