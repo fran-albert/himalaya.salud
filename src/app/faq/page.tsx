@@ -30,239 +30,98 @@ type FaqCategory = {
 
 const fallbackCategories: FaqCategory[] = [
   {
-    id: "primeros_pasos",
-    key: "primeros_pasos",
-    name: "Primeros pasos",
-    sort_order: 10,
-    status: "active",
-    faqs: [
+    "id": "empresas",
+    "key": "empresas",
+    "name": "Para empresas",
+    "sort_order": 10,
+    "status": "active",
+    "faqs": [
       {
-        id: "primeros_pasos-01",
-        question: "¿Qué es SOS Protegete?",
-        answer: "Una app con botón de pánico. Si estás en una situación grave, mantenés apretado el botón 3 segundos y la app llama y manda WhatsApp a tus contactos con tu ubicación. Además guarda en tu teléfono tu ficha de emergencia, tus estudios y tus mediciones. La desarrolla Himalaya Salud S.A.S.",
-        sort_order: 10,
-        status: "published",
+        "id": "business-benefit",
+        "question": "¿Qué es SOS Protegete para empresas?",
+        "answer": "Es un beneficio que tu empresa contrata para su gente. Cada persona tiene una app con un botón SOS para avisar a sus contactos de confianza y herramientas para guardar su información de salud en su propio teléfono. La empresa contrata y administra el beneficio; cada empleado usa su cuenta personal.",
+        "sort_order": 10,
+        "status": "published"
       },
       {
-        id: "primeros_pasos-02",
-        question: "¿Cómo consigo la app?",
-        answer: "Hoy SOS Protegete se contrata por empresa, como beneficio para su gente. Si tu empresa te lo dio, te llega un WhatsApp con un link para activar tu beneficio: ese link te lleva a descargar la app y entrar con tu número. Si querés ofrecerla en tu empresa, pedinos una propuesta desde Contacto.",
-        sort_order: 20,
-        status: "published",
+        "id": "business-employees-pay",
+        "question": "¿El empleado tiene que pagar o contratar algo?",
+        "answer": "No. El servicio lo contrata la empresa. El empleado recibe su invitación, instala SOS Protegete desde la tienda de su teléfono y activa el beneficio. No necesita comprar una suscripción ni cargar un medio de pago en la app.",
+        "sort_order": 20,
+        "status": "published"
       },
       {
-        id: "primeros_pasos-03",
-        question: "¿Qué me conviene configurar primero?",
-        answer: "Tus contactos de emergencia. Sin al menos un contacto que haya aceptado la invitación, el botón no tiene a quién avisar. Después completá tu ficha de emergencia; los estudios y las mediciones los cargás cuando quieras.",
-        sort_order: 30,
-        status: "published",
+        "id": "business-rollout",
+        "question": "¿Cómo empezamos a usarlo en la empresa?",
+        "answer": "Coordinamos la contratación y la carga de la nómina. Desde Gestión se envían las invitaciones. Cada empleado abre su enlace, instala la app y activa su cuenta; después agrega sus contactos de emergencia y les pide que acepten. La descarga por sí sola no activa el beneficio.",
+        "sort_order": 30,
+        "status": "published"
       },
       {
-        id: "primeros_pasos-04",
-        question: "¿Necesito internet para usar la app?",
-        answer: "Para activar el botón sí: la app manda tu ubicación a nuestro servidor, que hace la llamada y envía los WhatsApp. Tu ficha, tus estudios y tus mediciones se abren sin conexión porque están guardados en tu teléfono.",
-        sort_order: 40,
-        status: "published",
-      },
-    ],
-  },
-  {
-    id: "boton_de_panico",
-    key: "boton_de_panico",
-    name: "Botón de pánico",
-    sort_order: 20,
-    status: "active",
-    faqs: [
-      {
-        id: "boton_de_panico-01",
-        question: "¿Cómo activo el botón?",
-        answer: "Desde Inicio, mantené presionado el botón rojo 3 segundos. El tiempo evita que se dispare sin querer en el bolsillo. Si lo soltás antes, no pasa nada.",
-        sort_order: 10,
-        status: "published",
+        "id": "business-devices",
+        "question": "¿Hay que entregar un dispositivo o instalar equipos?",
+        "answer": "Cada empleado usa SOS Protegete en un teléfono compatible, Android o iPhone. La app está disponible en las tiendas de Argentina. Para activar el SOS necesita conexión a internet; para incluir dónde está, debe permitir el acceso a la ubicación y el teléfono debe poder obtenerla.",
+        "sort_order": 40,
+        "status": "published"
       },
       {
-        id: "boton_de_panico-02",
-        question: "¿Qué pasa cuando lo activo?",
-        answer: "Primero la app toma tu ubicación. Después, nuestro sistema llama a tus 3 contactos principales con un mensaje grabado que les avisa que estás en una emergencia, y manda un WhatsApp a todos tus contactos con tu ubicación y un link para ver dónde estás y cómo llegar.",
-        sort_order: 20,
-        status: "published",
+        "id": "business-sos",
+        "question": "¿A quién avisa el SOS de un empleado?",
+        "answer": "A los contactos que el empleado elige y que aceptaron su invitación: hasta tres reciben llamada y WhatsApp y otros tres reciben sólo WhatsApp. El aviso incluye su ubicación al activar, si está disponible. La empresa no recibe alertas automáticamente por contratar el beneficio.",
+        "sort_order": 50,
+        "status": "published"
       },
       {
-        id: "boton_de_panico-03",
-        question: "¿Qué recibe cada contacto?",
-        answer: "Los 3 contactos principales reciben la llamada y el WhatsApp. Los demás (hasta completar 6) reciben sólo el WhatsApp. El link del mensaje abre una página con tu nombre, la hora, tu ubicación en el mapa y un botón para llamarte. No incluye datos de salud.",
-        sort_order: 30,
-        status: "published",
+        "id": "business-privacy",
+        "question": "¿Qué información de los empleados puede ver la empresa?",
+        "answer": "La empresa administra la nómina, las invitaciones y el estado del beneficio. No recibe la ficha de salud, estudios, mediciones, contactos de emergencia ni la ubicación y el detalle de las activaciones SOS. La información de salud queda en el teléfono de cada empleado.",
+        "sort_order": 60,
+        "status": "published"
       },
       {
-        id: "boton_de_panico-04",
-        question: "¿Cuántos contactos puedo cargar?",
-        answer: "Hasta 6. Cada contacto recibe una invitación por WhatsApp y tiene que aceptarla. Hasta que no acepta, no recibe avisos. Podés cambiarlos cuando quieras desde la app.",
-        sort_order: 40,
-        status: "published",
+        "id": "business-emergency-scope",
+        "question": "¿Incluye atención médica o envío de ambulancias?",
+        "answer": "No. SOS Protegete intenta avisar a los contactos elegidos por cada empleado; no presta atención médica ni despacha ambulancias. Tampoco garantiza que un contacto responda o llegue. Ante una emergencia debe llamarse al servicio de emergencias de la localidad.",
+        "sort_order": 70,
+        "status": "published"
       },
       {
-        id: "boton_de_panico-05",
-        question: "¿De qué número sale la llamada?",
-        answer: "Siempre del mismo número de SOS Protegete. En la pantalla de Contactos SOS lo tenés a mano para mandárselo a tus contactos y que lo agenden; así, cuando suena, saben que es tu alerta y no un número desconocido.",
-        sort_order: 50,
-        status: "published",
+        "id": "business-support",
+        "question": "¿Quién ayuda a los empleados si tienen un problema con la app?",
+        "answer": "El equipo de Himalaya atiende por WhatsApp al +54 9 341 242-9819 y por correo en contacto@himalayasalud.com.ar, de lunes a viernes de 8 a 16, hora argentina. Desde la app pueden abrir Ayuda y soporte. Este canal resuelve dudas de uso; no es una central de emergencias.",
+        "sort_order": 80,
+        "status": "published"
       },
       {
-        id: "boton_de_panico-06",
-        question: "¿Y si lo apreté sin querer?",
-        answer: "Desde la misma pantalla avisás que estás bien. Tus contactos reciben un segundo mensaje de falsa alarma.",
-        sort_order: 60,
-        status: "published",
+        "id": "business-contract",
+        "question": "¿Cómo contrato SOS Protegete para mi empresa?",
+        "answer": "Escribinos desde Contacto o a contacto@himalayasalud.com.ar con la cantidad aproximada de personas. Te preparamos una propuesta y coordinamos el alta de la empresa, la nómina y las invitaciones. Cada persona instala la app y activa su propia cuenta.",
+        "sort_order": 90,
+        "status": "published"
       },
       {
-        id: "boton_de_panico-07",
-        question: "¿Cuántas veces por mes puedo usarlo?",
-        answer: "Tu plan incluye una cantidad de avisos por mes. La ves en la pantalla de Inicio de la app, debajo del botón, y se renueva cada mes.",
-        sort_order: 70,
-        status: "published",
+        "id": "business-roster",
+        "question": "¿Qué datos necesita la nómina para invitar a mi gente?",
+        "answer": "Nombre, apellido, DNI y correo; para enviar la invitación por WhatsApp también necesitamos el celular correcto. Verificá esos datos antes de la carga y usá el canal acordado para la nómina. Dar de alta a una persona y enviarle la invitación son pasos distintos.",
+        "sort_order": 100,
+        "status": "published"
       },
       {
-        id: "boton_de_panico-08",
-        question: "¿Necesito dar permiso de ubicación?",
-        answer: "Sí. Sin permiso de ubicación la app no puede decirles a tus contactos dónde estás. Te lo pide al configurar el SOS y podés revisarlo en los ajustes del teléfono.",
-        sort_order: 80,
-        status: "published",
+        "id": "business-price",
+        "question": "¿Cómo se cobra y qué incluye el beneficio empresarial?",
+        "answer": "La propuesta indica el precio, la cantidad de personas, las funciones, el cupo SOS, la vigencia y las condiciones de facturación. El empleado no compra ni paga un plan dentro de la app. Consultanos para definir el alcance de tu empresa.",
+        "sort_order": 110,
+        "status": "published"
       },
       {
-        id: "boton_de_panico-09",
-        question: "¿Reemplaza al 911 o a la ambulancia?",
-        answer: "No. SOS Protegete avisa a tus contactos; no llama a servicios de emergencia ni envía ayuda médica. Ante una urgencia médica llamá al 911 o al 107/SAME.",
-        sort_order: 90,
-        status: "published",
-      },
-    ],
-  },
-  {
-    id: "salud_en_tu_telefono",
-    key: "salud_en_tu_telefono",
-    name: "Tu salud, en tu teléfono",
-    sort_order: 30,
-    status: "active",
-    faqs: [
-      {
-        id: "salud_en_tu_telefono-01",
-        question: "¿Dónde se guardan mi ficha, mis estudios y mis mediciones?",
-        answer: "En tu teléfono, y en ningún otro lado. Himalaya Salud no los ve ni los almacena en sus servidores. Por eso, si borrás la app o cambiás de teléfono sin exportarlos, se pierden.",
-        sort_order: 10,
-        status: "published",
-      },
-      {
-        id: "salud_en_tu_telefono-historia",
-        question: "¿Esto es una historia clínica?",
-        answer: "No. La ficha, los estudios y las mediciones los cargás vos: son datos autoingresados, sin la firma de un médico ni de una institución. Te sirven para tenerlos ordenados y mostrarlos cuando haga falta, pero no constituyen una historia clínica ni la reemplazan.",
-        sort_order: 15,
-        status: "published",
-      },
-      {
-        id: "salud_en_tu_telefono-02",
-        question: "¿Qué datos míos sí tiene Himalaya?",
-        answer: "Los de tu cuenta: nombre, correo y celular, tus contactos de emergencia y el registro de cada activación del botón (fecha, hora y ubicación). Nada de salud.",
-        sort_order: 20,
-        status: "published",
-      },
-      {
-        id: "salud_en_tu_telefono-03",
-        question: "¿Cómo comparto un estudio o mi ficha?",
-        answer: "Cada archivo de un estudio tiene un botón Compartir que abre el menú de tu teléfono: WhatsApp, mail, AirDrop o guardar. La ficha de emergencia se comparte como texto o como PDF. Siempre sale desde tu teléfono, con un toque tuyo por cada envío.",
-        sort_order: 30,
-        status: "published",
-      },
-      {
-        id: "salud_en_tu_telefono-04",
-        question: "Si activo el botón, ¿mis contactos ven mis datos de salud?",
-        answer: "No. El aviso lleva tu ubicación y nada más. Tu ficha o tus estudios se los mandás vos, cuando quieras, desde la app.",
-        sort_order: 40,
-        status: "published",
-      },
-      {
-        id: "salud_en_tu_telefono-05",
-        question: "¿Qué pasa si cambio de teléfono?",
-        answer: "Antes de cambiar, exportá lo que quieras conservar con Compartir (por ejemplo, mandate la ficha en PDF por mail). En el teléfono nuevo entrás con tu cuenta y volvés a tener el botón y tus contactos; la ficha, los estudios y las mediciones los cargás de nuevo.",
-        sort_order: 50,
-        status: "published",
-      },
-    ],
-  },
-  {
-    id: "empresas",
-    key: "empresas",
-    name: "Para empresas",
-    sort_order: 40,
-    status: "active",
-    faqs: [
-      {
-        id: "empresas-01",
-        question: "¿Cómo contrata SOS Protegete una empresa?",
-        answer: "Nos pasás la nómina (nombre y celular) y cada persona recibe por WhatsApp su invitación para activar la app. Se paga un único abono mensual por cantidad de personas. Pedí una propuesta desde Contacto y te la mandamos.",
-        sort_order: 10,
-        status: "published",
-      },
-      {
-        id: "empresas-02",
-        question: "¿La empresa ve los datos de sus empleados?",
-        answer: "No. La empresa da de alta a su gente, pero no ve los contactos, las activaciones del botón ni los datos de salud de nadie: esos quedan en el teléfono de cada persona.",
-        sort_order: 20,
-        status: "published",
-      },
-      {
-        id: "empresas-03",
-        question: "¿Los contactos de emergencia los define la empresa?",
-        answer: "No, los elige cada persona: su familia, su pareja, un vecino. La empresa no participa del aviso.",
-        sort_order: 30,
-        status: "published",
-      },
-      {
-        id: "empresas-04",
-        question: "¿Sirve para personal que trabaja solo o en la calle?",
-        answer: "Es el caso para el que está pensado: viajantes, personal de campo, técnicos, choferes. Cualquiera que pase horas lejos de su familia y quiera que, si pasa algo, sepan dónde está.",
-        sort_order: 40,
-        status: "published",
-      },
-    ],
-  },
-  {
-    id: "cuenta",
-    key: "cuenta",
-    name: "Tu cuenta",
-    sort_order: 50,
-    status: "active",
-    faqs: [
-      {
-        id: "cuenta-soporte",
-        question: "Tengo un problema con la app, ¿a quién le escribo?",
-        answer: "Escribinos por WhatsApp al +54 9 341 242-9819 o a contacto@himalayasalud.com.ar. Te responde una persona del equipo de Himalaya, no un bot.",
-        sort_order: 5,
-        status: "published",
-      },
-      {
-        id: "cuenta-01",
-        question: "Olvidé mi contraseña, ¿qué hago?",
-        answer: "En la pantalla de ingreso tocá «Olvidé mi contraseña» y te mandamos un mail con un link para crear una nueva. Si no lo ves, revisá la carpeta de correo no deseado.",
-        sort_order: 10,
-        status: "published",
-      },
-      {
-        id: "cuenta-02",
-        question: "¿Cómo elimino mi cuenta?",
-        answer: "Desde la app, en Mi cuenta, o desde la página «Eliminar mi cuenta» que está al pie de este sitio. Lo que tenías guardado en el teléfono (ficha, estudios y mediciones) se elimina junto con la app.",
-        sort_order: 20,
-        status: "published",
-      },
-      {
-        id: "cuenta-03",
-        question: "¿Dónde leo los términos y la política de privacidad?",
-        answer: "En el pie de este sitio y dentro de la app, en Mi cuenta. Cuando cambian, la app te pide que los leas y los aceptes de nuevo.",
-        sort_order: 30,
-        status: "published",
-      },
-    ],
-  },
+        "id": "business-adoption",
+        "question": "¿Cómo sé si las personas activaron la app?",
+        "answer": "Desde Gestión podés consultar el estado de las invitaciones y del beneficio de cada persona. Una invitación enviada no significa que la cuenta esté activada. Cada usuario debe completar el alta y preparar sus contactos de emergencia desde la app.",
+        "sort_order": 120,
+        "status": "published"
+      }
+    ]
+  }
 ];
 
 function normalizeCategories(categories: FaqCategory[]) {
@@ -306,19 +165,19 @@ export default function FAQPage() {
               className="inline-block text-xs font-semibold uppercase tracking-[0.22em]"
               style={{ color: BRAND.mint900 }}
             >
-              Centro de ayuda
+              SOS Protegete para empresas
             </span>
             <h1
               className="text-4xl md:text-5xl font-bold tracking-tight leading-tight"
               style={{ color: BRAND.teal700 }}
             >
-              Preguntas frecuentes
+              Preguntas frecuentes para empresas
             </h1>
             <p
               className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
               style={{ color: BRAND.textBody }}
             >
-              Lo que la gente nos pregunta sobre SOS Protegete, para usuarios y para empresas.
+              Conocé cómo ofrecer SOS Protegete a tu equipo: contratación, implementación, privacidad y soporte.
             </p>
           </div>
 
@@ -328,7 +187,7 @@ export default function FAQPage() {
             </div>
             <input
               type="text"
-              placeholder="Buscá tu duda (ej: contactos, ubicación, empresa)"
+              placeholder="Buscá tu duda (ej: contratación, nómina, privacidad)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full h-12 pl-12 pr-4 text-base outline-none transition-colors"
@@ -423,9 +282,9 @@ export default function FAQPage() {
               boxShadow: SHADOW.cta,
             }}
           >
-            <h3 className="text-2xl md:text-3xl font-bold mb-3">¿Todavía tenés dudas?</h3>
+            <h3 className="text-2xl md:text-3xl font-bold mb-3">¿Querés ofrecer SOS Protegete a tu equipo?</h3>
             <p className="text-base md:text-lg opacity-90 mb-7 max-w-xl mx-auto">
-              Si no encontraste lo que buscabas, nuestro equipo está listo para ayudarte personalmente.
+              Contanos cuántas personas querés incluir y te preparamos una propuesta para tu empresa.
             </p>
             <Link
               href="/contacto"
@@ -437,7 +296,7 @@ export default function FAQPage() {
                 borderRadius: "8px",
               }}
             >
-              Contactar ahora
+              Pedir una propuesta
               <ChevronRight className="ml-1 w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
             </Link>
           </div>
