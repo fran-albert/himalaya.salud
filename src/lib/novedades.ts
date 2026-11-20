@@ -18,7 +18,6 @@ export const novedades: Novedad[] = [
       "Podés poner el botón SOS en la pantalla de inicio del teléfono y usarlo sin abrir la app.",
       "Si pasaron unos minutos, la app vuelve a abrir en Inicio, con el botón a mano.",
     ],
-    note: "Disponible en Android. En iPhone llega en los próximos días.",
   },
   {
     version: "1.0.1",
