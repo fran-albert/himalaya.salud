@@ -23,6 +23,7 @@ export function Footer() {
       { label: "Ficha de emergencia", href: "/#ficha" },
       { label: "Descargar la app", href: "/#descargar" },
       { label: "Preguntas frecuentes", href: "/faq" },
+      { label: "Novedades", href: "/novedades" },
     ],
     empresa: [
       { label: "Para empresas", href: "/#empresas" },
