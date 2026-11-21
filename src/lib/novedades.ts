@@ -11,6 +11,15 @@ export type Novedad = {
 // Una entrada por versión publicada de la app, la más nueva primero.
 export const novedades: Novedad[] = [
   {
+    version: "1.0.3",
+    month: "2026-11",
+    title: "Llamá al 107 o al 911 desde el SOS",
+    items: [
+      "Apenas tocás el botón SOS, podés llamar al 107 o al 911. Si llamás, el aviso a tus contactos sale en el momento.",
+      "Podés compartir todos tus estudios juntos, en un solo PDF.",
+    ],
+  },
+  {
     version: "1.0.2",
     month: "2026-11",
     title: "El botón SOS, en la pantalla de tu teléfono",
