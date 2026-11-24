@@ -82,10 +82,12 @@ export async function platform<T>(
   const payload: unknown = await response.json().catch(() => null);
   if (!response.ok) {
     const error = payload as { code?: unknown; message?: unknown } | null;
+    const code = typeof error?.code === "string" ? error.code : "UNKNOWN";
     throw new PlatformError(
       response.status,
-      typeof error?.code === "string" ? error.code : "UNKNOWN",
-      response.status === 429
+      code,
+      // El tope por conexión de la API no trae un texto para mostrar; los del reenvío de código sí.
+      response.status === 429 && !code.startsWith("REGISTRATION_RESEND_")
         ? "Demasiados intentos. Probá en unos minutos."
         : typeof error?.message === "string" ? error.message : "No pudimos completar el pedido.",
     );

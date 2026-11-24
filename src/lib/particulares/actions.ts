@@ -77,6 +77,27 @@ async function submitRegistration(form: FormData): Promise<FormState | null> {
   return null;
 }
 
+export interface ResendState {
+  error: string | null;
+  /** Cambia en cada envío aceptado, para reiniciar la cuenta regresiva. */
+  sentAt: number | null;
+}
+
+export async function resendCode(): Promise<ResendState> {
+  const signup = await pendingSignup();
+  if (!signup) return { error: "El registro venció. Volvé a crear tu cuenta.", sentAt: null };
+  try {
+    await platform("/v1/patient/registrations/resend", {
+      method: "POST", body: { registrationId: signup.registrationId },
+    });
+    // El código nuevo dura 15 minutos: el registro en curso se recuerda ese tiempo otra vez.
+    await rememberSignup(signup);
+    return { error: null, sentAt: Date.now() };
+  } catch (error) {
+    return { ...failure(error), sentAt: null };
+  }
+}
+
 export async function verifyCode(_previous: FormState, form: FormData): Promise<FormState> {
   const signup = await pendingSignup();
   if (!signup) return { error: "El código venció. Volvé a crear tu cuenta." };

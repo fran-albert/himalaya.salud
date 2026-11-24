@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { CodeForm } from "@/components/particulares/forms";
+import { CodeForm, ResendCode } from "@/components/particulares/forms";
 import { Shell } from "@/components/particulares/shell";
 import { pendingSignup, requireParticulares } from "@/lib/particulares/platform";
 
@@ -17,6 +17,7 @@ export default async function CodigoPage() {
       lead={`Escribí el código que llegó a ${signup.email}. Vence en 15 minutos.`}
     >
       <CodeForm />
+      <ResendCode />
     </Shell>
   );
 }

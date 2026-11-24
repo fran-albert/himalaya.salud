@@ -10,7 +10,8 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
 import { Label } from "@/components/ui/label";
 import { BRAND } from "@/lib/brand-tokens";
 import {
-  cancelPlan, choosePlan, logIn, register, startPayment, verifyCode, type FormState,
+  cancelPlan, choosePlan, logIn, register, resendCode, startPayment, verifyCode,
+  type FormState, type ResendState,
 } from "@/lib/particulares/actions";
 import { formatArs, PERIOD_LABEL, PERIOD_UNIT, type BillingPeriod } from "@/lib/particulares/format";
 import type { LegalReference, PublicPlan } from "@/lib/particulares/platform";
@@ -169,6 +170,35 @@ export function CodeForm() {
       </InputOTP>
       {state.error && <Notice tone="error">{state.error}</Notice>}
       <Submit>Confirmar</Submit>
+    </form>
+  );
+}
+
+const RESEND_WAIT_SECONDS = 60;
+const noResend: ResendState = { error: null, sentAt: null };
+
+/** Va fuera del formulario del código: pedir otro no tiene que mandar lo que haya en los casilleros. */
+export function ResendCode() {
+  const [state, action, pending] = useActionState(resendCode, noResend);
+  const [left, setLeft] = useState(RESEND_WAIT_SECONDS);
+  useEffect(() => { if (state.sentAt) setLeft(RESEND_WAIT_SECONDS); }, [state.sentAt]);
+  useEffect(() => {
+    if (left <= 0) return;
+    const timer = setTimeout(() => setLeft((value) => value - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [left]);
+  return (
+    <form action={action} className="mt-5 space-y-3 text-center text-sm">
+      {state.error && <Notice tone="error">{state.error}</Notice>}
+      {state.sentAt && !state.error && <p role="status" style={{ color: BRAND.textCaption }}>Te mandamos otro código.</p>}
+      {left > 0 ? (
+        <p style={{ color: BRAND.textCaption }}>¿No llegó? Podés pedir otro en {left} s.</p>
+      ) : (
+        <button type="submit" disabled={pending} className="font-semibold underline underline-offset-4 disabled:opacity-60"
+          style={{ color: BRAND.teal900 }}>
+          {pending ? "Enviando…" : "Reenviar código"}
+        </button>
+      )}
     </form>
   );
 }
