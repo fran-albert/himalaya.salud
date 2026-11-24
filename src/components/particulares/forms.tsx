@@ -8,15 +8,16 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { BRAND } from "@/lib/brand-tokens";
 import {
-  cancelPlan, choosePlan, logIn, register, resendCode, startPayment, verifyCode,
-  type FormState, type ResendState,
+  cancelPlan, choosePlan, logIn, register, requestWithdrawal, resendCode, startPayment, verifyCode,
+  type FormState, type ResendState, type WithdrawalState,
 } from "@/lib/particulares/actions";
-import { formatArs, PERIOD_LABEL, PERIOD_UNIT, type BillingPeriod } from "@/lib/particulares/format";
+import { formatArs, formatDateTime, PERIOD_LABEL, PERIOD_UNIT, type BillingPeriod } from "@/lib/particulares/format";
 import type { LegalReference, PublicPlan } from "@/lib/particulares/platform";
 import { privacyUrl, termsUrl } from "@/lib/social-links";
-import { buttonClass, Notice, Panel, primaryButton, secondaryButton } from "./shell";
+import { buttonClass, Notice, Panel, primaryButton, Row, secondaryButton } from "./shell";
 
 const initial: FormState = { error: null };
 
@@ -261,4 +262,45 @@ export function RefreshWhilePending() {
     return () => clearInterval(timer);
   }, [router]);
   return null;
+}
+
+const noWithdrawal: WithdrawalState = { error: null };
+
+export function WithdrawalForm() {
+  const [state, action] = useActionState(requestWithdrawal, noWithdrawal);
+  const kept = state.values ?? {};
+  if (state.code) {
+    return (
+      <div className="space-y-4">
+        <Notice tone="ok">Recibimos tu pedido.</Notice>
+        <Panel>
+          <span className="text-xs font-semibold uppercase tracking-[0.18em]" style={{ color: BRAND.textCaption }}>
+            Código de arrepentimiento
+          </span>
+          <p className="text-3xl font-bold tracking-tight select-all" style={{ color: BRAND.teal700 }}>
+            {state.code}
+          </p>
+          {state.receivedAt && <Row label="Recibido el">{formatDateTime(state.receivedAt)}</Row>}
+        </Panel>
+        <p className="text-sm" style={{ color: BRAND.textBody }}>
+          Guardá este código. Te escribimos al correo que dejaste para terminar el trámite.
+        </p>
+      </div>
+    );
+  }
+  return (
+    <form action={action} className="space-y-4">
+      <Field label="Nombre y apellido" name="fullName" defaultValue={kept.fullName} autoComplete="name" maxLength={200} />
+      <Field label="DNI" name="documentNumber" defaultValue={kept.documentNumber} inputMode="numeric" pattern="[0-9.]{7,11}" />
+      <Field label="Correo" name="email" defaultValue={kept.email} type="email" autoComplete="email" maxLength={254} />
+      <Field label="Celular (opcional)" name="phone" defaultValue={kept.phone} type="tel" autoComplete="tel-national"
+        placeholder="341 555 0123" required={false} />
+      <div className="space-y-1.5">
+        <Label htmlFor="reason">Motivo (opcional)</Label>
+        <Textarea id="reason" name="reason" defaultValue={kept.reason} maxLength={500} rows={3} className="bg-white" />
+      </div>
+      {state.error && <Notice tone="error">{state.error}</Notice>}
+      <Submit>Enviar pedido</Submit>
+    </form>
+  );
 }

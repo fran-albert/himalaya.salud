@@ -172,8 +172,25 @@ export function Footer() {
           </div>
         </div>
 
+        {FEATURES.particulares && (
+          <nav aria-label="Trámites de consumo" className="mt-12 flex flex-wrap gap-3">
+            {[
+              { label: "Botón de arrepentimiento", href: "/arrepentimiento" },
+              { label: "Botón de baja", href: "/mi-plan" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center justify-center rounded-lg border border-primary px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        )}
+
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-border/50">
+        <div className={`${FEATURES.particulares ? "mt-8" : "mt-12"} pt-8 border-t border-border/50`}>
           <p className="text-sm text-muted-foreground text-center md:text-left">
             &copy; {currentYear} Himalaya Salud S.A.S. Todos los derechos reservados.
           </p>

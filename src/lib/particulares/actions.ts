@@ -164,3 +164,38 @@ export async function cancelPlan(): Promise<FormState> {
   }
   redirect("/mi-plan");
 }
+
+export interface WithdrawalState extends FormState {
+  /** Código de identificación que devuelve la API cuando el pedido quedó registrado. */
+  code?: string;
+  receivedAt?: string;
+}
+
+/** Botón de arrepentimiento (Res. 424/2020): no pide cuenta ni sesión. */
+export async function requestWithdrawal(_previous: WithdrawalState, form: FormData): Promise<WithdrawalState> {
+  const values = Object.fromEntries(
+    ["fullName", "documentNumber", "email", "phone", "reason"].map((name) => [name, text(form, name)]),
+  );
+  const documentNumber = values.documentNumber.replace(/\D/g, "");
+  const phone = values.phone ? argentineMobile(values.phone) : null;
+  if (values.fullName.length < 3) return { error: "Escribí tu nombre y apellido.", values };
+  if (documentNumber.length < 7 || documentNumber.length > 9) return { error: "Revisá el DNI.", values };
+  if (values.phone && !phone) {
+    return { error: "Revisá el celular: código de área y número, sin 0 ni 15.", values };
+  }
+  try {
+    const created = await platform<{ code: string; receivedAt: string }>("/v1/public/withdrawal-requests", {
+      method: "POST",
+      body: {
+        fullName: values.fullName, documentNumber, email: values.email.toLowerCase(),
+        ...(phone ? { phone } : {}), ...(values.reason ? { reason: values.reason } : {}),
+      },
+    });
+    return { error: null, code: created.code, receivedAt: created.receivedAt };
+  } catch (error) {
+    if (error instanceof PlatformError && error.status === 400) {
+      return { error: "Revisá los datos: hay alguno que no es válido.", values };
+    }
+    return { ...failure(error), values };
+  }
+}

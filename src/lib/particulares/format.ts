@@ -18,6 +18,13 @@ export function formatDate(iso: string | null): string {
   });
 }
 
+export function formatDateTime(iso: string): string {
+  return new Date(iso).toLocaleString("es-AR", {
+    day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit",
+    timeZone: "America/Argentina/Buenos_Aires",
+  });
+}
+
 /** Celular argentino tal como lo escribe la persona → +549XXXXXXXXXX. Null si no tiene 10 dígitos. */
 export function argentineMobile(input: string): string | null {
   let digits = input.replace(/\D/g, "");

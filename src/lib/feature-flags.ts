@@ -20,7 +20,8 @@
  *    queremos exponer las URLs requeridas (soporte, T&C, privacidad).
  *    Apagado por defecto: el sitio completo está activo.
  *  - NEXT_PUBLIC_FEATURE_PARTICULARES   → contratación de planes por
- *    particulares (/planes, /alta, /ingresar, /mi-plan y el botón
+ *    particulares (/planes, /alta, /ingresar, /mi-plan, /arrepentimiento,
+ *    los botones de arrepentimiento y de baja del pie, y el botón
  *    «Contratar»). Necesita además PLATFORM_API_URL en el servidor.
  *    Apagado: esas rutas responden 404.
  */
