@@ -19,11 +19,16 @@
  *    para el proceso de verificación de Apple Developer, donde solo
  *    queremos exponer las URLs requeridas (soporte, T&C, privacidad).
  *    Apagado por defecto: el sitio completo está activo.
+ *  - NEXT_PUBLIC_FEATURE_PARTICULARES   → contratación de planes por
+ *    particulares (/planes, /alta, /ingresar, /mi-plan y el botón
+ *    «Contratar»). Necesita además PLATFORM_API_URL en el servidor.
+ *    Apagado: esas rutas responden 404.
  */
 export const FEATURES = {
   hci: process.env.NEXT_PUBLIC_FEATURE_HCI === "true",
   instituciones: process.env.NEXT_PUBLIC_FEATURE_INSTITUCIONES === "true",
   minimalSite: process.env.NEXT_PUBLIC_FEATURE_MINIMAL_SITE === "true",
+  particulares: process.env.NEXT_PUBLIC_FEATURE_PARTICULARES === "true",
 } as const;
 
 /**

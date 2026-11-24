@@ -447,6 +447,21 @@ function HomeFull() {
                   <Smartphone size={16} />
                   Descargar la app
                 </Link>
+                {FEATURES.particulares && (
+                  <Link
+                    href="/planes"
+                    onClick={() => track("home_hero_contratar")}
+                    className="inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all sm:w-auto"
+                    style={{
+                      backgroundColor: C.teal900,
+                      color: "#FFFFFF",
+                      padding: "14px 22px",
+                      borderRadius: 8,
+                    }}
+                  >
+                    Contratar
+                  </Link>
+                )}
                 <Link
                   href="#empresas"
                   className="inline-flex w-full items-center justify-center gap-2 text-sm font-semibold transition-all sm:w-auto"

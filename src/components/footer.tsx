@@ -13,6 +13,7 @@ import {
   termsUrl,
   whatsappUrl,
 } from "@/lib/social-links";
+import { FEATURES } from "@/lib/feature-flags";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -24,6 +25,9 @@ export function Footer() {
       { label: "Descargar la app", href: "/#descargar" },
       { label: "Preguntas frecuentes", href: "/faq" },
       { label: "Novedades", href: "/novedades" },
+      ...(FEATURES.particulares
+        ? [{ label: "Planes", href: "/planes" }, { label: "Mi plan", href: "/mi-plan" }]
+        : []),
     ],
     empresa: [
       { label: "Para empresas", href: "/#empresas" },
