@@ -3,8 +3,8 @@
 import { redirect } from "next/navigation";
 import { argentineMobile } from "./format";
 import {
-  chosenPlan, endSession, pendingSignup, platform, PlatformError, rememberPlan, rememberSignup, sessionToken,
-  startSession, type LegalReference, type Subscription,
+  chosenPlan, endSession, pendingSignup, platform, PlatformError, rememberPlan, rememberSignup, requireParticulares,
+  sessionToken, startSession, type LegalReference, type Subscription,
 } from "./platform";
 
 export interface FormState {
@@ -12,6 +12,9 @@ export interface FormState {
   /** Lo que la persona había escrito, para no hacérselo cargar de nuevo. Nunca incluye la contraseña. */
   values?: Record<string, string>;
 }
+
+// Cada acción arranca con requireParticulares(): una server action se puede invocar por POST con su id
+// aunque la página que la usa responda 404, así que la bandera se comprueba también acá.
 
 const failure = (error: unknown): FormState => ({
   error: error instanceof PlatformError ? error.message : "No pudimos completar el pedido. Probá de nuevo.",
@@ -23,6 +26,7 @@ const text = (form: FormData, name: string): string => {
 };
 
 export async function choosePlan(form: FormData): Promise<void> {
+  requireParticulares();
   const period = text(form, "period");
   const planExternalId = text(form, "planExternalId");
   if (!planExternalId || (period !== "month" && period !== "year")) redirect("/planes");
@@ -31,6 +35,7 @@ export async function choosePlan(form: FormData): Promise<void> {
 }
 
 export async function register(_previous: FormState, form: FormData): Promise<FormState> {
+  requireParticulares();
   const attempt = await submitRegistration(form);
   if (!attempt) redirect("/alta/codigo");
   return {
@@ -84,6 +89,7 @@ export interface ResendState {
 }
 
 export async function resendCode(): Promise<ResendState> {
+  requireParticulares();
   const signup = await pendingSignup();
   if (!signup) return { error: "El registro venció. Volvé a crear tu cuenta.", sentAt: null };
   try {
@@ -99,6 +105,7 @@ export async function resendCode(): Promise<ResendState> {
 }
 
 export async function verifyCode(_previous: FormState, form: FormData): Promise<FormState> {
+  requireParticulares();
   const signup = await pendingSignup();
   if (!signup) return { error: "El código venció. Volvé a crear tu cuenta." };
   const code = text(form, "code");
@@ -116,6 +123,7 @@ export async function verifyCode(_previous: FormState, form: FormData): Promise<
 }
 
 export async function logIn(_previous: FormState, form: FormData): Promise<FormState> {
+  requireParticulares();
   try {
     const session = await platform<{ accessToken: string; expiresAt: string }>("/v1/patient/sessions", {
       method: "POST", body: { email: text(form, "email").toLowerCase(), password: text(form, "password") },
@@ -128,12 +136,14 @@ export async function logIn(_previous: FormState, form: FormData): Promise<FormS
 }
 
 export async function logOut(): Promise<void> {
+  requireParticulares();
   await endSession();
   redirect("/ingresar");
 }
 
 /** Abre la suscripción al precio vigente y manda a la persona a pagar al proveedor. */
 export async function startPayment(): Promise<FormState> {
+  requireParticulares();
   const token = await sessionToken();
   const plan = await chosenPlan();
   if (!token) redirect("/ingresar");
@@ -154,6 +164,7 @@ export async function startPayment(): Promise<FormState> {
 }
 
 export async function cancelPlan(): Promise<FormState> {
+  requireParticulares();
   const token = await sessionToken();
   if (!token) redirect("/ingresar");
   try {
@@ -173,6 +184,7 @@ export interface WithdrawalState extends FormState {
 
 /** Botón de arrepentimiento (Res. 424/2020): no pide cuenta ni sesión. */
 export async function requestWithdrawal(_previous: WithdrawalState, form: FormData): Promise<WithdrawalState> {
+  requireParticulares();
   const values = Object.fromEntries(
     ["fullName", "documentNumber", "email", "phone", "reason"].map((name) => [name, text(form, name)]),
   );

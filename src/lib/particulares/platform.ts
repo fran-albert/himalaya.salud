@@ -53,13 +53,16 @@ export function requireParticulares(): void {
 async function visitorHeaders(): Promise<Record<string, string>> {
   const secret = process.env.WEB_PROXY_SHARED_SECRET;
   if (!secret) return {};
-  const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim();
+  // En Vercel los dos encabezados los escribe la plataforma (pisa lo que mande el navegador), así que el
+  // primer valor es la IP real. Se prefiere el propio de Vercel: el estándar puede cambiar con un proxy delante.
+  const incoming = await headers();
+  const ip = (incoming.get("x-vercel-forwarded-for") ?? incoming.get("x-forwarded-for"))?.split(",")[0]?.trim();
   return ip ? { "x-himalaya-web-secret": secret, "x-himalaya-client-ip": ip } : {};
 }
 
 export async function platform<T>(
   path: string,
-  options: { method?: "GET" | "POST"; body?: unknown; token?: string } = {},
+  options: { method?: "GET" | "POST" | "DELETE"; body?: unknown; token?: string } = {},
 ): Promise<T> {
   const base = process.env.PLATFORM_API_URL;
   if (!base) throw new PlatformError(503, "NOT_CONFIGURED", "La contratación no está disponible todavía.");
@@ -107,7 +110,12 @@ export async function startSession(session: { accessToken: string; expiresAt: st
   });
 }
 
+/** Cierra la sesión también en la API; si la API no responde, igual se borra la cookie. */
 export async function endSession(): Promise<void> {
+  const token = await sessionToken();
+  if (token) {
+    await platform("/v1/patient/sessions/current", { method: "DELETE", token }).catch(() => undefined);
+  }
   (await cookies()).delete(SESSION_COOKIE);
 }
 
