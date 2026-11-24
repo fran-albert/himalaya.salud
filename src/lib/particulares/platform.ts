@@ -1,5 +1,5 @@
 import "server-only";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { FEATURES } from "@/lib/feature-flags";
 import type { BillingPeriod } from "./format";
@@ -46,17 +46,30 @@ export function requireParticulares(): void {
   if (!FEATURES.particulares || !process.env.PLATFORM_API_URL) notFound();
 }
 
+/**
+ * La API limita los intentos por IP. Como la llamamos desde el servidor, le pasamos la IP de quien visita
+ * junto con el secreto compartido; sin secreto no se manda nada y la API cuenta por la IP de este servidor.
+ */
+async function visitorHeaders(): Promise<Record<string, string>> {
+  const secret = process.env.WEB_PROXY_SHARED_SECRET;
+  if (!secret) return {};
+  const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim();
+  return ip ? { "x-himalaya-web-secret": secret, "x-himalaya-client-ip": ip } : {};
+}
+
 export async function platform<T>(
   path: string,
   options: { method?: "GET" | "POST"; body?: unknown; token?: string } = {},
 ): Promise<T> {
   const base = process.env.PLATFORM_API_URL;
   if (!base) throw new PlatformError(503, "NOT_CONFIGURED", "La contratación no está disponible todavía.");
+  const visitor = await visitorHeaders();
   let response: Response;
   try {
     response = await fetch(`${base}${path}`, {
       method: options.method ?? "GET",
       headers: {
+        ...visitor,
         ...(options.body === undefined ? {} : { "content-type": "application/json" }),
         ...(options.token ? { authorization: `Bearer ${options.token}` } : {}),
       },
