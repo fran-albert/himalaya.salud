@@ -16,8 +16,10 @@ import {
 } from "@/lib/particulares/actions";
 import { formatArs, formatDateTime, PERIOD_LABEL, PERIOD_UNIT, type BillingPeriod } from "@/lib/particulares/format";
 import type { LegalReference, PublicPlan } from "@/lib/particulares/platform";
+import { STORE_NAME, type Store } from "@/lib/particulares/subscription";
 import { privacyUrl, termsUrl } from "@/lib/social-links";
 import { buttonClass, Notice, Panel, primaryButton, Row, secondaryButton } from "./shell";
+import { StoreCancelSteps } from "./store";
 
 const initial: FormState = { error: null };
 
@@ -218,6 +220,14 @@ export function LoginForm() {
 
 export function PayForm() {
   const [state, action] = useActionState(startPayment, initial);
+  if (state.managedByStore) {
+    return (
+      <div className="space-y-3">
+        <Notice tone="warn">{state.error}</Notice>
+        <Link href="/mi-plan" className={buttonClass} style={primaryButton}>Ver mi plan</Link>
+      </div>
+    );
+  }
   return (
     <form action={action} className="space-y-3">
       {state.error && <Notice tone="error">{state.error}</Notice>}
@@ -229,6 +239,10 @@ export function PayForm() {
 export function CancelForm({ activeUntil }: { activeUntil: string }) {
   const [state, action] = useActionState(cancelPlan, initial);
   const [asking, setAsking] = useState(false);
+  // La página creía que el plan era de Mercado Pago, pero la API dice que lo administra una tienda.
+  if (state.managedByStore) {
+    return <Panel><StoreCancelSteps store={state.store} /></Panel>;
+  }
   if (!asking) {
     return (
       <button type="button" onClick={() => setAsking(true)} className={buttonClass}
@@ -250,6 +264,26 @@ export function CancelForm({ activeUntil }: { activeUntil: string }) {
           Volver
         </button>
       </form>
+    </Panel>
+  );
+}
+
+/** «Cómo darlo de baja» de un plan de tienda: la web no puede darlo de baja, sólo explica dónde. */
+export function StoreCancelHelp({ store }: { store: Store }) {
+  const [open, setOpen] = useState(false);
+  if (!open) {
+    return (
+      <button type="button" onClick={() => setOpen(true)} className={buttonClass} style={secondaryButton}>
+        Cómo darlo de baja
+      </button>
+    );
+  }
+  return (
+    <Panel>
+      <StoreCancelSteps store={store} />
+      <button type="button" onClick={() => setOpen(false)} className={buttonClass} style={secondaryButton}>
+        Volver
+      </button>
     </Panel>
   );
 }
@@ -285,6 +319,11 @@ export function WithdrawalForm() {
         <p className="text-sm" style={{ color: BRAND.textBody }}>
           Guardá este código. Te escribimos al correo que dejaste para terminar el trámite.
         </p>
+        {state.store && (
+          <Notice tone="warn">
+            Tu plan se contrató en {STORE_NAME[state.store]}: el reembolso lo procesa la tienda.
+          </Notice>
+        )}
       </div>
     );
   }

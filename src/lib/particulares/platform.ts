@@ -3,6 +3,9 @@ import { cookies, headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { FEATURES } from "@/lib/feature-flags";
 import type { BillingPeriod } from "./format";
+import { isStore, normalizeSubscription, type ApiSubscription, type Store, type Subscription } from "./subscription";
+
+export type { Store, Subscription, SubscriptionStatus } from "./subscription";
 
 const SESSION_COOKIE = "sos_sesion";
 const SIGNUP_COOKIE = "sos_alta";
@@ -13,20 +16,8 @@ export interface PublicPlan {
   name: string;
   audience: "individual" | "family";
   prices: { period: BillingPeriod; amountArs: string; discountPercent: string | null }[];
-}
-
-export type SubscriptionStatus = "pending" | "active" | "in_grace" | "cancelled" | "expired";
-
-export interface Subscription {
-  id: string;
-  planExternalId: string;
-  planName: string;
-  period: BillingPeriod;
-  amountArs: string;
-  status: SubscriptionStatus;
-  checkoutUrl: string | null;
-  currentPeriodEnd: string | null;
-  accessUntil: string | null;
+  /** Productos de las apps; la web no los usa. */
+  storeProducts?: { period: BillingPeriod; store: Store; productId: string; basePlanId: string | null }[];
 }
 
 export interface LegalReference {
@@ -36,7 +27,13 @@ export interface LegalReference {
 }
 
 export class PlatformError extends Error {
-  constructor(readonly status: number, readonly code: string, message: string) {
+  constructor(
+    readonly status: number,
+    readonly code: string,
+    message: string,
+    /** La tienda que administra el plan, cuando la API responde SUBSCRIPTION_MANAGED_BY_STORE. */
+    readonly store: Store | null = null,
+  ) {
     super(message);
   }
 }
@@ -84,7 +81,7 @@ export async function platform<T>(
   }
   const payload: unknown = await response.json().catch(() => null);
   if (!response.ok) {
-    const error = payload as { code?: unknown; message?: unknown } | null;
+    const error = payload as { code?: unknown; message?: unknown; store?: unknown } | null;
     const code = typeof error?.code === "string" ? error.code : "UNKNOWN";
     throw new PlatformError(
       response.status,
@@ -93,6 +90,7 @@ export async function platform<T>(
       response.status === 429 && !code.startsWith("REGISTRATION_RESEND_")
         ? "Demasiados intentos. Probá en unos minutos."
         : typeof error?.message === "string" ? error.message : "No pudimos completar el pedido.",
+      isStore(error?.store) ? error.store : null,
     );
   }
   return payload as T;
@@ -171,9 +169,17 @@ export async function currentSubscription(): Promise<Subscription | null | "unau
   const token = await sessionToken();
   if (!token) return "unauthenticated";
   try {
-    return (await platform<{ subscription: Subscription | null }>("/v1/patient/me/subscription", { token })).subscription;
+    const { subscription } = await platform<{ subscription: ApiSubscription | null }>("/v1/patient/me/subscription", { token });
+    return subscription ? normalizeSubscription(subscription) : null;
   } catch (error) {
     if (error instanceof PlatformError && error.status === 401) return "unauthenticated";
     throw error;
   }
+}
+
+/** La suscripción de la sesión, si hay una abierta; null sin sesión o si la API no responde. Para avisos, no para decidir acceso. */
+export async function sessionSubscription(): Promise<Subscription | null> {
+  if (!(await sessionToken())) return null;
+  const subscription = await currentSubscription().catch(() => null);
+  return subscription === "unauthenticated" ? null : subscription;
 }

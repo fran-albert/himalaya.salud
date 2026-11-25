@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { RefreshWhilePending } from "@/components/particulares/forms";
 import { buttonClass, Notice, primaryButton, secondaryButton, Shell } from "@/components/particulares/shell";
 import { currentSubscription, requireParticulares } from "@/lib/particulares/platform";
+import { storeOf } from "@/lib/particulares/subscription";
 import { appStoreUrl, googlePlayUrl } from "@/lib/social-links";
 
 export const metadata: Metadata = { title: "Tu plan", robots: { index: false } };
@@ -14,6 +15,8 @@ export default async function ListoPage() {
   const subscription = await currentSubscription();
   if (subscription === "unauthenticated") redirect("/ingresar");
   if (!subscription) redirect("/planes");
+  // Esta pantalla confirma un pago de Mercado Pago; un plan de tienda se ve en Mi plan.
+  if (storeOf(subscription)) redirect("/mi-plan");
   if (subscription.status === "pending") {
     return (
       <Shell eyebrow="Tu plan" title="Estamos confirmando tu pago" lead="Suele tardar menos de un minuto.">

@@ -11,6 +11,12 @@ export function formatArs(amount: string): string {
   })}`;
 }
 
+/** Monto en cualquier moneda: pesos como siempre; el resto con su código ISO delante (USD 4,99). */
+export function formatMoney(amount: string, currency: string): string {
+  if (currency === "ARS") return formatArs(amount);
+  return `${currency} ${Number(amount).toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
 export function formatDate(iso: string | null): string {
   if (!iso) return "";
   return new Date(iso).toLocaleDateString("es-AR", {
