@@ -4,13 +4,18 @@ import { redirect } from "next/navigation";
 import { argentineMobile } from "./format";
 import {
   chosenPlan, endSession, pendingSignup, platform, PlatformError, rememberPlan, rememberSignup, requireParticulares,
-  sessionToken, startSession, type LegalReference, type Subscription,
+  sessionSubscription, sessionToken, startSession, type LegalReference, type Store,
 } from "./platform";
+import { STORE_NAME, storeOf } from "./subscription";
 
 export interface FormState {
   error: string | null;
   /** Lo que la persona había escrito, para no hacérselo cargar de nuevo. Nunca incluye la contraseña. */
   values?: Record<string, string>;
+  /** La API rechazó el pedido porque el plan lo administra una tienda (SUBSCRIPTION_MANAGED_BY_STORE). */
+  managedByStore?: boolean;
+  /** Qué tienda, si la API lo dijo. */
+  store?: Store;
 }
 
 // Cada acción arranca con requireParticulares(): una server action se puede invocar por POST con su id
@@ -24,6 +29,11 @@ const text = (form: FormData, name: string): string => {
   const value = form.get(name);
   return typeof value === "string" ? value.trim() : "";
 };
+
+function managedByStore(error: unknown): Pick<FormState, "managedByStore" | "store"> | null {
+  if (!(error instanceof PlatformError) || error.code !== "SUBSCRIPTION_MANAGED_BY_STORE") return null;
+  return { managedByStore: true, ...(error.store ? { store: error.store } : {}) };
+}
 
 export async function choosePlan(form: FormData): Promise<void> {
   requireParticulares();
@@ -150,7 +160,7 @@ export async function startPayment(): Promise<FormState> {
   if (!plan) redirect("/planes");
   let checkoutUrl: string | null;
   try {
-    const result = await platform<{ subscription: Subscription }>("/v1/patient/me/subscription", {
+    const result = await platform<{ subscription: { checkoutUrl: string | null } }>("/v1/patient/me/subscription", {
       method: "POST", token, body: plan,
     });
     checkoutUrl = result.subscription.checkoutUrl;
@@ -158,6 +168,12 @@ export async function startPayment(): Promise<FormState> {
   } catch (error) {
     if (error instanceof PlatformError && error.status === 401) redirect("/ingresar");
     if (error instanceof PlatformError && error.code === "SUBSCRIPTION_ALREADY_ACTIVE") redirect("/mi-plan");
+    const managed = managedByStore(error);
+    if (managed) {
+      await rememberPlan(null);
+      const where = managed.store ? `en ${STORE_NAME[managed.store]}` : "desde la app";
+      return { error: `Ya tenés tu plan, contratado ${where}. Lo ves en Mi plan.`, ...managed };
+    }
     return failure(error);
   }
   redirect(checkoutUrl ?? "/alta/listo");
@@ -168,9 +184,11 @@ export async function cancelPlan(): Promise<FormState> {
   const token = await sessionToken();
   if (!token) redirect("/ingresar");
   try {
-    await platform<{ subscription: Subscription }>("/v1/patient/me/subscription/cancel", { method: "POST", token });
+    await platform("/v1/patient/me/subscription/cancel", { method: "POST", token });
   } catch (error) {
     if (error instanceof PlatformError && error.status === 401) redirect("/ingresar");
+    const managed = managedByStore(error);
+    if (managed) return { error: null, ...managed };
     return failure(error);
   }
   redirect("/mi-plan");
@@ -203,7 +221,11 @@ export async function requestWithdrawal(_previous: WithdrawalState, form: FormDa
         ...(phone ? { phone } : {}), ...(values.reason ? { reason: values.reason } : {}),
       },
     });
-    return { error: null, code: created.code, receivedAt: created.receivedAt };
+    // El pedido es público y la API no dice por qué canal se pagó. Sólo si quien lo manda tiene la sesión
+    // abierta en la web sabemos si su plan es de una tienda, y entonces le avisamos quién reembolsa.
+    const subscription = await sessionSubscription();
+    const store = subscription ? storeOf(subscription) : null;
+    return { error: null, code: created.code, receivedAt: created.receivedAt, ...(store ? { store } : {}) };
   } catch (error) {
     if (error instanceof PlatformError && error.status === 400) {
       return { error: "Revisá los datos: hay alguno que no es válido.", values };

@@ -3,9 +3,11 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { PayForm } from "@/components/particulares/forms";
 import { Panel, Row, Shell } from "@/components/particulares/shell";
+import { StorePlanTaken } from "@/components/particulares/store";
 import { BRAND } from "@/lib/brand-tokens";
 import { formatArs, PERIOD_LABEL } from "@/lib/particulares/format";
-import { chosenPlan, publicPlans, requireParticulares, sessionToken } from "@/lib/particulares/platform";
+import { chosenPlan, publicPlans, requireParticulares, sessionSubscription, sessionToken } from "@/lib/particulares/platform";
+import { liveStorePlan } from "@/lib/particulares/subscription";
 
 export const metadata: Metadata = { title: "Revisá y pagá", robots: { index: false } };
 export const dynamic = "force-dynamic";
@@ -13,6 +15,10 @@ export const dynamic = "force-dynamic";
 export default async function PagoPage() {
   requireParticulares();
   if (!(await sessionToken())) redirect("/ingresar");
+  const store = liveStorePlan(await sessionSubscription());
+  if (store) {
+    return <Shell eyebrow="Mi plan" title="Ya tenés tu plan"><StorePlanTaken store={store} /></Shell>;
+  }
   const choice = await chosenPlan();
   if (!choice) redirect("/planes");
   const plan = (await publicPlans()).find((item) => item.externalId === choice.planExternalId);
